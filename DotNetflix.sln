@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetflix.Web", "DotNetflix.Web\DotNetflix.Web.csproj", "{3A8E3BFB-66FA-4F3F-A1B1-AAE04993BCA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetflix.API", "DotNetflix.API\DotNetflix.API.csproj", "{DF51000A-C008-46DC-9273-537621516B96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A8E3BFB-66FA-4F3F-A1B1-AAE04993BCA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8E3BFB-66FA-4F3F-A1B1-AAE04993BCA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8E3BFB-66FA-4F3F-A1B1-AAE04993BCA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8E3BFB-66FA-4F3F-A1B1-AAE04993BCA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF51000A-C008-46DC-9273-537621516B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF51000A-C008-46DC-9273-537621516B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF51000A-C008-46DC-9273-537621516B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF51000A-C008-46DC-9273-537621516B96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CEB519B3-EB76-4E79-B263-B728BD26E823}
+	EndGlobalSection
+EndGlobal
