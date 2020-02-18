@@ -20,14 +20,14 @@ namespace DotNetflix.Web.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult List(string title)
+        public ViewResult List(string title)
         {
             var movies = movieData.GetMoviesByTitle(title);
             var vm = new MovieListViewModel
             {
                 Movies = movies
             };
-            return RedirectToPage("/Movie/List", vm);
+            return View(vm);
         }
     }
 }

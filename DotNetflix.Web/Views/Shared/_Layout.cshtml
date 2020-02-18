@@ -26,16 +26,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li>
-                            <form method="get" asp-controller="Movie" asp-action="List">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control" name="title" />
-                                        <span class="input-group-append">
-                                            <button class="btn btn-info">Sök</button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </form>
+                            @await  Component.InvokeAsync("SearchBar")
                         </li>
                     </ul>
                 </div>

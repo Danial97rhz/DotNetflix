@@ -8,6 +8,9 @@ namespace DotNetflix.Web.Components
 {
     public class SearchBar : ViewComponent
     {
-
+        public IViewComponentResult Invoke()
+        {
+            return View();
+        }
     }
 }

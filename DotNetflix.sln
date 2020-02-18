@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetflix.Web", "DotNetflix.Web\DotNetflix.Web.csproj", "{3A8E3BFB-66FA-4F3F-A1B1-AAE04993BCA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetflix.Web", "DotNetflix.Web\DotNetflix.Web.csproj", "{3A8E3BFB-66FA-4F3F-A1B1-AAE04993BCA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetflix.API", "DotNetflix.API\DotNetflix.API.csproj", "{DF51000A-C008-46DC-9273-537621516B96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetflix.API", "DotNetflix.API\DotNetflix.API.csproj", "{DF51000A-C008-46DC-9273-537621516B96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

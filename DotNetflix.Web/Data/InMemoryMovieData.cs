@@ -1,6 +1,7 @@
 ﻿using DotNetflix.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,8 +20,12 @@ namespace DotNetflix.Web.Data
         }
         public IEnumerable<Movie> GetMoviesByTitle(string title)
         {
+            if (!string.IsNullOrEmpty(title))
+            {
+                title = title.ToLower();
+            }
             return movies
-                .Where(m => string.IsNullOrEmpty(title) || m.Title.Contains(title))
+                .Where(m => string.IsNullOrEmpty(title) || m.Title.ToLower().Contains(title))
                 .OrderBy(m => m.Title)
                 .Select(m => m);
         }
