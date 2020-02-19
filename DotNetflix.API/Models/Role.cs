@@ -15,4 +15,3 @@ namespace DotNetflix.API.Models
         public List<User> Users { get; set; }
     }
 }
-}

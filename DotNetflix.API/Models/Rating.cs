@@ -10,7 +10,7 @@ namespace DotNetflix.API.Models
     {
         public int Id { get; set; }
         [Range(1, 10)]
-        public byte AvrageRating { get; set; }
+        public float AvrageRating { get; set; }
         public int NumberOfVotes { get; set; }
         public List<Movie> Movies { get; set; }
     }

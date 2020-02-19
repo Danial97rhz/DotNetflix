@@ -19,7 +19,7 @@ namespace DotNetflix.API.Models
         public string Title { get; set; }
         public int? Year { get; set; }
         public int? RunTime { get; set; }
-        public bool IsAdult { get; set; }
+        public bool? IsAdult { get; set; }
         public List<UserMovies> Movies { get; set; }
         public List<MovieGenres> Genres { get; set; }
     }
