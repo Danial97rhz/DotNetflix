@@ -8,6 +8,6 @@ namespace DotNetflix.API.Services
 {
     public interface IMovieRepository
     {
-        IEnumerable<Movie> GetMovies();
+        IEnumerable<Movie> GetMovies(string title);
     }
 }

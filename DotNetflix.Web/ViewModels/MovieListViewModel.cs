@@ -8,6 +8,6 @@ namespace DotNetflix.Web.ViewModels
 {
     public class MovieListViewModel
     {
-        public IEnumerable<Movie> Movies { get; set; }
+        public IEnumerable<MovieApi> Movies { get; set; }
     }
 }

@@ -12,6 +12,8 @@ using DotNetflix.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DotNetflix.API.Services;
+using DotNetflix.API.Context;
 
 namespace DotNetflix.Web
 {
@@ -28,6 +30,16 @@ namespace DotNetflix.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IMovieData, InMemoryMovieData>();
+
+            /* TEMPORARY! 
+            Add API.MovieRepository and DbContext to get data from api without using http client.*/
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddDbContext<DotNetflixDbContext>(options =>
+            {
+                options.UseSqlServer(
+                    "Server=(localdb)\\MSSQLLocalDB;Database=DotNetflixDb;Trusted_Connection=True;");
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
