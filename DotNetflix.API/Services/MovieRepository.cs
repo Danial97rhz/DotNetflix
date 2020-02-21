@@ -28,7 +28,8 @@ namespace DotNetflix.API.Services
             }
 
             return context.Movies
-                .Where(m => string.IsNullOrEmpty(title) || m.Title.ToLower().Contains(title))
+                .Where(m => string.IsNullOrEmpty(title) || m.Title.ToLower().Contains(title)
+                || m.Year.ToString().Equals(title))
                 .OrderBy(m => m.Title)
                 .Select(m => m);
         }

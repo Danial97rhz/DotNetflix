@@ -48,7 +48,8 @@ namespace DotNetflix.Web.Controllers
             var movies = moviesFromRepo.Select(m => new MovieApi
             {
                 Id = m.Id,
-                Title = m.Title
+                Title = m.Title,
+                Year = m.Year
             }).ToList();
 
             // Place movies in view model for movies
