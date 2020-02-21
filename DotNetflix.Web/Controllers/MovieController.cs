@@ -39,16 +39,17 @@ namespace DotNetflix.Web.Controllers
         /* Get movies from sql server via api without http client.
          Get the data just by refferensing the api project and calling the 
          repository methods directly.*/
-        public ViewResult List(string title)
+        public ViewResult List(string searchTerm)
         {
             // Get movies from api repository
-            var moviesFromRepo = moviesRepository.GetMovies(title);
+            var moviesFromRepo = moviesRepository.GetMovies(searchTerm);
 
             // Map movies from repo to web movie type
             var movies = moviesFromRepo.Select(m => new MovieApi
             {
                 Id = m.Id,
-                Title = m.Title
+                Title = m.Title,
+                Year = m.Year
             }).ToList();
 
             // Place movies in view model for movies
