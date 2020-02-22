@@ -1,0 +1,37 @@
+﻿@model Omdb.API.Models.MovieResponse
+
+<!--SearchBar-->
+<div class="container">
+    @*<form id="searchForm" asp-controller="Home" asp-action="Search" method="get">
+        <input type="text" class="form-control" id="searchText" name="searchString" placeholder="Search Movies...">
+        <input type="submit" value="searchText" />
+    </form>*@
+
+    @if (Model.Search != null)
+    {
+    <p>Search "@ViewData["Search"]" - Preview of @Model.Search.Count of results: @Model.totalResults</p>
+        <div class="row">
+            @foreach (var p in Model.Search)
+            {
+                <div class="col-md-3">
+                    <div class="border bg-light rounded p-1">
+                        <img src='@p.Poster' class="img-fluid" alt="@p.Title" />
+                        <ul>
+                            <li>imdID: $@p.imdbID</li>
+                            <li>Type: @p.Type</li>
+                            <li>Title: @p.Title</li>
+                        </ul>
+                        <button id="buyButton" class="btn btn-success">Buy</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <p>No movies found!</p>
+        </div>
+    }
+</div>
+<!--End SearchBar-->
