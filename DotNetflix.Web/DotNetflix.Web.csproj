@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetflix.API\DotNetflix.API.csproj" />
+    <ProjectReference Include="..\Omdb.API\Omdb.API.csproj" />
   </ItemGroup>
 
 </Project>
