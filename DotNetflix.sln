@@ -4,13 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetflix.Web", "DotNetflix.Web\DotNetflix.Web.csproj", "{3A8E3BFB-66FA-4F3F-A1B1-AAE04993BCA9}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8B9217B7-5A9B-4DAF-937A-A93DD74069C9} = {8B9217B7-5A9B-4DAF-937A-A93DD74069C9}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetflix.API", "DotNetflix.API\DotNetflix.API.csproj", "{DF51000A-C008-46DC-9273-537621516B96}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omdb.API", "Omdb.API\Omdb.API.csproj", "{8B9217B7-5A9B-4DAF-937A-A93DD74069C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +21,6 @@ Global
 		{DF51000A-C008-46DC-9273-537621516B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF51000A-C008-46DC-9273-537621516B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF51000A-C008-46DC-9273-537621516B96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B9217B7-5A9B-4DAF-937A-A93DD74069C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B9217B7-5A9B-4DAF-937A-A93DD74069C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B9217B7-5A9B-4DAF-937A-A93DD74069C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B9217B7-5A9B-4DAF-937A-A93DD74069C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
