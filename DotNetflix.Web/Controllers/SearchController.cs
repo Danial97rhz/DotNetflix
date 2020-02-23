@@ -11,14 +11,14 @@ using Omdb.API;
 
 namespace DotNetflix.Web.Controllers
 {
-    public class HomeController : Controller
+    public class SearchController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<SearchController> _logger;
         private readonly IMailService _mailService;
         private readonly IMovieRepository _repository;
         private readonly IOmdbRepository _omdbRepository;
 
-        public HomeController(ILogger<HomeController> logger, 
+        public SearchController(ILogger<SearchController> logger, 
             IMailService mailService,
             IMovieRepository repository,
             IOmdbRepository omdbRepository)
@@ -29,22 +29,9 @@ namespace DotNetflix.Web.Controllers
             _omdbRepository = omdbRepository;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        
-
-
 
         // SEARCH Omdb
-        public async Task<IActionResult> Search(string title)
+        public async Task<IActionResult> Index(string title)
         {
             var result = await _omdbRepository.Search(title);
             ViewData["Search"] = title;

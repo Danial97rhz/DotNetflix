@@ -1,10 +1,35 @@
-﻿<form method="get" asp-controller="Movie" asp-action="List">
+﻿@*<form class="form-inline" method="get" asp-controller="Movie" asp-action="List">*@
+<form class="form-inline my-2 my-lg-0 navbar-form" id="searchForm" asp-controller="Search" asp-action="Index" method="get">
     <div class="form-group">
         <div class="input-group">
-            <input type="search" class="form-control" name="title" />
+            <input type="search" class="form-control" name="title" placeholder="Search a movie..." aria-label="Search" aria-describedby="search-button-addon" />
             <span class="input-group-append">
                 <button class="btn btn-info">Sök</button>
             </span>
         </div>
     </div>
 </form>
+
+
+<!--Search BAR
+    <form class="form-inline my-2 my-lg-0 navbar-form" id="searchForm" asp-controller="Home" asp-action="Search" method="get">
+        <div class="input-group input-group-search mx-auto">
+            <div class="input-group-prepend">
+                <button id="search-btn" class="btn btn-outline-light text-success dropdown-toggle" type="button" value="ALL" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ALL</button>
+                <div id="search-dropdown" class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Web</a>
+                    <a class="dropdown-item" href="#">Local</a>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">ALL</a>
+                </div>
+            </div>
+
+            @*Send query 'q' to Search.cshtml View *@
+            <input type="search" name="q" class="form-control" placeholder="Search a movie..." aria-label="Search" aria-describedby="search-button-addon">
+
+            <div class="input-group-append">
+                <button class="btn btn-success" type="submit" id="search-button-addon">&#128269;</button>
+            </div>
+        </div>
+    </form>
+-->
