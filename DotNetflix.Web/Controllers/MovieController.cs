@@ -61,5 +61,14 @@ namespace DotNetflix.Web.Controllers
             // Show veiw for movies
             return View(vm);
         }
+
+       public IActionResult ListByGenre(int genreid)
+        {
+            // GET LIST OF MOVIES BASED ON GENRE ID AND RETURN IN VIEW.
+            // LIST SHOULD BE LIMITED TO < 100 Results.
+
+            return View();
+        }
+
     }
 }
