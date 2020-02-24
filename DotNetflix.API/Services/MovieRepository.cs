@@ -20,18 +20,17 @@ namespace DotNetflix.API.Services
 
         /* Get all movies containing search term either as title or as production year.
         If search term is left empty all movies are returned*/
-        public IEnumerable<Movie> GetMovies(string searchTerm)
+        public IEnumerable<Movie> GetMovies(string title)
         {
-            if (!string.IsNullOrEmpty(searchTerm))
+            if (!string.IsNullOrEmpty(title))
             {
-                searchTerm = searchTerm.ToLower();
+                title = title.ToLower();
             }
             return context.Movies
-                .Where(m => string.IsNullOrEmpty(searchTerm) || m.Title.ToLower().Contains(searchTerm)
-                || m.Year.ToString().Equals(searchTerm))
+                .Where(m => string.IsNullOrEmpty(title) || m.Title.ToLower().Contains(title)
+                || m.Year.ToString().Equals(title))
                 .OrderBy(m => m.Title)
                 .Select(m => m);
-
         }
     }
 }

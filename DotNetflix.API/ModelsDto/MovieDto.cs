@@ -9,5 +9,6 @@ namespace DotNetflix.API.ModelsDto
     {
         public string Id { get; set; }
         public string Title { get; set; }
+        public int? Year { get; internal set; }
     }
 }

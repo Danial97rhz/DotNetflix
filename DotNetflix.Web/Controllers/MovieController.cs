@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text;
 using DotNetflix.Web.Data;
 using DotNetflix.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -14,52 +19,62 @@ namespace DotNetflix.Web.Controllers
 {
     public class MovieController : Controller
     {
-        private readonly IMovieData movieData;
-        private readonly IMovieRepository moviesRepository;
+        //private readonly IMovieData movieData;
+        //private readonly IMovieRepository moviesRepository;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public MovieController(
-            //IMovieData movieData
-            IMovieRepository moviesRepository)
+
+        public MovieController(IHttpClientFactory clientFactory)
         {
-            //this.movieData = movieData;
-            this.moviesRepository = moviesRepository;
+            _clientFactory = clientFactory;
         }
 
-        // Temp coment out to test getting data from api (without http)
+        public async Task<IActionResult> List(string title)
+        {
+            var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movies/{title}");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("User-Agent", "DotNetflix.Web");
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var movies = await JsonSerializer.DeserializeAsync<IEnumerable<MovieApi>>(responseStream,
+                    new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                var vm = new MovieListViewModel() { Movies = movies };
+
+                return View(vm);
+            }
+
+            return View(new MovieListViewModel());
+        }
+
+        ///* Get movies from sql server via api without http client.
+        // Get the data just by refferensing the api project and calling the 
+        // repository methods directly.*/
         //public ViewResult List(string title)
         //{
-        //    var movies = movieData.GetMoviesByTitle(title);
+        //    // Get movies from api repository
+        //    var moviesFromRepo = moviesRepository.GetMovies(title);
+
+        //    // Map movies from repo to web movie type
+        //    var movies = moviesFromRepo.Select(m => new MovieApi
+        //    {
+        //        Id = m.Id,
+        //        Title = m.Title,
+        //        Year = m.Year
+        //    }).ToList();
+
+        //    // Place movies in view model for movies
         //    var vm = new MovieListViewModel
         //    {
         //        Movies = movies
         //    };
+
+        //    // Show veiw for movies
         //    return View(vm);
         //}
-
-        /* Get movies from sql server via api without http client.
-         Get the data just by refferensing the api project and calling the 
-         repository methods directly.*/
-        public ViewResult List(string searchTerm)
-        {
-            // Get movies from api repository
-            var moviesFromRepo = moviesRepository.GetMovies(searchTerm);
-
-            // Map movies from repo to web movie type
-            var movies = moviesFromRepo.Select(m => new MovieApi
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Year = m.Year
-            }).ToList();
-
-            // Place movies in view model for movies
-            var vm = new MovieListViewModel
-            {
-                Movies = movies
-            };
-
-            // Show veiw for movies
-            return View(vm);
-        }
     }
 }

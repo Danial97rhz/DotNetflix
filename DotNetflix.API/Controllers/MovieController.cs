@@ -25,12 +25,12 @@ namespace DotNetflix.API.Controllers
                 throw new ArgumentNullException(nameof(mapper));
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<MovieDto>> GetMovies(
-            [FromQuery] string title)
+        [HttpGet("{title}")]
+        public ActionResult<IEnumerable<MovieDto>> GetMovies(string title)
         {
             var moviesFromRepo = movieRepository.GetMovies(title);
-            return Ok(mapper.Map<IEnumerable<MovieDto>>(moviesFromRepo));
+            var mapResult = mapper.Map<IEnumerable<MovieDto>>(moviesFromRepo);
+            return Ok(mapResult);
         }
     }
 }

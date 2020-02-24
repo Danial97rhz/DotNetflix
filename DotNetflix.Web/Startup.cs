@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DotNetflix.API.Services;
 using DotNetflix.API.Context;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace DotNetflix.Web
 {
@@ -47,6 +48,8 @@ namespace DotNetflix.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMvc();
+            services.AddHttpClient(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +81,8 @@ namespace DotNetflix.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
         }
     }
 }
