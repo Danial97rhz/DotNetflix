@@ -14,7 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DotNetflix.API.Services;
 using DotNetflix.API.Context;
-using Omdb.API;
 
 namespace DotNetflix.Web
 {
@@ -48,10 +47,6 @@ namespace DotNetflix.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            services.AddTransient<IMailService, INullMailService>();
-            services.AddTransient<IMovieRepository, MovieRepository>();
-            services.AddTransient<IOmdbRepository, OmdbRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

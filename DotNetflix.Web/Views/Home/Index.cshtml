@@ -2,11 +2,270 @@
     ViewBag.Title = "Home Page";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <!--Test for header & footer från "_Layout.cshtml"-->
-        <p>Poster endast för test</p>
-        <img src="~/img/Poster/American Beauty.jpg" width="340" height="500" />
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <!--Test for header & footer från "_Layout.cshtml"-->
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="4">
+                    <img src="~/img/Genres/Action-ws-450w.jpg" alt="Action" style="width:100%">
+                    <div class="caption">
+                        <h4 class="text-center">Action</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="5">
+                    <img src="~/img/Genres/Adult-ws-450w.jpg" alt="Adult" style="width:100%">
+                    <div class="caption">
+                        <h5 class="text-lg-center">Adult</h5>
+                    </div>
+                </a>
 
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="6">
+                    <img src="~/img/Genres/Adventure-ws-450w.jpg" alt="Adventure" style="width:100%">
+                    <div class="caption">
+                        <h3 class="text-xl-center">Adventure</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="1">
+                    <img src="~/img/Genres/Drama-ws-450w.jpg" alt="Drama" style="width:100%">
+                    <div class="caption">
+                        <h4 class="text-center">Drama</h4>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="2">
+                    <img src="~/img/Genres/Documentary-ws-450w.jpg" alt="Documentary" style="width:100%">
+                    <div class="caption">
+                        <h5 class="text-lg-center">Documentary</h5>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="7">
+                    <img src="~/img/Genres/Romance-ws-450w.jpg" alt="Romance" style="width:100%">
+                    <div class="caption">
+                        <h3 class="text-xl-center">Romance</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="3">
+                    <img src="~/img/Genres/Comedy-ws-450w.jpg" alt="Comedy" style="width:100%">
+                    <div class="caption">
+                        <h4 class="text-center">Comedy</h4>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="8">
+                    <img src="~/img/Genres/Horror-ws-450w.jpg" alt="Horror" style="width:100%">
+                    <div class="caption">
+                        <h5 class="text-lg-center">Horror</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="9">
+                    <img src="~/img/Genres/Crime-ws-450w.jpg" alt="Crime" style="width:100%">
+                    <div class="caption">
+                        <h3 class="text-xl-center">Crime</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="10">
+                    <img src="~/img/Genres/Animation-ws-450w.jpg" alt="Animation" style="width:100%">
+                    <div class="caption">
+                        <h4 class="text-center">Animation</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="11">
+                    <img src="~/img/Genres/Fantasy-ws-450w.jpg" alt="Fantasy" style="width:100%">
+                    <div class="caption">
+                        <h5 class="text-lg-center">Fantasy</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="20">
+                    <img src="~/img/Genres/Biography-ws-450.jpg" alt="Biography" style="width:100%">
+                    <div class="caption">
+                        <h3 class="text-xl-center">Biography</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="19">
+                <img src="~/img/Genres/Family-ws-450w.jpg" alt="Family" style="width:100%">
+                <div class="caption">
+                    <h4 class="text-center">Family</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="25">
+                <img src="~/img/Genres/Film-Noir-ws-450w.jpg" alt="Film-Noir" style="width:100%">
+                <div class="caption">
+                    <h5 class="text-lg-center">Film-Noir</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="17">
+                <img src="~/img/Genres/History-ws-450w.jpg" alt="History" style="width:100%">
+                <div class="caption">
+                    <h3 class="text-xl-center">History</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="24">
+                <img src="~/img/Genres/Musical-ws-450w.jpg" alt="Musical" style="width:100%">
+                <div class="caption">
+                    <h4 class="text-center">Musical</h4>
+                </div>
+            </a>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="23">
+                <img src="~/img/Genres/Music-ws-450w.jpg" alt="Music" style="width:100%">
+                <div class="caption">
+                    <h5 class="text-lg-center">Music</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="12">
+                <img src="~/img/Genres/Mystery-ws-450w.jpg" alt="Mystery" style="width:100%">
+                <div class="caption">
+                    <h3 class="text-xl-center">Mystery</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="15">
+                <img src="~/img/Genres/Sci-Fi-ws-450w.jpg" alt="Sci-Fi" style="width:100%">
+                <div class="caption">
+                    <h4 class="text-center">Sci-Fi</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="16">
+                <img src="~/img/Genres/Sport-ws-450w.jpg" alt="Sport" style="width:100%">
+                <div class="caption">
+                    <h5 class="text-lg-center">Sport</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="13">
+                <img src="~/img/Genres/Thriller-ws-450w.jpg" alt="Thriller" style="width:100%">
+                <div class="caption">
+                    <h3 class="text-xl-center">Thriller</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="21">
+                <img src="~/img/Genres/War-ws-450w.jpg" alt="War" style="width:100%">
+                <div class="caption">
+                    <h4 class="text-center">War</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="14">
+                <img src="~/img/Genres/Western-ws-450w.jpg" alt="Western" style="width:100%">
+                <div class="caption">
+                    <h5 class="text-lg-center">Western</h5>
+                </div>
+            </a>
+        </div>
+    </div>    
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a href="#">
+                <img src="~/img/Genres/Random-ws-450w.jpg" alt="Random" style="width:100%">
+                <div class="caption">
+                    <h5 class="text-lg-center">Random</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
