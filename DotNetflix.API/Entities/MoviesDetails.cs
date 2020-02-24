@@ -14,7 +14,7 @@ namespace DotNetflix.API.Entities
         public string PosterUrl { get; set; }
         public string Director { get; set; }
         public DateTime ReleaseDate { get; set; }
-
+        public List<string> Actors { get; set; }
         public Movies Movie { get; set; }
     }
 }

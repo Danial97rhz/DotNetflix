@@ -11,6 +11,6 @@ namespace DotNetflix.API.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public List<MovieGenres> Genres { get; set; }
+        public string ImgPath { get; set; }
     }
 }
