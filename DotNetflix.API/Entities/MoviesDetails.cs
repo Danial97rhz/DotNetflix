@@ -8,10 +8,13 @@ namespace DotNetflix.API.Entities
     public class MoviesDetails
     {
         public int Id { get; set; }
+        public string MoviesId { get; set; }
         public string ShortPlot { get; set; }
         public string LongPlot { get; set; }
         public string PosterUrl { get; set; }
         public string Director { get; set; }
         public DateTime ReleaseDate { get; set; }
+
+        public Movies Movie { get; set; }
     }
 }

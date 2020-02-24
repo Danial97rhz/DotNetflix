@@ -10,5 +10,8 @@ namespace DotNetflix.API.Entities
         public int Id { get; set; }
         public int AvgRating { get; set; }
         public int NumberOfVotes { get; set; }
+
+        public string MoviesId { get; set; }
+        public Movies Movie { get; set; }
     }
 }

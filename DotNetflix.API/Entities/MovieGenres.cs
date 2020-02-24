@@ -9,5 +9,7 @@ namespace DotNetflix.API.Entities
     {
         public int GenresId { get; set; }
         public string MoviesId { get; set; }
+        public Genres Genre { get; set; }
+        public Movies Movie { get; set; }
     }
 }

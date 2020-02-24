@@ -7,7 +7,7 @@ namespace DotNetflix.API.Entities
 {
     public class Movies
     {
-        public string MovieId { get; set; }
+        public string MoviesId { get; set; }
         public int RatingsId { get; set; }
         public int MoviesDetailsId { get; set; }
         public string Title { get; set; }
@@ -15,5 +15,8 @@ namespace DotNetflix.API.Entities
         public int Year { get; set; }
         public int RunTimeMinutes { get; set; }
         public bool IsAdult { get; set; }
+
+        public MoviesDetails Details { get; set; }
+        public List<MovieGenres> MovieGenres { get; set; }
     }
 }

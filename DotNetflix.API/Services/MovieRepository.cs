@@ -27,11 +27,13 @@ namespace DotNetflix.API.Services
                 title = title.ToLower();
             }
 
-            return context.Movies
-                .Where(m => string.IsNullOrEmpty(title) || m.Title.ToLower().Contains(title)
-                || m.Year.ToString().Equals(title))
-                .OrderBy(m => m.Title)
-                .Select(m => m);
+            //CREATED NEW LIST AS OLD METHOD IS CONNECTED TO Model class instead of entities class.
+            return new List<Movie>();
+            //return context.Movies
+            //    .Where(m => string.IsNullOrEmpty(title) || m.Title.ToLower().Contains(title)
+            //    || m.Year.ToString().Equals(title))
+            //    .OrderBy(m => m.Title)
+            //    .Select(m => m);
         }
     }
 }
