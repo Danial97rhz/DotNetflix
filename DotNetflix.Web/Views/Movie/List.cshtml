@@ -1,6 +1,35 @@
 ﻿@model MovieListViewModel
 
-    @foreach (var movie in Model.Movies)
-    {
-        <p>@movie.Title</p>
-    }
+<h1>Movies</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Genres</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model.Movies)
+        {
+            <tr>
+                <td>@movie.Id</td>
+                <td>@movie.Title</td>
+                <td>@movie.Year</td>
+                <td>
+                    @{ 
+                        int nrGenres = movie.Genres.Count();
+                        for (int i = 0; i < nrGenres; i++)
+                        {
+                            @movie.Genres[i];
+                            if (i + 1 < nrGenres) { <span> | </span> }
+                        }
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

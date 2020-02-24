@@ -18,23 +18,11 @@ namespace DotNetflix.Web.Controllers
         private readonly IMovieRepository moviesRepository;
 
         public MovieController(
-            //IMovieData movieData
             IMovieRepository moviesRepository)
         {
-            //this.movieData = movieData;
             this.moviesRepository = moviesRepository;
         }
 
-        // Temp coment out to test getting data from api (without http)
-        //public ViewResult List(string title)
-        //{
-        //    var movies = movieData.GetMoviesByTitle(title);
-        //    var vm = new MovieListViewModel
-        //    {
-        //        Movies = movies
-        //    };
-        //    return View(vm);
-        //}
 
         /* Get movies from sql server via api without http client.
          Get the data just by refferensing the api project and calling the 
@@ -48,7 +36,9 @@ namespace DotNetflix.Web.Controllers
             var movies = moviesFromRepo.Select(m => new MovieApi
             {
                 Id = m.Id,
-                Title = m.Title
+                Title = m.Title,
+                Year = m.Year,
+                Genres = m.Genres
             }).ToList();
 
             // Place movies in view model for movies

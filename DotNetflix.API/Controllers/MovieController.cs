@@ -29,8 +29,9 @@ namespace DotNetflix.API.Controllers
         public ActionResult<IEnumerable<MovieDto>> GetMovies(
             [FromQuery] string title)
         {
-            var moviesFromRepo = movieRepository.GetMovies(title);
-            return Ok(mapper.Map<IEnumerable<MovieDto>>(moviesFromRepo));
+            var movies = movieRepository.GetMovies(title);
+
+            return Ok(movies);
         }
     }
 }
