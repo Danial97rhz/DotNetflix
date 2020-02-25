@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DotNetflix.Web.Models
+namespace DotNetflix.API.ModelsDto
 {
-    public class MovieApi
+    public class MovieDto
     {
         public string Id { get; set; }
         public string Title { get; set; }
