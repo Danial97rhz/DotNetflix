@@ -34,14 +34,14 @@ namespace DotNetflix.API.Services
                     string.IsNullOrEmpty(title)
                     || m.Title.ToLower().Contains(title)
                     || m.Year.ToString().Equals(title))
-                .Include(m => m.Genres)
+                .Include(m => m.MovieGenres)
                     .ThenInclude(mg => mg)
                 .Select(m => new MovieDto
                 {
-                    Id = m.Id,
+                    Id = m.MovieId,
                     Title = m.Title,
                     Year = m.Year,
-                    Genres = m.Genres.Select(g => g.Genre.Name).ToList()
+                    Genres = m.MovieGenres.Select(g => g.Genre.Name).ToList()
                 })
                 .OrderBy(m => m.Title)
                 .ToList();

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System.Text.Json;
-using System.Text;
-using DotNetflix.Web.Data;
 using DotNetflix.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using DotNetflix.API.Services;
 using DotNetflix.Web.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
