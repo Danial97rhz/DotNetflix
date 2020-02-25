@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text;
+using DotNetflix.Web.Data;
 using DotNetflix.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using DotNetflix.API.Services;
@@ -12,16 +19,41 @@ namespace DotNetflix.Web.Controllers
 {
     public class MovieController : Controller
     {
+        //private readonly IMovieData movieData;
+        //private readonly IMovieRepository moviesRepository;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public MovieController()
+
+        public MovieController(IHttpClientFactory clientFactory)
         {
-
+            _clientFactory = clientFactory;
         }
 
+        public async Task<IActionResult> List(string title)
+        {
+            var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movies/{title}");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("User-Agent", "DotNetflix.Web");
 
-        /* Get movies from sql server via api without http client.
-         Get the data just by refferensing the api project and calling the 
-         repository methods directly.*/
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var movies = await JsonSerializer.DeserializeAsync<IEnumerable<MovieApi>>(responseStream,
+                    new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                var vm = new MovieListViewModel() { Movies = movies };
+
+                return View(vm);
+            }
+
+            return View(new MovieListViewModel());
+        }
+
+        ///* Get movies from sql server via api without http client.
+        // Get the data just by refferensing the api project and calling the 
+        // repository methods directly.*/
         //public ViewResult List(string title)
         //{
         //    // Get movies from api repository
