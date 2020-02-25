@@ -1,4 +1,4 @@
-﻿using DotNetflix.API.Models;
+﻿using DotNetflix.API.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,21 +16,23 @@ namespace DotNetflix.API.Context
         {
 
         }
-
-        public DbSet<Genre> Genres { get; set; }
-        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Genres> Genres { get; set; }
+        public DbSet<Movies> Movies { get; set; }
         public DbSet<MovieGenres> MovieGenres { get; set; }
-        public DbSet<Poster> Posters { get; set; }
-        public DbSet<Rating> Ratings { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<StoryLine> StoryLines { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserMovies> UserMovies { get; set; }
+        public DbSet<MoviesDetails> MoviesDetails { get; set; }
+
+        //public DbSet<Role> Roles { get; set; }
+        //public DbSet<User> Users { get; set; }
+        //public DbSet<UserMovies> UserMovies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MovieGenres>().HasKey(mg => new { mg.MovieId, mg.GenreId });
-            modelBuilder.Entity<UserMovies>().HasKey(um => new { um.MovieId, um.UserId });
+            modelBuilder.Entity<MovieGenres>().HasKey(mg => new { mg.MoviesId, mg.GenresId });
+
+            modelBuilder.Entity<Movies>( entity =>
+            {
+                entity.HasKey(m => m.MovieId);
+            });
         }
     }
 }

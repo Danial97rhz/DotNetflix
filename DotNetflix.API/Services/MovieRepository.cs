@@ -1,5 +1,7 @@
 ﻿using DotNetflix.API.Context;
 using DotNetflix.API.Models;
+using DotNetflix.API.ModelsDto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +22,31 @@ namespace DotNetflix.API.Services
 
         /* Get all movies containing search term.
         If search term is left empty all movies are returned*/
-        public IEnumerable<Movie> GetMovies(string title)
+        public IEnumerable<MovieDto> GetMovies(string title)
         {
             if (!string.IsNullOrEmpty(title))
             {
                 title = title.ToLower();
             }
 
-            return context.Movies
-                .Where(m => string.IsNullOrEmpty(title) || m.Title.ToLower().Contains(title)
-                || m.Year.ToString().Equals(title))
+            var movies = context.Movies
+                .Where(m =>
+                    string.IsNullOrEmpty(title)
+                    || m.Title.ToLower().Contains(title)
+                    || m.Year.ToString().Equals(title))
+                .Include(m => m.Genres)
+                    .ThenInclude(mg => mg)
+                .Select(m => new MovieDto
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    Year = m.Year,
+                    Genres = m.Genres.Select(g => g.Genre.Name).ToList()
+                })
                 .OrderBy(m => m.Title)
-                .Select(m => m);
+                .ToList();
+
+            return movies;
         }
     }
 }
