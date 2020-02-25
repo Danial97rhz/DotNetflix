@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-DotNetflix.Web-8C3CC640-0A76-4231-B284-1791E0F41535</UserSecretsId>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
 
