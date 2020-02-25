@@ -10,7 +10,7 @@ namespace DotNetflix.API.Profiles
     {
         public MoviesProfile()
         {
-            CreateMap<Models.Movie, ModelsDto.MovieDto>();
+             CreateMap<Entities.Movies, Models.Movie>();
         }
     }
 }

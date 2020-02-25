@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using DotNetflix.API.ModelsDto;
+using DotNetflix.API.Models;
 using DotNetflix.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,11 +26,11 @@ namespace DotNetflix.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<MovieDto>> GetMovies(
+        public ActionResult<IEnumerable<Movie>> GetMovies(
             [FromQuery] string title)
         {
             var moviesFromRepo = movieRepository.GetMovies(title);
-            return Ok(mapper.Map<IEnumerable<MovieDto>>(moviesFromRepo));
+            return Ok(mapper.Map<IEnumerable<Movie>>(moviesFromRepo));
         }
     }
 }

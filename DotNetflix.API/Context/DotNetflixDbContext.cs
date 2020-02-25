@@ -20,7 +20,6 @@ namespace DotNetflix.API.Context
         public DbSet<Movies> Movies { get; set; }
         public DbSet<MovieGenres> MovieGenres { get; set; }
         public DbSet<MoviesDetails> MoviesDetails { get; set; }
-        public DbSet<Ratings> Ratings { get; set; }
 
         //public DbSet<Role> Roles { get; set; }
         //public DbSet<User> Users { get; set; }
@@ -32,24 +31,8 @@ namespace DotNetflix.API.Context
 
             modelBuilder.Entity<Movies>( entity =>
             {
-                entity.HasKey(m => m.MoviesId);
-
-                entity.HasOne(m => m.Details)
-                .WithOne(d => d.Movie)
-                .HasForeignKey<MoviesDetails>(d => d.MoviesId);
+                entity.HasKey(m => m.MovieId);
             });
-
-
-            //modelBuilder.Entity<MoviesDetails>(entity =>
-            //{
-            //    entity.HasOne(md => md.Movie)
-            //    .WithOne(m => m.Details)
-            //    .HasForeignKey
-            //});
-
-
-
-            //modelBuilder.Entity<UserMovies>().HasKey(um => new { um.MovieId, um.UserId });
         }
     }
 }
