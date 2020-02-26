@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-DotNetflix.Web-8C3CC640-0A76-4231-B284-1791E0F41535</UserSecretsId>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
 
@@ -14,16 +15,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <ProjectReference Include="..\DotNetflix.API\DotNetflix.API.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="wwwroot\img\Poster\" />
   </ItemGroup>
 
 </Project>

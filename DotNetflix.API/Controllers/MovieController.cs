@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotNetflix.API.Controllers
 {
     [ApiController]
-    [Route("api/movies")]
+    [Route("api/[controller]/[action]")]
     public class MovieController : Controller
     {
         private readonly IMovieRepository movieRepository;
@@ -29,7 +29,29 @@ namespace DotNetflix.API.Controllers
         public ActionResult<IEnumerable<MovieDto>> GetMovies(string title)
         {
             var movies = movieRepository.GetMovies(title);
+            //var mapResult = mapper.Map<IEnumerable<MovieDto>>(moviesFromRepo);
+
+            if (movies == null)
+            {
+                return NotFound("Movie not found");
+            }
             return Ok(movies);
+        }
+
+        [HttpGet("{movieId}")]
+        public ActionResult<MovieDto> GetMovie(string movieId)
+        {
+            var movie = movieRepository.GetMovie(movieId);
+            if (movie == null)
+            {
+                return NotFound("Movie not found");
+            }
+
+            //if (movie.PosterUrl == null)
+            //{
+            //    GetMovieDetailsFrom OMDBAPI
+            //}
+            return Ok(movie);
         }
     }
 }
