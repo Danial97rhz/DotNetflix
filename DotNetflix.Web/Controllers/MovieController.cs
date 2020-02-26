@@ -12,8 +12,6 @@ namespace DotNetflix.Web.Controllers
 {
     public class MovieController : Controller
     {
-        //private readonly IMovieData movieData;
-        //private readonly IMovieRepository moviesRepository;
         private readonly IHttpClientFactory _clientFactory;
 
 

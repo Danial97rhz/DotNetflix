@@ -31,6 +31,8 @@ namespace DotNetflix.API.Controllers
             var movies = movieRepository.GetMovies(title);
             //var mapResult = mapper.Map<IEnumerable<MovieDto>>(moviesFromRepo);
 
+
+
             if (movies == null)
             {
                 return NotFound("Movie not found");
