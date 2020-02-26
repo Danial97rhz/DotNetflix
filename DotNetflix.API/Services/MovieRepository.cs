@@ -69,49 +69,7 @@ namespace DotNetflix.API.Services
                 .ToList();
 
             return movies;
-
-            //var movies = context.Movies
-            //    .Where(m =>
-            //        string.IsNullOrEmpty(title)
-            //        || m.Title.ToLower().Contains(title)
-            //        || m.Year.ToString().Equals(title))
-            //    .Include(m => m.MovieGenres)
-            //        .ThenInclude(mg => mg)
-            //    .Select(m => new MovieDto
-            //    {
-            //        Id = m.MovieId,
-            //        Title = m.Title,
-            //        Year = m.Year,
-            //        Genres = m.MovieGenres.Select(g => g.Genre.Name).ToList()
-            //    })
-            //    .OrderBy(m => m.Title)
-            //    .ToList();
-        }
-
-        // Map Movies entity to Movie model
-        //public static List<Movie> Map(List<Movies> movies)
-        //{
-        //    // Map movies from db to api outfacing movie type
-        //    var moviesDto = movies.Select(m => new
-        //    {
-        //        Id = m.MovieId,
-        //        Rating = m.AvgRating,
-        //        NumberOfVotes = m.NumberOfVotes,
-        //        Title = m.Title,
-        //        OriginalTitle = m.OriginalTitle,
-        //        Year = m.Year,
-        //        RunTime = m.RunTimeMinutes,
-        //        IsAdult = m.IsAdult,
-        //        Genres = m.MovieGenres.Select(g => g.Genre.Name).ToList()
-        //    });
-
-        //    /* Missing properties
-        //    LongPlot = m.plot
-        //    PosterUrl = m.poster
-        //    Director = m.dire
-        //    ReleaseDate = m.rele*/
-        //    //}
-        //}
+        }      
     }
 }
 
