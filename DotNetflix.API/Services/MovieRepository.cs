@@ -48,5 +48,21 @@ namespace DotNetflix.API.Services
 
             return movies;
         }
+        public MovieDto GetMovie(string movieId)
+        {
+            var movie = context.Movies
+                .Where(m => m.MovieId == movieId)
+                .Select(m => new MovieDto
+                {
+                    Id = m.MovieId,
+                    Title = m.Title,
+                    Year = m.Year,
+                    Genres = m.MovieGenres.Select(g => g.Genre.Name).ToList()
+                })
+                .FirstOrDefault();
+
+            return movie;
+        }
+
     }
 }

@@ -10,5 +10,6 @@ namespace DotNetflix.API.Services
     public interface IMovieRepository
     {
         IEnumerable<MovieDto> GetMovies(string title);
+        MovieDto GetMovie(string movieId);
     }
 }

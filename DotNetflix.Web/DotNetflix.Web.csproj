@@ -17,14 +17,4 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <ProjectReference Include="..\DotNetflix.API\DotNetflix.API.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="wwwroot\img\Poster\" />
-  </ItemGroup>
-
 </Project>

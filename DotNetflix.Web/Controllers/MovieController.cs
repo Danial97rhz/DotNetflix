@@ -25,7 +25,7 @@ namespace DotNetflix.Web.Controllers
         public async Task<IActionResult> List(string title)
         {
             var client = _clientFactory.CreateClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movies/{title}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/getmovies/{title}");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("User-Agent", "DotNetflix.Web");
 
@@ -40,35 +40,29 @@ namespace DotNetflix.Web.Controllers
 
                 return View(vm);
             }
-
             return View(new MovieListViewModel());
         }
 
-        ///* Get movies from sql server via api without http client.
-        // Get the data just by refferensing the api project and calling the 
-        // repository methods directly.*/
-        //public ViewResult List(string title)
-        //{
-        //    // Get movies from api repository
-        //    var moviesFromRepo = moviesRepository.GetMovies(title);
+        public async Task<IActionResult> MovieInfo(string movieId)
+        {
+            var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/getmovie/{movieId}");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("User-Agent", "DotNetflix.Web");
 
-        //    // Map movies from repo to web movie type
-        //    var movies = moviesFromRepo.Select(m => new MovieApi
-        //    {
-        //        Id = m.Id,
-        //        Title = m.Title,
-        //        Year = m.Year
-        //    }).ToList();
+            var response = await client.SendAsync(request);
 
-        //    // Place movies in view model for movies
-        //    var vm = new MovieListViewModel
-        //    {
-        //        Movies = movies
-        //    };
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var movie = await JsonSerializer.DeserializeAsync<MovieApi>(responseStream,
+                    new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                var vm = new MovieInfoViewModel() { Movie = movie };
 
-        //    // Show veiw for movies
-        //    return View(vm);
-        //}
+                return View(vm);
+            }
+            return View();
+        }
 
        public IActionResult ListByGenre(int genreid)
         {
