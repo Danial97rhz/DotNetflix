@@ -23,7 +23,7 @@ namespace DotNetflix.API.Services
 
         /* Get all movies containing search term.
         If search term is left empty all movies are returned*/
-        public IEnumerable<Movie> GetMovies(string title)
+        public IEnumerable<MovieDto> GetMovies(string title)
         {
             if (!string.IsNullOrEmpty(title))
             {
@@ -66,10 +66,10 @@ namespace DotNetflix.API.Services
                     Director = m.Details.Director,
                     ReleaseDate = m.Details.ReleaseDate
                 })
+                .OrderBy(m => m.Title)
                 .ToList();
 
             return movies;
         }      
     }
 }
-

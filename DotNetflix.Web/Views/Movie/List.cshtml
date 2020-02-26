@@ -5,7 +5,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Title</th>
             <th>Year</th>
             <th>Genres</th>
@@ -14,21 +13,33 @@
     <tbody>
         @foreach (var movie in Model.Movies)
         {
-            <tr>
-                <td>@movie.Id</td>
-                <td>@movie.Title</td>
-                <td>@movie.Year</td>
-                <td>
-                    @{ 
-                        int nrGenres = movie.Genres.Count();
-                        for (int i = 0; i < nrGenres; i++)
-                        {
-                            @movie.Genres[i];
-                            if (i + 1 < nrGenres) { <span> | </span> }
-                        }
+        
+        <tr>
+            <td><a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.Id">@movie.Title</a></td>
+            <td>@movie.Year</td>
+            <td>
+                @{
+                    int nrGenres = movie.Genres.Count();
+                    for (int i = 0; i < nrGenres; i++)
+                    {
+                        @movie.Genres[i];
+                        if (i + 1 < nrGenres)
+                        { <span> | </span> }
                     }
-                </td>
-            </tr>
+                }
+            </td>            
+            <td>
+                <form asp-controller="Movie" asp-action="Wishlist" asp-route-movieid="@movie.Id">
+                    <button class="btn btn-outline-success">Add to wishlist</button>
+                </form>
+            </td>
+            <td>
+                <form asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id">
+                    <button class="btn btn-outline-primary">Rate Movie</button>
+                </form>
+            </td>            
+        </tr>
+        
         }
 
     </tbody>
