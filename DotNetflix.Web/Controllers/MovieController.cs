@@ -23,6 +23,7 @@ namespace DotNetflix.Web.Controllers
         }
 
         public async Task<IActionResult> List(string title)
+        
         {
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movies/{title}");
