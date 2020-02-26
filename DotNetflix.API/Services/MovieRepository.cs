@@ -21,9 +21,14 @@ namespace DotNetflix.API.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public MovieDto GetMovie(string movieId)
+        {
+            throw new NotImplementedException();
+        }
+
         /* Get all movies containing search term.
         If search term is left empty all movies are returned*/
-        public IEnumerable<MovieDto> GetMovies(string title)
+        public IEnumerable<Movie> GetMovies(string title)
         {
             if (!string.IsNullOrEmpty(title))
             {
