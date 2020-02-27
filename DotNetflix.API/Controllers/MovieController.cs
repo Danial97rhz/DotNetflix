@@ -71,7 +71,14 @@ namespace DotNetflix.API.Controllers
                         MovieDto response = new MovieDto();
                         var json = await httpResponse.Content.ReadAsStringAsync();
                         response = JsonConvert.DeserializeObject<MovieDto>(json);
-
+                    if (response.PosterUrl is "N/A")
+                    {
+                        response.PosterUrl = "https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg";
+                    }
+                    if (response.ReleaseDate is "N/A")
+                    {
+                        response.ReleaseDate = "11 September 2001";
+                    }
                         movie.PosterUrl = response.PosterUrl;
                         movie.LongPlot = response.LongPlot;
                         movie.Director = response.Director;
