@@ -1,5 +1,10 @@
 ﻿@model MovieInfoViewModel
 
+@*data som ska finnas på denna sida:
+    Rating
+    numbe
+    *@
+
 <div class="container">
     <div class="row">
         <div class="col-3 col-md-4 col-sm-6">
@@ -10,6 +15,16 @@
             <h4 class="text-info">original title</h4>
             <h3 class="text-dark">@Model.Movie.Id</h3>
             <h3 class="text-danger">Released: @Model.Movie.Year</h3>
+            <div class="font-italic">
+                Rating 5/10 <br />
+                Votes 55 000 <br />
+                Director: Sylvester Stallone <br />
+                Released: 20 Oct 1982 <br />
+                Runtime: 118 minutes <br />
+                Starring: Sylvester Stallone, Richard Crenna, Brian Dennehy, Bill McKinney <br />
+            </div>
+            
+            
         </div>  
     </div>
     <div class="row">
