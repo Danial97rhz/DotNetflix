@@ -11,7 +11,7 @@ namespace DotNetflix.Web.Models
         public float Rating { get; set; }
         public int? NumberOfVotes { get; set; }
         public string LongPlot { get; set; }
-        public string PosterUrl { get; set; }
+        public string PosterUrl { get; set; } 
         public string Director { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public string Title { get; set; }
