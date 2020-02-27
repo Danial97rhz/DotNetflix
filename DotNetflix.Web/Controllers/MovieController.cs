@@ -12,8 +12,6 @@ namespace DotNetflix.Web.Controllers
 {
     public class MovieController : Controller
     {
-        //private readonly IMovieData movieData;
-        //private readonly IMovieRepository moviesRepository;
         private readonly IHttpClientFactory _clientFactory;
 
 
@@ -23,6 +21,7 @@ namespace DotNetflix.Web.Controllers
         }
 
         public async Task<IActionResult> List(string title)
+        
         {
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/getmovies/{title}");

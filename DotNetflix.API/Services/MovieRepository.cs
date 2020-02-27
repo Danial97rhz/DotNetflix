@@ -1,4 +1,6 @@
 ﻿using DotNetflix.API.Context;
+using DotNetflix.API.Entities;
+using DotNetflix.API.HelperMethods;
 using DotNetflix.API.Models;
 using DotNetflix.API.ModelsDto;
 using Microsoft.EntityFrameworkCore;
@@ -22,47 +24,37 @@ namespace DotNetflix.API.Services
 
         /* Get all movies containing search term.
         If search term is left empty all movies are returned*/
-        public IEnumerable<MovieDto> GetMovies(string title)
+        public IEnumerable<Movie> GetMovies(string title)
         {
             if (!string.IsNullOrEmpty(title))
             {
                 title = title.ToLower();
             }
 
+            // Filter movies on search term
             var movies = context.Movies
                 .Where(m =>
                     string.IsNullOrEmpty(title)
                     || m.Title.ToLower().Contains(title)
-                    || m.Year.ToString().Equals(title))
-                .Include(m => m.MovieGenres)
-                    .ThenInclude(mg => mg)
-                .Select(m => new MovieDto
-                {
-                    Id = m.MovieId,
-                    Title = m.Title,
-                    Year = m.Year,
-                    Genres = m.MovieGenres.Select(g => g.Genre.Name).ToList()
-                })
+                    || m.Year.ToString().Equals(title));
+                //.Select(m => m);
+
+            // Map to movie dto (data transfer object) and return
+            return Map.ToMovieDto(movies)
                 .OrderBy(m => m.Title)
                 .ToList();
-
-            return movies;
         }
-        public MovieDto GetMovie(string movieId)
+
+
+        public Movie GetMovie(string movieId)
         {
+            // Select movie on id
             var movie = context.Movies
-                .Where(m => m.MovieId == movieId)
-                .Select(m => new MovieDto
-                {
-                    Id = m.MovieId,
-                    Title = m.Title,
-                    Year = m.Year,
-                    Genres = m.MovieGenres.Select(g => g.Genre.Name).ToList()
-                })
+                .Where(m => m.MovieId == movieId);
+
+            // Map to movie dto (data transfer object) and return
+            return Map.ToMovieDto(movie)
                 .FirstOrDefault();
-
-            return movie;
-        }
-
+        }            
     }
 }

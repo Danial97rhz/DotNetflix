@@ -10,18 +10,19 @@ namespace DotNetflix.API.Models
     {
         public string Id { get; set; }
         public float Rating { get; set; }
-        public int NumberOfVotes { get; set; }
+        public int? NumberOfVotes { get; set; }
         public string LongPlot { get; set; }
         public string PosterUrl { get; set; }
         public string Director { get; set; }
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         public string Title { get; set; }
         public string OriginalTitle { get; set; }
-        public int Year { get; set; }
-        public int RunTime { get; set; }
+        public int? Year { get; set; }
+        public int? RunTime { get; set; }
         public bool IsAdult { get; set; }
         public List<string> Actors { get; set; }
         //public List<UserMovies> Movies { get; set; }
-        public List<Genre> Genres { get; set; }
+        // DLm: Changed List<Genre> => List<string> to match web class MovieApi
+        public IEnumerable<string> Genres { get; set; }
     }
 }
