@@ -36,7 +36,7 @@ namespace DotNetflix.API.Services
                 .Where(m =>
                     string.IsNullOrEmpty(title)
                     || m.Title.ToLower().Contains(title)
-                    || m.Year.ToString().Equals(title));
+                    || m.Year.ToString().Equals(title)).Take(20);
                 //.Select(m => m);
 
             // Map to movie dto (data transfer object) and return
