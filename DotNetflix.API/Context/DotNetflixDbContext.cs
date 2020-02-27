@@ -27,12 +27,29 @@ namespace DotNetflix.API.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MovieGenres>().HasKey(mg => new { mg.MoviesId, mg.GenresId });
+            modelBuilder.Entity<MovieGenres>(entity =>
+                {
+                    entity.HasKey(mg => new { mg.MoviesId, mg.GenresId });
+                    
+                    entity.HasOne(g => g.Genre)
+                    .WithMany(mg => mg.MovieGenres)
+                    .HasForeignKey(g => g.GenresId);
+
+                    entity
+                    .HasOne(m => m.Movie)
+                    .WithMany(mg => mg.MovieGenres)
+                    .HasForeignKey(m => m.MoviesId);
+                });
 
             modelBuilder.Entity<Movies>( entity =>
             {
                 entity.HasKey(m => m.MovieId);
+
+                //Adding index will cause title to change data type. Should be testd before implementation.
+                //entity.HasIndex(m => m.Title);                
             });
         }
+
+
     }
 }
