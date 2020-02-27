@@ -45,6 +45,16 @@ namespace DotNetflix.API.Services
                 .ToList();
         }
 
+        public IEnumerable<Movie> GetMoviesByGenre(int genreId)
+        {
+            var movies = (from mg in context.MovieGenres
+                     where mg.GenresId == genreId
+                     select mg.Movie).Take(10);
+
+            return Map.ToMovieDto(movies).ToList();
+
+        }
+
 
         public Movie GetMovie(string movieId)
         {

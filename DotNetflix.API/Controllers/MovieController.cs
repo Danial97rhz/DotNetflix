@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DotNetflix.API.Models;
 using DotNetflix.API.ModelsDto;
 using DotNetflix.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,19 @@ namespace DotNetflix.API.Controllers
             //    GetMovieDetailsFrom OMDBAPI
             //}
             return Ok(movie);
+        }
+
+
+        [HttpGet("{genreId}")]
+        public ActionResult<MovieDto> GetMoviesByGenre(int genreId)
+        {
+            var movies = movieRepository.GetMoviesByGenre(genreId);
+            if (movies == null)
+            {
+                return BadRequest("Movies not found");
+            }
+
+            return Ok(movies);
         }
     }
 }

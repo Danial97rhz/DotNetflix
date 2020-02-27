@@ -11,5 +11,7 @@ namespace DotNetflix.API.Services
     {
         IEnumerable<Movie> GetMovies(string title);
         Movie GetMovie(string movieId);
+
+        IEnumerable<Movie> GetMoviesByGenre(int genreId);
     }
 }
