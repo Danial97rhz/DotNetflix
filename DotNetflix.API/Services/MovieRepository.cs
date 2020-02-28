@@ -38,7 +38,7 @@ namespace DotNetflix.API.Services
                 .Where(m =>
                     string.IsNullOrEmpty(title)
                     || m.Title.ToLower().Contains(title)
-                    || m.Year.ToString().Equals(title));
+                    || m.Year.ToString().Equals(title)).OrderByDescending(x=> x.AvgRating).ThenByDescending(x=>x.NumberOfVotes);
             //.Select(m => m);
 
             // Map to movie dto (data transfer object) and return
@@ -49,7 +49,7 @@ namespace DotNetflix.API.Services
         {
             var movies = (from mg in context.MovieGenres
                           where mg.GenresId == genreId
-                          select mg.Movie).Take(10);
+                          select mg.Movie).Where(x=>x.NumberOfVotes>50000).OrderByDescending(x=> x.AvgRating).Take(10);
 
             return movies;
 
@@ -58,7 +58,6 @@ namespace DotNetflix.API.Services
 
         public Movies GetMovie(string movieId, bool includeDetails = true)
         {
-            // Select movie on id
             var movie = context.Movies
                 .Where(m => m.MovieId == movieId)
                 .Include(m => m.Details)
