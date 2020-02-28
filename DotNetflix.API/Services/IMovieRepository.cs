@@ -1,5 +1,4 @@
-﻿using DotNetflix.API.Models;
-using DotNetflix.API.ModelsDto;
+﻿using DotNetflix.API.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +8,12 @@ namespace DotNetflix.API.Services
 {
     public interface IMovieRepository
     {
-        IEnumerable<Movie> GetMovies(string title);
-        Movie GetMovie(string movieId);
+        IQueryable<Movies> GetMovies(string title);
+        Movies GetMovie(string movieId, bool includeDetails = true);
+        Task<MoviesDetails> GetMovieDetails(string movieId);
+        IQueryable<Movies> GetMoviesByGenre(int genreId);
 
-        IEnumerable<Movie> GetMoviesByGenre(int genreId);
+        Task<bool> SaveChangesAsync();
+        void Add<T>(T entity) where T : class;
     }
 }

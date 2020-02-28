@@ -27,11 +27,27 @@ namespace DotNetflix.API.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MovieGenres>().HasKey(mg => new { mg.MoviesId, mg.GenresId });
+            modelBuilder.Entity<MovieGenres>(entity =>
+            { 
+                entity.HasKey(mg => new { mg.MoviesId, mg.GenresId });
+
+                entity.HasOne(mg => mg.Genre)
+                .WithMany(g => g.MovieGenres)
+                .HasForeignKey(mg => mg.GenresId);
+
+                entity.HasOne(mg => mg.Movie)
+                .WithMany(m => m.MovieGenres)
+                .HasForeignKey(mg => mg.MoviesId);
+
+
+            });
 
             modelBuilder.Entity<Movies>( entity =>
             {
                 entity.HasKey(m => m.MovieId);
+
+                entity.HasOne(m => m.Details)
+                .WithOne(d => d.Movie);
             });
         }
     }

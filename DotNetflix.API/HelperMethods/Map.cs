@@ -33,12 +33,61 @@ namespace DotNetflix.API.HelperMethods
                 Genres = m.MovieGenres.Select(mg => mg.Genre.Name),
                 // Get data from MoviesDetails
                 Actors = new List<string> { m.Details.Actors },
-                LongPlot = m.Details.LongPlot,
-                PosterUrl = m.Details.PosterUrl,
+                LongPlot = m.Details.Plot,
+                PosterUrl = m.Details.Poster,
                 Director = m.Details.Director,
-                ReleaseDate = m.Details.ReleaseDate
+                ReleaseDate = m.Details.Released
             });
 
+            return moviesOut;
+        }
+        public static Movie ToMovieDtoFromObject(Movies moviesIn)
+        {
+            // Include genres and movie details
+            Movie moviesOut = new Movie();
+
+            moviesOut.Id = moviesIn.MovieId;
+                //Rating = float.Parse(m.AvgRating),    // String not in correct format
+                moviesOut.NumberOfVotes = moviesIn.NumberOfVotes;
+                moviesOut.Title = moviesIn.Title;
+                moviesOut.OriginalTitle = moviesIn.OriginalTitle;
+                moviesOut.Year = moviesIn.Year;
+                moviesOut.RunTime = moviesIn.RunTimeMinutes;
+                moviesOut.IsAdult = moviesIn.IsAdult;
+            if (moviesIn.Details != null)
+            {
+            if (moviesIn.MovieGenres !=null) moviesOut.Genres = moviesIn.MovieGenres.Select(mg => mg.Genre.Name);
+            if (moviesIn.Details.Actors!= null) moviesOut.Actors = moviesIn.Details.Actors.Split(',').ToList();
+            if (moviesIn.Details.Plot != null) moviesOut.LongPlot = moviesIn.Details.Plot;
+            if (moviesIn.Details.Poster != null) moviesOut.PosterUrl = moviesIn.Details.Poster;
+            if (moviesIn.Details.Director != null) moviesOut.Director = moviesIn.Details.Director;
+            if(moviesIn.Details.Released != null) moviesOut.ReleaseDate = moviesIn.Details.Released;
+            }
+            return moviesOut;
+        }
+        public static Movie ToMovieDtoFromObject(Movies moviesIn, MoviesDetails moviesDetails)
+        {
+            // Include genres and movie details
+            Movie moviesOut =
+            new Movie
+            {
+                Id = moviesIn.MovieId,
+                //Rating = float.Parse(m.AvgRating),    // String not in correct format
+                NumberOfVotes = moviesIn.NumberOfVotes,
+                Title = moviesIn.Title,
+                OriginalTitle = moviesIn.OriginalTitle,
+                Year = moviesIn.Year,
+                RunTime = moviesIn.RunTimeMinutes,
+                IsAdult = moviesIn.IsAdult,
+                // Get Generes
+                Genres = moviesIn.MovieGenres.Select(mg => mg.Genre.Name),
+                // Get data from MoviesDetails
+                Actors = moviesDetails.Actors.Split(',').ToList(),
+                LongPlot = moviesDetails.Plot,
+                PosterUrl = moviesDetails.Poster,
+                Director = moviesDetails.Director,
+                ReleaseDate = moviesDetails.Released
+            };           
             return moviesOut;
         }
     }

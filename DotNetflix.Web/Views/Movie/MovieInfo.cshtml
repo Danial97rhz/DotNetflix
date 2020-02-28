@@ -3,8 +3,16 @@
 <div class="container">
     <div class="row">
         <div class="col-3 col-md-4 col-sm-6">
-            @*If src is N/A?*@
-            <img height="428" width="300" src=@Model.Movie.PosterUrl />
+            @if (@Model.Movie.PosterUrl == null)
+            {
+                <img height="428" width="300" src="https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg" />
+            }
+            else
+            {
+                <img height="428" width="300" src=@Model.Movie.PosterUrl />
+
+            }
+
         </div>
         <div class="col-5 col-md-6 col-sm-8 text-left">
             <h1 class="text-lg">@Model.Movie.Title</h1>
@@ -18,7 +26,8 @@
 
             <h5 class="text-info">Director: @Model.Movie.Director</h5>
             <h6 class="text-info">Actors: @foreach (var actor in Model.Movie.Actors){@actor} </h6>
-            <h7 class="text-info">Runtime: @Model.Movie.RunTime Genres: @foreach (var g in Model.Movie.Genres) {@g } </h7>
+            <h7 class="text-info">Runtime minutes: @Model.Movie.RunTime </h7>
+            <h7 class="text-info">Genres: @foreach (var g in Model.Movie.Genres) {@g} | </h7>
         </div>  
     </div>
     <div class="row">
