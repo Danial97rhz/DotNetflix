@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using DotNetflix.API.Models;
+using DotNetflix.API.Entities;
 using DotNetflix.API.ModelsDto;
 using DotNetflix.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
+using DotNetflix.API.HelperMethods;
 
 namespace DotNetflix.API.Controllers
 {
@@ -15,46 +21,60 @@ namespace DotNetflix.API.Controllers
     public class MovieController : Controller
     {
         private readonly IMovieRepository movieRepository;
-        private readonly IMapper mapper;
+        //private readonly IMapper mapper; --> Not USED?
 
-        public MovieController(IMovieRepository movieRepository,
-            IMapper mapper)
+        public MovieController(IMovieRepository movieRepository)
         {
             this.movieRepository = movieRepository ?? 
                 throw new ArgumentNullException(nameof(movieRepository));
-            this.mapper = mapper ?? 
-                throw new ArgumentNullException(nameof(mapper));
+            
+            //NOT USED?
+            //this.mapper = mapper ?? 
+            //    throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet("{title}")]
         public ActionResult<IEnumerable<MovieDto>> GetMovies(string title)
         {
             var movies = movieRepository.GetMovies(title);
-            //var mapResult = mapper.Map<IEnumerable<MovieDto>>(moviesFromRepo);
 
+            var mappedMovies = Map.ToMovieDto(movies)
+                .OrderBy(m => m.Title)
+                .ToList();
 
-
-            if (movies == null)
+            if (mappedMovies == null)
             {
                 return NotFound("Movie not found");
             }
-            return Ok(movies);
+            return Ok(mappedMovies);
         }
 
         [HttpGet("{movieId}")]
-        public ActionResult<MovieDto> GetMovie(string movieId)
+        public async Task<ActionResult<MovieDto>> GetMovieAsync(string movieId)
         {
+
             var movie = movieRepository.GetMovie(movieId);
             if (movie == null)
             {
                 return NotFound("Movie not found");
             }
+            var movieModel = Map.ToMovieDtoFromObject(movie);
+                      
+            if (movieModel.PosterUrl == null)
+            {
+                var detailsEntity = await movieRepository.GetMovieDetails(movieId);
+                var movieEntity = movie;
 
-            //if (movie.PosterUrl == null)
-            //{
-            //    GetMovieDetailsFrom OMDBAPI
-            //}
-            return Ok(movie);
+                detailsEntity.Movie = movieEntity;
+
+                movieRepository.Add(detailsEntity);
+                _ = movieRepository.SaveChangesAsync();
+
+                movieModel = Map.ToMovieDtoFromObject(movie, detailsEntity);
+            }
+            
+
+            return Ok(movieModel);
         }
 
 
@@ -62,12 +82,15 @@ namespace DotNetflix.API.Controllers
         public ActionResult<MovieDto> GetMoviesByGenre(int genreId)
         {
             var movies = movieRepository.GetMoviesByGenre(genreId);
-            if (movies == null)
+
+            var mappedmovies = Map.ToMovieDto(movies).ToList();
+
+            if (mappedmovies == null)
             {
                 return BadRequest("Movies not found");
             }
 
-            return Ok(movies);
+            return Ok(mappedmovies);
         }
     }
 }

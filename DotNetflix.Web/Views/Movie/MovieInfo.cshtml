@@ -1,45 +1,39 @@
 ﻿@model MovieInfoViewModel
 
-@*data som ska finnas på denna sida:
-    Rating
-    numbe
-    *@
-
 <div class="container">
     <div class="row">
         <div class="col-3 col-md-4 col-sm-6">
-            <img height="428" width="300" src="~/img/Poster/Fantasyyy.jpg" />
+            @if (@Model.Movie.PosterUrl == null)
+            {
+                <img height="428" width="300" src="https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg" />
+            }
+            else
+            {
+                <img height="428" width="300" src=@Model.Movie.PosterUrl />
+
+            }
+
         </div>
         <div class="col-5 col-md-6 col-sm-8 text-left">
             <h1 class="text-lg">@Model.Movie.Title</h1>
             <h4 class="text-info">original title</h4>
-            <h3 class="text-dark">@Model.Movie.Id</h3>
-            <h3 class="text-danger">Released: @Model.Movie.Year</h3>
-            <div class="font-italic">
-                Rating 5/10 <br />
-                Votes 55 000 <br />
-                Director: Sylvester Stallone <br />
-                Released: 20 Oct 1982 <br />
-                Runtime: 118 minutes <br />
-                Starring: Sylvester Stallone, Richard Crenna, Brian Dennehy, Bill McKinney <br />
-            </div>
-            
-            
+            <h4 class="text-dark">(@Model.Movie.OriginalTitle)</h4>
+
+            <h3 class="text-danger">Released: 
+            @* If date is N/A? *@
+            @Model.Movie.ReleaseDate.Value.ToString("dd-MMMM-yyyy");
+            </h3>
+
+            <h5 class="text-info">Director: @Model.Movie.Director</h5>
+            <h6 class="text-info">Actors: @foreach (var actor in Model.Movie.Actors){@actor} </h6>
+            <h7 class="text-info">Runtime minutes: @Model.Movie.RunTime </h7>
+            <h7 class="text-info">Genres: @foreach (var g in Model.Movie.Genres) {@g} | </h7>
         </div>  
     </div>
     <div class="row">
         <div class="col-12">
             <h4 class="font-weight-bold" style="margin-top: 10px">Plot</h4>
-            <p>Vietnam veteran John Rambo has survived many harrowing ordeals in his lifetime and has since withdrawn into a simple and secluded existence in Thailand, 
-            where he spends his time capturing snakes for local entertainers, and chauffeuring locals in his old PT boat. Even though he is looking to avoid trouble, 
-            trouble has a way of finding him: a group of Christian human rights missionaries, led by Michael Burnett and Sarah Miller, approach Rambo with the desire to 
-            rent his boat to travel up the river to Burma. For over fifty years, Burma has been a war zone. The Karen people of the region, who consist of peasants and farmers,
-            have endured brutally oppressive rule from the murderous Burmese military and have been struggling for survival every single day. After some inner contemplation, 
-            Rambo accepts the offer and takes Michael, Sarah, and the rest of the missionaries up the river. When the missionaries finally arrive at the Karen village, 
-            they find themselves part of a raid by the sadistic Major Pa Tee Tint and a slew of Burmese army men. A portion of the villagers and missionaries are tortured and 
-            'viciously murdered, while Tint and his men hold the remainder captive. Concerned by their disappearance, the minister in charge of the mission gathers a group of 
-            mercenaries and pleas Rambo transport them with his boat, since he knows their last exact location. But Rambo can't stay behind: 
-            he joins the team where he belongs, to liberate the survivors from the clutches of Major Tint in what may be one of his deadliest missions ever</p>
+            <p>@Model.Movie.LongPlot</p>
         </div>
     </div>
     <div class="row text-right">
