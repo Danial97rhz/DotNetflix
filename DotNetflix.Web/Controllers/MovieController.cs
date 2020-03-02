@@ -33,7 +33,7 @@ namespace DotNetflix.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 using var responseStream = await response.Content.ReadAsStreamAsync();
-                var movies = await JsonSerializer.DeserializeAsync<IEnumerable<MovieApi>>(responseStream,
+                var movies = await JsonSerializer.DeserializeAsync<IEnumerable<Movie>>(responseStream,
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 var vm = new MovieListViewModel() { Movies = movies };
 
@@ -54,7 +54,7 @@ namespace DotNetflix.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 using var responseStream = await response.Content.ReadAsStreamAsync();
-                var movie = await JsonSerializer.DeserializeAsync<MovieApi>(responseStream,
+                var movie = await JsonSerializer.DeserializeAsync<Movie>(responseStream,
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 var vm = new MovieInfoViewModel() { Movie = movie };
 
@@ -76,7 +76,7 @@ namespace DotNetflix.Web.Controllers
             {
                 using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
-                    var movies = await JsonSerializer.DeserializeAsync<IEnumerable<MovieApi>>(responseStream,
+                    var movies = await JsonSerializer.DeserializeAsync<IEnumerable<Movie>>(responseStream,
                         new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                     var vm = new MovieListViewModel() { Movies = movies };
                     return View(vm);               

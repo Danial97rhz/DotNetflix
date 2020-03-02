@@ -10,7 +10,7 @@ namespace DotNetflix.API.HelperMethods
 {
     public class Map
     {
-        public static IQueryable<Movie> ToMovieDto(IQueryable<Movies> moviesIn)
+        public static IQueryable<Movie> ToMovie(IQueryable<Movies> moviesIn)
         {
             // Include genres and movie details
             var moviesOut =
@@ -41,7 +41,7 @@ namespace DotNetflix.API.HelperMethods
 
             return moviesOut;
         }
-        public static Movie ToMovieDtoFromObject(Movies moviesIn)
+        public static Movie ToMovieFromObject(Movies moviesIn)
         {
             // Include genres and movie details
             Movie moviesOut = new Movie();
@@ -56,16 +56,16 @@ namespace DotNetflix.API.HelperMethods
                 moviesOut.IsAdult = moviesIn.IsAdult;
             if (moviesIn.Details != null)
             {
-            if (moviesIn.MovieGenres !=null) moviesOut.Genres = moviesIn.MovieGenres.Select(mg => mg.Genre.Name);
-            if (moviesIn.Details.Actors!= null) moviesOut.Actors = moviesIn.Details.Actors.Split(',').ToList();
-            if (moviesIn.Details.Plot != null) moviesOut.LongPlot = moviesIn.Details.Plot;
-            if (moviesIn.Details.Poster != null) moviesOut.PosterUrl = moviesIn.Details.Poster;
-            if (moviesIn.Details.Director != null) moviesOut.Director = moviesIn.Details.Director;
-            if(moviesIn.Details.Released != null) moviesOut.ReleaseDate = moviesIn.Details.Released;
+            /*if (moviesIn.MovieGenres !=null)      */  moviesOut.Genres = moviesIn.MovieGenres.Select(mg => mg.Genre.Name);
+            if (moviesIn.Details.Actors != null)        moviesOut.Actors = moviesIn.Details.Actors.Split(',').ToList();
+            /*if (moviesIn.Details.Plot != null)    */  moviesOut.LongPlot = moviesIn.Details.Plot;
+            /*if (moviesIn.Details.Poster != null)  */  moviesOut.PosterUrl = moviesIn.Details.Poster;
+            /*if (moviesIn.Details.Director != null)*/  moviesOut.Director = moviesIn.Details.Director;
+            /*if(moviesIn.Details.Released != null) */  moviesOut.ReleaseDate = moviesIn.Details.Released;
             }
             return moviesOut;
         }
-        public static Movie ToMovieDtoFromObject(Movies moviesIn, MoviesDetails moviesDetails)
+        public static Movie ToMovieFromObject(Movies moviesIn, MoviesDetails moviesDetails)
         {
             // Include genres and movie details
             Movie moviesOut =
