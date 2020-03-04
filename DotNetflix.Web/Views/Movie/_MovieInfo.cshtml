@@ -1,5 +1,50 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<div class="container">
+    <div class="row">
+        <!-- POSTER -->
+        <div class="col-md-6 col-lg-4 text-center">
+            @if (@Model.Movie.PosterUrl == null)
+            {
+                <img height="428" width="300"
+                     src="https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg" />
+            }
+            else
+            {
+                <img height="428" width="300" src=@Model.Movie.PosterUrl />
+            }
+        </div>       
+        <!-- MOVIE INFO -->
+        <div class="col-md-6 col-lg-8">
+            <h1 class="display-4">@Model.Movie.Title</h1>
+            <hr />
+            <p><b>Original title:</b> @Model.Movie.OriginalTitle</p>
+            <p>
+                <b>Genres:</b>
+                @for (int i = 0; i < Model.Movie.Genres.Count; i++)
+                {
+                    @Model.Movie.Genres[i]
+                    if (i < Model.Movie.Genres.Count - 1)
+                    {<span>, </span>}
+                }
+            </p>
+            <p><b>Released:</b> @Model.Movie.ReleaseDate</p>
+            <p><b>Runtime:</b> @Model.Movie.RunTime minutes</p>
+            <p><b>Director:</b> @Model.Movie.Director</p>
+            <p>
+                <b>Actors:</b>
+                @for (int i = 0; i < Model.Movie.Actors.Count; i++)
+                {
+                    @Model.Movie.Actors[i]
+                    if (i < Model.Movie.Actors.Count - 1)
+                    {<span>, </span>}
+                }
+            </p>
+            <hr />
+            <p><b>Plot:</b> @Model.Movie.LongPlot</p>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <a class="btn btn-info ml-2" asp-controller="Movie" asp-action="Wishlist" asp-route-movieId="@Model.Movie.Id">Add to wishlist</a>
+        <a class="btn btn-info ml-2" asp-controller="Movie" asp-action="Rate" asp-route-movieId="@Model.Movie.Id">Rate movie</a>
+    </div>
+</div>
+
