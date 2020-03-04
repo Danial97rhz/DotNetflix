@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DotNetflix.Web</title>
+    <title>@ViewData["Title"] DotNetflix</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -48,13 +48,13 @@
                         @await Component.InvokeAsync("SearchBar")
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">Filmer</a>
+                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">Movies</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">Senaste</a>
+                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">Latest</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">Min lista</a>
+                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">My Lists</a>
                     </li>
 
 
@@ -63,10 +63,9 @@
                             Dropdown
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Hantera Profiler</a>
-                            <a class="dropdown-item" href="#">Ditt Konto</a>
-                            <a class="dropdown-item" href="#">Hjälp Center</a>
-                            <a class="dropdown-item" href="#">Logga ut</a>
+                            <a class="dropdown-item" href="#">Your Account</a>
+                            <a class="dropdown-item" href="#">Help</a>
+                            <a class="dropdown-item" href="#">Log out</a>
                             <!-- Extra menu om man vill lägga till nåt annat
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
