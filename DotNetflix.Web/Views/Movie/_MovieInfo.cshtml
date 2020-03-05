@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model MovieInfoViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 col-md-4 col-sm-6">
+            @if (@Model.Movie.PosterUrl == null)
+            {
+                <img height="428" width="300" src="https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg" />
+            }
+            else
+            {
+                <img height="428" width="300" src=@Model.Movie.PosterUrl />
+
+            }
+
+        </div>
+        <div class="col-5 col-md-6 col-sm-8 text-left">
+            <h1 class="text-lg">@Model.Movie.Title</h1>
+            <h4 class="text-info">original title</h4>
+            <h4 class="text-dark">(@Model.Movie.OriginalTitle)</h4>
+
+            <h3 class="text-danger">
+                Released:
+                @* If date is N/A? *@
+                @Model.Movie.ReleaseDate;
+            </h3>
+
+            <h5 class="text-info">Director: @Model.Movie.Director</h5>
+            <h6 class="text-info">Actors: @foreach (var actor in Model.Movie.Actors)
+            {@actor} </h6>
+            <h7 class="text-info">Runtime minutes: @Model.Movie.RunTime </h7>
+            <h7 class="text-info">Genres: @foreach (var g in Model.Movie.Genres)
+            {@g} | </h7>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h4 class="font-weight-bold" style="margin-top: 10px">Plot</h4>
+            <p>@Model.Movie.LongPlot</p>
+        </div>
+    </div>
+    <div class="row text-right">
+    </div>
+</div>
+
+

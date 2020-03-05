@@ -10,7 +10,6 @@
             else
             {
                 <img height="428" width="300" src=@Model.Movie.PosterUrl />
-
             }
 
         </div>
@@ -19,16 +18,19 @@
             <h4 class="text-info">original title</h4>
             <h4 class="text-dark">(@Model.Movie.OriginalTitle)</h4>
 
-            <h3 class="text-danger">Released: 
-            @* If date is N/A? *@
-            @Model.Movie.ReleaseDate;
+            <h3 class="text-danger">
+                Released:
+                @* If date is N/A? *@
+                @Model.Movie.ReleaseDate;
             </h3>
 
             <h5 class="text-info">Director: @Model.Movie.Director</h5>
-            <h6 class="text-info">Actors: @foreach (var actor in Model.Movie.Actors){@actor} </h6>
+            <h6 class="text-info">Actors: @foreach (var actor in Model.Movie.Actors)
+            {@actor} </h6>
             <h7 class="text-info">Runtime minutes: @Model.Movie.RunTime </h7>
-            <h7 class="text-info">Genres: @foreach (var g in Model.Movie.Genres) {@g} | </h7>
-        </div>  
+            <h7 class="text-info">Genres: @foreach (var g in Model.Movie.Genres)
+            {@g} | </h7>
+        </div>
     </div>
     <div class="row">
         <div class="col-12">
@@ -37,7 +39,7 @@
         </div>
     </div>
     <div class="row text-right">
-        <form asp-controller="Movie" asp-route-movieid="@Model.Movie.Id">
+        <form asp-controller="Movie">
             @if (true)
             {
                 <button asp-action="Wishlist" type="submit" class="btn btn-dark">Add to wishlist</button>
@@ -47,7 +49,7 @@
                 <button asp-action="RemoveFromWishlist" type="submit" class="btn btn-dark">remove from wishlist</button>
             }
 
-            <button asp-action="RateMovie" type="submit" class="btn btn-success">Rate</button>
+            <button asp-action="RateMovie" asp-route-movieId="@Model.Movie.Id" type="submit" class="btn btn-success">Rate</button>
         </form>
     </div>
 </div>
