@@ -17,6 +17,6 @@ namespace DotNetflix.API.Entities
         public int? NumberOfVotes { get; set; }
         public string AvgRating { get; set; }
         public MoviesDetails Details { get; set; }
-        public List<MovieGenres> MovieGenres { get; set; }
+        public ICollection<MovieGenres> MovieGenres { get; set; }
     }
 }
