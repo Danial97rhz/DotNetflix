@@ -10,6 +10,7 @@
             else
             {
                 <img height="428" width="300" src=@Model.Movie.PosterUrl />
+
             }
 
         </div>
@@ -39,18 +40,6 @@
         </div>
     </div>
     <div class="row text-right">
-        <form asp-controller="Movie">
-            @if (true)
-            {
-                <button asp-action="Wishlist" type="submit" class="btn btn-dark">Add to wishlist</button>
-            }
-            else
-            {
-                <button asp-action="RemoveFromWishlist" type="submit" class="btn btn-dark">remove from wishlist</button>
-            }
-
-            <button asp-action="RateMovie" asp-route-movieId="@Model.Movie.Id" type="submit" class="btn btn-success">Rate</button>
-        </form>
     </div>
 </div>
 

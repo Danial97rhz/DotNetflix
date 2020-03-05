@@ -1,13 +1,10 @@
-﻿using System;
+﻿using DotNetflix.Web.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DotNetflix.Web.Models;
 
 namespace DotNetflix.Web.ViewModels
 {
     public class MovieListViewModel
     {
-        public IEnumerable<MovieApi> Movies { get; set; }
+        public IEnumerable<Movie> Movies { get; set; }
     }
 }

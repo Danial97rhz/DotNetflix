@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
-using AutoMapper;
 using DotNetflix.API.Models;
-using DotNetflix.API.Entities;
-using DotNetflix.API.ModelsDto;
 using DotNetflix.API.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Newtonsoft.Json;
 using DotNetflix.API.HelperMethods;
 
 namespace DotNetflix.API.Controllers
@@ -34,11 +27,11 @@ namespace DotNetflix.API.Controllers
         }
 
         [HttpGet("{title}")]
-        public ActionResult<IEnumerable<MovieDto>> GetMovies(string title)
+        public ActionResult<IEnumerable<Movie>> GetMovies(string title)
         {
             var movies = movieRepository.GetMovies(title);
 
-            var mappedMovies = Map.ToMovieDto(movies)
+            var mappedMovies = Map.ToMovie(movies)
                 .OrderBy(m => m.Title)
                 .ToList();
 
@@ -50,7 +43,7 @@ namespace DotNetflix.API.Controllers
         }
 
         [HttpGet("{movieId}")]
-        public async Task<ActionResult<MovieDto>> GetMovieAsync(string movieId)
+        public async Task<ActionResult<Movie>> GetMovieAsync(string movieId)
         {
 
             var movie = movieRepository.GetMovie(movieId);
@@ -58,9 +51,10 @@ namespace DotNetflix.API.Controllers
             {
                 return NotFound("Movie not found");
             }
-            var movieModel = Map.ToMovieDtoFromObject(movie);
+            var movieModel = Map.ToMovieFromObject(movie);
                       
-            if (movieModel.PosterUrl == null)
+            if (movieModel.PosterUrl == null 
+                || !movieModel.PosterUrl.StartsWith("http"))
             {
                 var detailsEntity = await movieRepository.GetMovieDetails(movieId);
                 var movieEntity = movie;
@@ -70,7 +64,7 @@ namespace DotNetflix.API.Controllers
                 movieRepository.Add(detailsEntity);
                 _ = movieRepository.SaveChangesAsync();
 
-                movieModel = Map.ToMovieDtoFromObject(movie, detailsEntity);
+                movieModel = Map.ToMovieFromObject(movie, detailsEntity);
             }
             
 
@@ -79,15 +73,15 @@ namespace DotNetflix.API.Controllers
 
 
         [HttpGet("{genreId}")]
-        public ActionResult<MovieDto> GetMoviesByGenre(int genreId)
+        public ActionResult<Movie> GetMoviesByGenre(int genreId)
         {
             var movies = movieRepository.GetMoviesByGenre(genreId);
 
-            var mappedmovies = Map.ToMovieDto(movies).ToList();
+            var mappedmovies = Map.ToMovie(movies).ToList();
 
             if (mappedmovies == null)
             {
-                return BadRequest("Movies not found");
+                return NotFound("No movies of selected genre could be found.");
             }
 
             return Ok(mappedmovies);

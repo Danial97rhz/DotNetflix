@@ -84,10 +84,10 @@ namespace DotNetflix.API.Services
             
             var json = await httpResponse.Content.ReadAsStringAsync();
             var details = JsonConvert.DeserializeObject<MoviesDetails>(json);
-            if (details.Poster == null)
-            {
-                details.Poster = "https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg";
-            }
+            //if (details.Poster == null)
+            //{
+            //    details.Poster = "https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg";
+            //}
 
             return details;            
         }
