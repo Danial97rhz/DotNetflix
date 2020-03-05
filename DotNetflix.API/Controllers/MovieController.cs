@@ -42,6 +42,8 @@ namespace DotNetflix.API.Controllers
             return Ok(mappedMovies);
         }
 
+        
+
         [HttpGet("{movieId}")]
         public async Task<ActionResult<Movie>> GetMovieAsync(string movieId)
         {

@@ -20,8 +20,7 @@ namespace DotNetflix.Web.Controllers
             _clientFactory = clientFactory;
         }
 
-        public async Task<IActionResult> List(string title)
-        
+        public async Task<IActionResult> List(string title)        
         {
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/getmovies/{title}");
@@ -85,6 +84,27 @@ namespace DotNetflix.Web.Controllers
             // GET LIST OF MOVIES BASED ON GENRE ID AND RETURN IN VIEW.
             // LIST SHOULD BE LIMITED TO < 100 Results.
 
+            return View();
+        }
+
+        public async Task<IActionResult> RateMovie(string movieId)
+        {
+            var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/getmovie/{movieId}");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("User-Agent", "DotNetflix.Web");
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var movie = await JsonSerializer.DeserializeAsync<Movie>(responseStream,
+                    new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                var vm = new MovieInfoViewModel() { Movie = movie };
+
+                return View(vm);
+            }
             return View();
         }
 

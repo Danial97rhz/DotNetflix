@@ -1,0 +1,38 @@
+﻿@model MovieInfoViewModel
+
+<partial name="_MovieInfo.cshtml" />
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    <form asp-controller="UserMovie" method="post" asp-action="SaveMovieRating">
+        <div class="row">
+            <div class="slidecontainer">
+                <input type="range" min="1" max="10" value="5" class="slider" id="myRange">
+                <p>Your rating: <span id="value"></span>/10</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <textarea rows="8" cols="60" placeholder="Tell us your feelings about @Model.Movie.Title..." id="padding-text-area"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <br />
+                <button asp-route-movieId="@Model.Movie.Id" type="submit" class="btn btn-success">Save Rating</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("value");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
