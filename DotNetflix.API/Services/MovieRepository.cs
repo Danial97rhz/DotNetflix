@@ -38,12 +38,24 @@ namespace DotNetflix.API.Services
                 .Where(m =>
                     string.IsNullOrEmpty(title)
                     || m.Title.ToLower().Contains(title)
-                    || m.Year.ToString().Equals(title)).OrderByDescending(x=> x.AvgRating).ThenByDescending(x=>x.NumberOfVotes);
-            //.Select(m => m);
+                    || m.Year.ToString().Equals(title));
 
-            // Map to movie dto (data transfer object) and return
+            // Map to movie and return
             return movies;
         }
+
+        //public double StringSimilarityScore(string title, int? year, string searchTerm)
+        //{
+        //    if (year.Equals(searchTerm))
+        //    {
+        //        return 0;
+        //    }
+        //    else if (title.Contains(searchTerm))
+        //    {
+        //        return (double)searchTerm.Length / (double)title.Length;
+        //    }
+        //    return 0;
+        //}
 
         public IQueryable<Movies> GetMoviesByGenre(int genreId)
         {
@@ -83,13 +95,30 @@ namespace DotNetflix.API.Services
             var httpResponse = await httpClient.GetAsync(uriBuilder.Uri);
             
             var json = await httpResponse.Content.ReadAsStringAsync();
-            var details = JsonConvert.DeserializeObject<MoviesDetails>(json);
-            //if (details.Poster == null)
-            //{
-            //    details.Poster = "https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg";
-            //}
+            if (json != "{\"Response\":\"False\",\"Error\":\"Error getting data.\"}")
+            {
+                var details = JsonConvert.DeserializeObject<MoviesDetails>(json);
+                if (details.Poster == null || !details.Poster.StartsWith("http"))
+                {
+                    details.Poster = "https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg";
+                }
 
-            return details;            
+                return details;
+            }
+            else
+            {
+                var details = new MoviesDetails
+                {
+                    ShortPlot = "(Unknown)",
+                    Plot = "(Unknown)",
+                    Actors = "(Unknown)",
+                    Director = "(Unknown)",
+                    Released = "(Unknown)",
+                    Poster = "https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg"
+                };
+
+                return details;
+            }        
         }
         public async Task<bool> SaveChangesAsync()
         {
