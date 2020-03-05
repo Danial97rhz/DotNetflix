@@ -1,7 +1,6 @@
 ﻿using DotNetflix.API.Context;
 using DotNetflix.API.Entities;
 using DotNetflix.API.HelperMethods;
-using DotNetflix.API.ModelsDto;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
