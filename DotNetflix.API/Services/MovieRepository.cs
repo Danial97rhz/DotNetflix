@@ -89,12 +89,17 @@ namespace DotNetflix.API.Services
         }
 
 
-
+        static int UseCounter = 0;
         public async Task<MoviesDetails> GetMovieDetails(string movieId)
         {
+            UseCounter++;
+
             var httpClient = new HttpClient();
             var omdbApiUrl = "http://www.omdbapi.com/?s=&apiKey=";
-            var key = "dd0fa8bc";
+
+            //key3: d21d9cf7
+            string key; if (UseCounter %2 == 0) key = "63709ce8"; else key = "dd0fa8bc";
+            
             var uriBuilder = new UriBuilder(omdbApiUrl);
             var queryString = HttpUtility.ParseQueryString(uriBuilder.Query);
             queryString.Set("i", movieId);
