@@ -4,15 +4,3 @@
 <Partial name="_MovieInfo"/>
 
 
-<form asp-controller="Movie">
-    @if (true)
-    {
-        <button asp-action="Wishlist" type="submit" class="btn btn-dark">Add to wishlist</button>
-    }
-    else
-    {
-        <button asp-action="RemoveFromWishlist" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-dark">remove from wishlist</button>
-    }
-
-    <button asp-action="RateMovie" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-success">Rate</button>
-</form>
