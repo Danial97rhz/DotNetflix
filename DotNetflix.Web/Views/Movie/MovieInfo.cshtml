@@ -1,6 +1,18 @@
 ﻿@model MovieInfoViewModel
-
 <!-- Render movie info -->
-<Partial name="_MovieInfo"/>
+<Partial name="_MovieInfo" />
 
+<div class="row justify-content-end">
+    <form asp-controller="Movie">
+        @if (true)
+        {
+            <button asp-action="Wishlist" type="submit" class="btn btn-info">Add to wishlist</button>
+        }
+        else
+        {
+            <button asp-action="RemoveFromWishlist" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-info">remove from wishlist</button>
+        }
 
+        <button asp-action="RateMovie" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-info">Rate</button>
+    </form>
+</div>
