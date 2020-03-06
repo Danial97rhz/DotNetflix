@@ -88,5 +88,19 @@ namespace DotNetflix.API.Controllers
 
             return Ok(mappedmovies);
         }
+
+        [HttpGet("{isAdult}")]
+        public ActionResult<IEnumerable<Movie>> GetAdultMovies(bool isAdult)
+        {
+            var movies = movieRepository.GetAdultMovies(isAdult);
+
+            var mappedMovies = Map.ToMovie(movies).ToList();
+
+            if (mappedMovies == null)
+            {
+                return NotFound("No movies of selected genre could be found.");
+            }
+            return Ok(mappedMovies);
+        }
     }
 }
