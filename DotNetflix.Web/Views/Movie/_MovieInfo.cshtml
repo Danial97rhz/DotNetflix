@@ -28,7 +28,7 @@
             </p>
             <p><b>Released:</b> @Model.Movie.ReleaseDate</p>
             <p>
-                <b>Runtime:</b> @if (Model.Movie.Runtime = null)
+                <b>Runtime:</b> @if (Model.Movie.RunTime != null)
                 {
                     @Model.Movie.RunTime {<span> minutes</span>}
                 }
