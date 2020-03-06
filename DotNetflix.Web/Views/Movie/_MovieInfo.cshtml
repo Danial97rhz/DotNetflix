@@ -27,7 +27,14 @@
                 }
             </p>
             <p><b>Released:</b> @Model.Movie.ReleaseDate</p>
-            <p><b>Runtime:</b> @Model.Movie.RunTime minutes</p>
+            <p>
+                <b>Runtime:</b> @if (Model.Movie.RunTime != null)
+                {
+                    @Model.Movie.RunTime {<span> minutes</span>}
+                }
+                else
+                { <span>(Unknown)</span>}
+            </p>
             <p><b>Director:</b> @Model.Movie.Director</p>
             <p>
                 <b>Actors:</b>
