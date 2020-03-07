@@ -56,12 +56,12 @@ namespace DotNetflix.API.HelperMethods
                 moviesOut.IsAdult = moviesIn.IsAdult;
             if (moviesIn.Details != null)
             {
-            /*if (moviesIn.MovieGenres !=null)      */  moviesOut.Genres = moviesIn.MovieGenres.Select(mg => mg.Genre.Name);
-            if (moviesIn.Details.Actors != null)        moviesOut.Actors = moviesIn.Details.Actors.Split(',').ToList();
-            /*if (moviesIn.Details.Plot != null)    */  moviesOut.LongPlot = moviesIn.Details.Plot;
-            /*if (moviesIn.Details.Poster != null)  */  moviesOut.PosterUrl = moviesIn.Details.Poster;
-            /*if (moviesIn.Details.Director != null)*/  moviesOut.Director = moviesIn.Details.Director;
-            /*if(moviesIn.Details.Released != null) */  moviesOut.ReleaseDate = moviesIn.Details.Released;
+                moviesOut.Genres = moviesIn.MovieGenres.Select(mg => mg.Genre.Name);
+                if (moviesIn.Details.Actors != null)        moviesOut.Actors = moviesIn.Details.Actors.Split(',').ToList();
+                moviesOut.LongPlot = moviesIn.Details.Plot;
+                moviesOut.PosterUrl = moviesIn.Details.Poster;
+                moviesOut.Director = moviesIn.Details.Director;
+                moviesOut.ReleaseDate = moviesIn.Details.Released;
             }
             return moviesOut;
         }
