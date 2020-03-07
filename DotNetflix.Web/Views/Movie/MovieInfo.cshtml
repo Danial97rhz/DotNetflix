@@ -10,9 +10,8 @@
         }
         else
         {
-            <button asp-action="RemoveFromWishlist" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-info">remove from wishlist</button>
+            <button asp-action="RemoveFromWishlist" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-info">Remove from wishlist</button>
         }
-
-        <button asp-action="RateMovie" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-info">Rate</button>
+        <button asp-action="RateMovie" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-info">Rate movie</button>
     </form>
 </div>

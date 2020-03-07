@@ -2,15 +2,9 @@
     <div class="row">
         <!-- POSTER -->
         <div class="col-md-6 col-lg-4 text-center">
-            @if (@Model.Movie.PosterUrl == null)
-            {
-                <img height="428" width="300"
-                     src="https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg" />
-            }
-            else
-            {
-                <img height="428" width="300" src=@Model.Movie.PosterUrl />
-            }
+            
+        <img height="428" width="300" src=@Model.Movie.PosterUrl />
+            
         </div>       
         <!-- MOVIE INFO -->
         <div class="col-md-6 col-lg-8">
@@ -50,4 +44,3 @@
         </div>
     </div>
 </div>
-
