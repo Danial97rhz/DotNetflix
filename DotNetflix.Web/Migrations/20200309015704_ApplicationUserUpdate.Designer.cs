@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotNetflix.Web.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200308235111_IdentityAdded")]
-    partial class IdentityAdded
+    [Migration("20200309015704_ApplicationUserUpdate")]
+    partial class ApplicationUserUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

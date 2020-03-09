@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using DotNetflix.Web.Context;
 using Microsoft.AspNetCore.Identity;
+using DotNetflix.Web.Auth;
 
 namespace DotNetflix.Web
 {
@@ -28,9 +29,16 @@ namespace DotNetflix.Web
             services.AddHttpClient();
 
             // Services added for Identity ============>
-            services.AddDbContext<IdentityDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<IdentityDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => 
+                {
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                    options.User.RequireUniqueEmail = true;
+                })
+                .AddEntityFrameworkStores<AppDbContext>();
             services.AddRazorPages();
             // <========================================
         }
