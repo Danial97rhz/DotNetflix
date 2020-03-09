@@ -23,6 +23,8 @@ namespace DotNetflix.API.Context
         public DbSet<WishlistMovies> Wishlist { get; set; }
         public DbSet<RatedMovies> RatedMovies { get; set; }
 
+        public DbSet<CarouselDatas> CarouselDatas { get; set; }
+
         //public DbSet<Role> Roles { get; set; }
         //public DbSet<User> Users { get; set; }
         //public DbSet<UserMovies> UserMovies { get; set; }

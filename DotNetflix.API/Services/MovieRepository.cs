@@ -141,5 +141,13 @@ namespace DotNetflix.API.Services
         {
             context.Add(entity);
         }
+
+        public IQueryable<CarouselDatas> GetCarouselData()
+        {
+            var carouselData =
+                from c in context.CarouselDatas select c;
+
+            return carouselData;
+        }
     }
 }

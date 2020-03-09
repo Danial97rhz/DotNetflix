@@ -102,5 +102,16 @@ namespace DotNetflix.API.Controllers
             }
             return Ok(mappedMovies);
         }
+
+        [HttpGet("{carouselData}")]
+        public ActionResult<IEnumerable<Carousel>> GetCarouselData()
+        {
+            var data = movieRepository.GetCarouselData();
+            if (data == null)
+            {
+                return NotFound("Data not found");
+            }
+            return Ok(data);
+        }
     }
 }
