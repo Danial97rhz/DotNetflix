@@ -33,6 +33,7 @@ namespace DotNetflix.API
 
             // Add movie repository to dependency injection
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
