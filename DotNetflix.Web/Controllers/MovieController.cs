@@ -5,6 +5,7 @@ using System.Text.Json;
 using DotNetflix.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using DotNetflix.Web.Models;
+using Microsoft.Extensions.Configuration;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,16 +15,21 @@ namespace DotNetflix.Web.Controllers
     {
         private readonly IHttpClientFactory _clientFactory;
 
+        private readonly IConfiguration _config;
 
-        public MovieController(IHttpClientFactory clientFactory)
+        private readonly string MovieAPIRoot;
+
+        public MovieController(IHttpClientFactory clientFactory, IConfiguration config)
         {
             _clientFactory = clientFactory;
+            _config = config;
+            MovieAPIRoot = _config.GetValue(typeof(string), "MovieAPIRoot").ToString();
         }
 
         public async Task<IActionResult> List(string title)        
         {
             var client = _clientFactory.CreateClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/getmovies/{title}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}getmovies/{title}");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("User-Agent", "DotNetflix.Web");
 
@@ -44,7 +50,7 @@ namespace DotNetflix.Web.Controllers
         public async Task<IActionResult> MovieInfo(string movieId)
         {
             var client = _clientFactory.CreateClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/getmovie/{movieId}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}getmovie/{movieId}");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("User-Agent", "DotNetflix.Web");
 
@@ -65,7 +71,7 @@ namespace DotNetflix.Web.Controllers
        public async Task<IActionResult> ListByGenre(int genreId)
         {
             var client = _clientFactory.CreateClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/GetMoviesByGenre/{genreId}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}GetMoviesByGenre/{genreId}");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("User-Agent", "DotNetflix.Web");
 
@@ -90,7 +96,7 @@ namespace DotNetflix.Web.Controllers
         public async Task<IActionResult> RateMovie(string movieId)
         {
             var client = _clientFactory.CreateClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/getmovie/{movieId}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}getmovie/{movieId}");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("User-Agent", "DotNetflix.Web");
 
@@ -111,7 +117,7 @@ namespace DotNetflix.Web.Controllers
         public async Task<IActionResult> ListAdult(bool isAdult)
         {
             var client = _clientFactory.CreateClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:51044/api/movie/GetAdultMovies/{isAdult}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}GetAdultMovies/{isAdult}");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("User-Agent", "DotNetflix.Web");
 
