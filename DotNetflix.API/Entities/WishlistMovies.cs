@@ -7,6 +7,7 @@ namespace DotNetflix.API.Entities
 {
     public class WishlistMovies
     {
+        public int Id { get; set; }
         public string MovieId { get; set; }
         public Movies Movie { get; set; }
         public int UserId { get; set; }

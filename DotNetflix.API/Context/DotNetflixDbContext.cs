@@ -32,6 +32,17 @@ namespace DotNetflix.API.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<WishlistMovies>(entity =>
+            {
+                entity.HasKey(m => m.Id);
+
+            });
+
+            modelBuilder.Entity<RatedMovies>(entity =>
+            {
+                entity.HasKey(m => m.RatingId);
+                
+            });
             modelBuilder.Entity<MovieGenres>(entity =>
             { 
                 entity.HasKey(mg => new { mg.MoviesId, mg.GenresId });
