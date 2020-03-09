@@ -103,7 +103,7 @@ namespace DotNetflix.API.Controllers
             return Ok(mappedMovies);
         }
 
-        [HttpGet("{carouselData}")]
+        [HttpGet]
         public ActionResult<IEnumerable<Carousel>> GetCarouselData()
         {
             var data = movieRepository.GetCarouselData();
