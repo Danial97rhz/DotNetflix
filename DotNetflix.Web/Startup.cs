@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.EntityFrameworkCore;
+using DotNetflix.Web.Context;
+using Microsoft.AspNetCore.Identity;
 
 namespace DotNetflix.Web
 {
@@ -22,7 +25,14 @@ namespace DotNetflix.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc();
-            services.AddHttpClient(); 
+            services.AddHttpClient();
+
+            // Services added for Identity ============>
+            services.AddDbContext<IdentityDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<IdentityDbContext>();
+            services.AddRazorPages();
+            // <========================================
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,11 +54,17 @@ namespace DotNetflix.Web
 
             app.UseRouting();
 
+            // Authentication added for Identity ====>
+            app.UseAuthentication();
+            app.UseAuthorization();
+            // <======================================
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                // Razor pages added for Identity
                 endpoints.MapRazorPages();
             });
 
