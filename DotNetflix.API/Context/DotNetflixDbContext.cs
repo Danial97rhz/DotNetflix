@@ -21,6 +21,8 @@ namespace DotNetflix.API.Context
         public DbSet<MovieGenres> MovieGenres { get; set; }
         public DbSet<MoviesDetails> MoviesDetails { get; set; }
 
+        public DbSet<CarouselDatas> CarouselDatas { get; set; }
+
         //public DbSet<Role> Roles { get; set; }
         //public DbSet<User> Users { get; set; }
         //public DbSet<UserMovies> UserMovies { get; set; }
