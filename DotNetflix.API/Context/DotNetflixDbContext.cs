@@ -42,7 +42,6 @@ namespace DotNetflix.API.Context
                 .WithMany(m => m.MovieGenres)
                 .HasForeignKey(mg => mg.MoviesId);
 
-
             });
 
             modelBuilder.Entity<Movies>( entity =>

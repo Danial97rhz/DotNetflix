@@ -14,7 +14,8 @@ namespace DotNetflix.API.Entities
         public int UserId { get; set; }
         //User not yet implemented.
         //public User User { get; set; }
-        [Range(1,11)]
+        
+        [Range(1,10)]
         public int UserRating { get; set; }
         public string ReviewText { get; set; }
 
