@@ -1,10 +1,9 @@
-﻿using DotNetflix.API.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DotNetflix.API.Models
+namespace DotNetflix.Web.Models
 {
     public class RatedMovie
     {
