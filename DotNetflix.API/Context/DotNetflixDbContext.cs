@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace DotNetflix.API.Context
 {
-    public class DotNetflixDbContext : DbContext
+    // IDENTITY: Changed to derive from IdentityDbContext
+    public class DotNetflixDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
     {
         /* Constructor gets DbContext options via 
         dependecy injections from the startup file */
@@ -27,6 +29,9 @@ namespace DotNetflix.API.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // IDENTITY: Call base class OnModelCreating
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<MovieGenres>(entity =>
             { 
                 entity.HasKey(mg => new { mg.MoviesId, mg.GenresId });
