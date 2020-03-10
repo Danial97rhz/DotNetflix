@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using DotNetflix.Web.Auth;
 using DotNetflix.Web.ViewModels;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -14,11 +17,14 @@ namespace DotNetflix.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
+        private readonly IHttpClientFactory _clientFactory;
+
         public AccountController(UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, IHttpClientFactory httpClientFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _clientFactory = httpClientFactory;
         }
 
         [AllowAnonymous]
@@ -65,16 +71,31 @@ namespace DotNetflix.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(LoginViewModel loginViewModel)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = loginViewModel.UserName };
-                var result = await _userManager.CreateAsync(user, loginViewModel.Password);
+                var client = _clientFactory.CreateClient();
+                var request = new HttpRequestMessage(HttpMethod.Post, $"http://localhost:51044/api/account/register/");
 
-                if (result.Succeeded)
+                var user = new ApplicationUser()
+                {
+                    UserName = loginViewModel.UserName,
+                    PasswordHash = loginViewModel.Password
+                };
+
+                var userJson = JsonSerializer.Serialize(user);
+
+                request.Headers.Add("Accept", "application/json");
+                request.Headers.Add("User-Agent", "DotNetflix.Web");
+                request.Content = new StringContent(userJson, Encoding.UTF8, "application/json");
+
+                var response = await client.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index", "Home");
                 }
             }
+
             return View(loginViewModel);
         }
 
