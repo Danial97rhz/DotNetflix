@@ -3,6 +3,7 @@ using DotNetflix.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DotNetflix.Web.Controllers
@@ -72,18 +73,32 @@ namespace DotNetflix.Web.Controllers
             if (user == null)
                 return RedirectToAction("UserManagement", _userManager.Users);
 
-            return View(user);
+            //var claims = await _userManager.GetClaimsAsync(user);
+
+            // Create new EditUserView and fill with data from user object retrived from db
+            var vm = new EditUserViewModel();
+            vm.Id = user.Id != null ? user.Id : "Unkown";
+            vm.Email = user.Email != null ? user.Email : "Unkown";
+            vm.UserName = user.UserName != null ? user.UserName : "Unkown";
+            vm.Birthdate = user.BirthDate != null ? user.BirthDate : new System.DateTime();
+            vm.City = user.City != null ? user.City : "Unkown";
+            vm.Country = user.Country != null ? user.Country : "Unkown";
+
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(string id, string UserName, string Email)
+        public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(editUserViewModel.Id);
 
             if (user != null)
             {
-                user.Email = Email;
-                user.UserName = UserName;
+                user.Email = editUserViewModel.Email;
+                user.UserName = editUserViewModel.UserName;
+                user.BirthDate = editUserViewModel.Birthdate;
+                user.City = editUserViewModel.City;
+                user.Country = editUserViewModel.Country;
 
                 var result = await _userManager.UpdateAsync(user);
 
@@ -92,7 +107,7 @@ namespace DotNetflix.Web.Controllers
 
                 ModelState.AddModelError("", "User not updated, something went wrong.");
 
-                return View(user);
+                return View(editUserViewModel);
             }
 
             return RedirectToAction("UserManagement", _userManager.Users);
@@ -125,10 +140,10 @@ namespace DotNetflix.Web.Controllers
             return View(roles);
         }
 
-        public IActionResult AddNewRole() => View();
+        public IActionResult AddRole() => View();
 
         [HttpPost]
-        public async Task<IActionResult> AddNewRole(AddRoleViewModel addRoleViewModel)
+        public async Task<IActionResult> AddRole(AddRoleViewModel addRoleViewModel)
         {
 
             if (!ModelState.IsValid) return View(addRoleViewModel);
@@ -150,6 +165,152 @@ namespace DotNetflix.Web.Controllers
                 ModelState.AddModelError("", error.Description);
             }
             return View(addRoleViewModel);
+        }
+
+        public async Task<IActionResult> EditRole(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null)
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+
+            var editRoleViewModel = new EditRoleViewModel
+            {
+                Id = role.Id,
+                RoleName = role.Name,
+                Users = new List<string>()
+            };
+
+
+            foreach (var user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                    editRoleViewModel.Users.Add(user.UserName);
+            }
+
+            return View(editRoleViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRole(EditRoleViewModel editRoleViewModel)
+        {
+            var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id);
+
+            if (role != null)
+            {
+                role.Name = editRoleViewModel.RoleName;
+
+                var result = await _roleManager.UpdateAsync(role);
+
+                if (result.Succeeded)
+                    return RedirectToAction("RoleManagement", _roleManager.Roles);
+
+                ModelState.AddModelError("", "Role not updated, something went wrong.");
+
+                return View(editRoleViewModel);
+            }
+
+            return RedirectToAction("RoleManagement", _roleManager.Roles);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            if (role != null)
+            {
+                var result = await _roleManager.DeleteAsync(role);
+                if (result.Succeeded)
+                    return RedirectToAction("RoleManagement", _roleManager.Roles);
+                ModelState.AddModelError("", "Something went wrong while deleting this role.");
+            }
+            else
+            {
+                ModelState.AddModelError("", "This role can't be found.");
+            }
+            return View("RoleManagement", _roleManager.Roles);
+        }
+
+        public async Task<IActionResult> AddUserToRole(string roleId)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId);
+
+            if (role == null)
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+
+            var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
+
+            foreach (var user in _userManager.Users)
+            {
+                if (!await _userManager.IsInRoleAsync(user, role.Name))
+                {
+                    addUserToRoleViewModel.Users.Add(user);
+                }
+            }
+
+            return View(addUserToRoleViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddUserToRole(UserRoleViewModel userRoleViewModel)
+        {
+            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
+            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+
+            var result = await _userManager.AddToRoleAsync(user, role.Name);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(userRoleViewModel);
+        }
+
+        public async Task<IActionResult> DeleteUserFromRole(string roleId)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId);
+
+            if (role == null)
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+
+            var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
+
+            foreach (var user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                {
+                    addUserToRoleViewModel.Users.Add(user);
+                }
+            }
+
+            return View(addUserToRoleViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserFromRole(UserRoleViewModel userRoleViewModel)
+        {
+            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
+            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+
+            var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(userRoleViewModel);
         }
     }
 }

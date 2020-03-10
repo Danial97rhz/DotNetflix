@@ -1,4 +1,4 @@
-﻿namespace DotNetflix.Web.Components
+﻿namespace DotNetflix.Web.Models
 {
     public class AdminMenuItem
     {

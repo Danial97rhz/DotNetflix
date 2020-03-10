@@ -1,4 +1,4 @@
-﻿@*@model EditUserViewModel
+﻿@model EditUserViewModel
 
 <h2>Edit user</h2>
 
@@ -63,7 +63,7 @@
     </div>
 </form>
 
-<h3>Claims for this user</h3>
+@*<h3>Claims for this user</h3>
 <ul>
     @foreach (var claim in Model.UserClaims)
     {
@@ -71,7 +71,7 @@
             @claim
         </li>
     }
-</ul>
+</ul>*@
 
 
-<a asp-action="ManageClaimsForUser" asp-route-userId="@Model.Id" class="btn btn-primary">Manage claims for this user</a>*@
+<a asp-action="ManageClaimsForUser" asp-route-userId="@Model.Id" class="btn btn-primary">Manage claims for this user</a>

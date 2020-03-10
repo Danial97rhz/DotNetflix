@@ -1,4 +1,4 @@
-﻿@*@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+﻿@using Microsoft.AspNetCore.Identity
 
 @model IEnumerable<IdentityRole>
 
@@ -23,7 +23,7 @@ else
                 <td>@role.Name</td>
                 <td>
                     <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">
-                        <a class="btn btn-sm btn-primary" asp-action="EditRole" asp-route-id="@role.Id">Edit</a>
+                        <a class="btn btn-sm btn-info" asp-action="EditRole" asp-route-id="@role.Id">Edit</a>
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this role?');">
                             Delete
                         </button>
@@ -34,5 +34,5 @@ else
     </table>
 }
 <p>
-    <a class="btn btn-primary" asp-action="AddNewRole">Add new role</a>
-</p>*@
+    <a class="btn btn-info" asp-action="AddRole">Add new role</a>
+</p>

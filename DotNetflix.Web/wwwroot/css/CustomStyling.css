@@ -18,20 +18,35 @@
     transition: opacity .2s;
 }
 
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #5bc0de;
-        cursor: pointer;
-    }
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #5bc0de;
+    cursor: pointer;
+}
 
-    .slider::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #5bc0de;
-        cursor: pointer;
-    }
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #5bc0de;
+    cursor: pointer;
+}
+
+
+/*==================== MY ACCOUNT PAGE ======================*/
+#section_myAccount {
+    background-image: url('../img/film.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+#section_myAccount > .text-white {
+    text-shadow: 2px 2px black;
+}
+
