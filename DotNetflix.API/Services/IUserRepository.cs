@@ -8,6 +8,17 @@ namespace DotNetflix.API.Services
 {
     public interface IUserRepository
     {
-        List<WishlistMovies> GetUserWishList(int userId);
+        List<WishlistMovies> GetWishList(int userId);
+        void AddToWishlist(WishlistMovies wishlistMovie);
+        void DeleteWishlistMovie(WishlistMovies wishlistMovie);
+        WishlistMovies GetWishlistMovie(int id);
+
+        List<RatedMovies> GetRatedMovieList(int userId);
+        void AddRatedMovie(RatedMovies ratedMovie);
+        void DeleteRatedMovie(RatedMovies ratedMovie);
+        RatedMovies GetRatedMovie(int id);
+        void UpdateRatedMovie(RatedMovies ratedMovie);
+
+        Task<bool> Save();
     }
 }

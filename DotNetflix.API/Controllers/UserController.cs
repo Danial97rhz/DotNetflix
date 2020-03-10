@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DotNetflix.API.Context;
-using DotNetflix.API.Entities;
+﻿using DotNetflix.API.Entities;
 using DotNetflix.API.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DotNetflix.API.Controllers
 {
@@ -26,82 +21,138 @@ namespace DotNetflix.API.Controllers
         [HttpGet("{userId}")]
         public ActionResult<IEnumerable<WishlistMovies>> GetWishlist(int userId)
         {
-            return _repository.GetUserWishList(userId);
+            var wishlist = _repository.GetWishList(userId);
+
+            if (wishlist == null)
+            {
+                return NotFound("Wishlist not found.");
+            }
+
+            return wishlist;
         }
 
-        // GET: api/User/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<WishlistMovies>> GetWishlistMovies(int id)
-        //{
-        //    var wishlistMovies = await _context.Wishlist.FindAsync(id);
+        [HttpPost]
+        public async Task<ActionResult<WishlistMovies>> PostWishlistMovie(WishlistMovies wishlistMovies)
+        {
+            _repository.AddToWishlist(wishlistMovies);
 
-        //    if (wishlistMovies == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (!await _repository.Save())
+            {
+                return BadRequest("Add to wishlist has failed.");
+            }
 
-        //    return wishlistMovies;
-        //}
+            return Ok();
 
-        // PUT: api/User/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutWishlistMovies(int id, WishlistMovies wishlistMovies)
-        //{
-        //    if (id != wishlistMovies.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+            //make it work
+            //return CreatedAtAction("GetUserWishlistMovie", new { id = wishlistMovies.Id }, wishlistMovies);
+        }
 
-        //    _context.Entry(wishlistMovies).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!WishlistMoviesExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+        [HttpGet("{id}")]
+        public ActionResult<WishlistMovies> GetWishlistMovie(int id)
+        {
+            var wishlistMovie = _repository.GetWishlistMovie(id);
 
-        //    return NoContent();
-        //}
+            if (wishlistMovie == null)
+            {
+                return NotFound();
+            }
 
-        // POST: api/User
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPost]
-        //public async Task<ActionResult<WishlistMovies>> PostWishlistMovies(WishlistMovies wishlistMovies)
-        //{
-        //    _context.Wishlist.Add(wishlistMovies);
-        //    await _context.SaveChangesAsync();
+            return wishlistMovie;
+        }
 
-        //    return CreatedAtAction("GetWishlistMovies", new { id = wishlistMovies.Id }, wishlistMovies);
-        //}
 
-        //// DELETE: api/User/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<WishlistMovies>> DeleteWishlistMovies(int id)
-        //{
-        //    var wishlistMovies = await _context.Wishlist.FindAsync(id);
-        //    if (wishlistMovies == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<WishlistMovies>> DeleteWishlistMovie(int id)
+        {
+            var wishlistMovies = _repository.GetWishlistMovie(id);
+            if (wishlistMovies == null)
+            {
+                return NotFound();
+            }
 
-        //    _context.Wishlist.Remove(wishlistMovies);
-        //    await _context.SaveChangesAsync();
+            _repository.DeleteWishlistMovie(wishlistMovies);
+            await _repository.Save();
 
-        //    return wishlistMovies;
-        //}
+            return wishlistMovies;
+        }
+
+
+        [HttpGet("{userId}")]
+        public ActionResult<IEnumerable<RatedMovies>> GetRatedMovieList(int userId)
+        {
+            var RatedMovieList = _repository.GetRatedMovieList(userId);
+
+            if (RatedMovieList == null)
+            {
+                return NotFound("Rate Movies not found.");
+            }
+
+            return RatedMovieList;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<WishlistMovies>> PostRatedMovie(RatedMovies ratedMovies)
+        {
+            _repository.AddRatedMovie(ratedMovies);
+
+            if (!await _repository.Save())
+            {
+                return BadRequest("Add to rated movies has failed.");
+            }
+
+            return Ok();
+
+            //make it work
+            //return CreatedAtAction("GetUserWishlistMovie", new { id = wishlistMovies.Id }, wishlistMovies);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<RatedMovies> GetRatedMovie(int id)
+        {
+            var ratedMovie = _repository.GetRatedMovie(id);
+
+            if (ratedMovie == null)
+            {
+                return NotFound();
+            }
+
+            return ratedMovie;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<RatedMovies>> DeleteRatedMovie(int id)
+        {
+            var RatedMovie = _repository.GetRatedMovie(id);
+            if (RatedMovie == null)
+            {
+                return NotFound();
+            }
+
+            _repository.DeleteRatedMovie(RatedMovie);
+            await _repository.Save();
+
+            return RatedMovie;
+        }
+
+       
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutRatedMovie(int id, RatedMovies ratedMovie)
+        {
+            if (id != ratedMovie.RatingId)
+            {
+                return BadRequest();
+            }
+
+            _repository.UpdateRatedMovie(ratedMovie);
+
+            if (!await _repository.Save())
+            {
+                return BadRequest();
+            }
+            
+            return NoContent();
+        }
 
         //private bool WishlistMoviesExists(int id)
         //{

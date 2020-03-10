@@ -12,6 +12,6 @@ namespace DotNetflix.API.Entities
         public Movies Movie { get; set; }
         public int UserId { get; set; }
         //public User User { get; set; }
-        public DateTime DateAdded { get; set; } = DateTime.UtcNow;
+        public DateTime DateAdded { get; set; }
     }
 }
