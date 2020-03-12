@@ -1,4 +1,6 @@
 ﻿using DotNetflix.API.Entities;
+using DotNetflix.API.HelperMethods;
+using DotNetflix.API.Models;
 using DotNetflix.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -19,18 +21,34 @@ namespace DotNetflix.API.Controllers
 
         // GET: api/User
         [HttpGet("{userId}")]
-        public ActionResult<IEnumerable<WishlistMovies>> GetWishlist(int userId)
+        public ActionResult<IEnumerable<WishList>> GetWishlist(int userId)
         {
-            var wishlist = _repository.GetWishList(userId);
+            var wishlistEntity = _repository.GetWishList(userId);
 
-            if (wishlist == null)
+            if (wishlistEntity == null)
             {
                 return NotFound("Wishlist not found.");
             }
 
-            return wishlist;
-        }
+            var wishlistModel = Map.ToWishlistFromObjectList(wishlistEntity);
 
+            return wishlistModel;
+        }
+        [HttpPost]
+        public async Task<ActionResult<RatedMovies>> PostRatedMovie(RatedMovies ratedMovie)
+        {
+            _repository.AddRatedMovie(ratedMovie);
+
+            if (!await _repository.Save())
+            {
+                return BadRequest("Add to rated movies has failed.");
+            }
+
+            return Ok();
+
+            //make it work
+            //return CreatedAtAction("GetUserWishlistMovie", new { id = wishlistMovies.Id }, wishlistMovies);
+        }
         [HttpPost]
         public async Task<ActionResult<WishlistMovies>> PostWishlistMovie(WishlistMovies wishlistMovies)
         {
@@ -91,21 +109,7 @@ namespace DotNetflix.API.Controllers
             return RatedMovieList;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<WishlistMovies>> PostRatedMovie(RatedMovies ratedMovies)
-        {
-            _repository.AddRatedMovie(ratedMovies);
 
-            if (!await _repository.Save())
-            {
-                return BadRequest("Add to rated movies has failed.");
-            }
-
-            return Ok();
-
-            //make it work
-            //return CreatedAtAction("GetUserWishlistMovie", new { id = wishlistMovies.Id }, wishlistMovies);
-        }
 
         [HttpGet("{id}")]
         public ActionResult<RatedMovies> GetRatedMovie(int id)

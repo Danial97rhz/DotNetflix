@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DotNetflix.Web.ViewModels.MovieInfoViewModel>
+﻿@model WishlistViewModel
 
 @{
     ViewData["Title"] = "Wishlist";
@@ -12,16 +12,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th></th>
+            <th>Title / Year</th>
+            <th>Added to wishlist</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var movie in Model.WishlistMovies) {
         <tr>
+            <td><a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.MovieId">
+                @movie.Title
+                @movie.Year.GetValueOrDefault()
+            </a></td>
+            <td>@movie.DateAdded.ToShortDateString()</td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.MovieId" type="submit" class="btn btn-info">Rate movie</a>                
+                <a asp-controller="UserMovie" asp-action="RemoveFromWishlist" asp-route-movieId="@movie.MovieId" type="submit" class="btn btn-outline-danger mr-1">Remove from wishlist</a>
             </td>
         </tr>
 }

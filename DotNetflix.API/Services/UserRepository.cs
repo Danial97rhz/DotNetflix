@@ -20,7 +20,9 @@ namespace DotNetflix.API.Services
         public List<WishlistMovies> GetWishList(int userId)
         {
             var wishlist = _context.Wishlist
-                .Where(x => x.UserId == userId).ToList();
+                .Where(x => x.UserId == userId)
+                .Include(m => m.Movie)
+                .ToList();
 
             return wishlist;
         }
@@ -48,7 +50,9 @@ namespace DotNetflix.API.Services
         public List<RatedMovies> GetRatedMovieList(int userId)
         {
             var ratedList = _context.RatedMovies
-                .Where(x => x.UserId == userId).ToList();
+                .Where(x => x.UserId == userId)
+                .Include(m => m.Movie)                
+                .ToList();
 
             return ratedList;
         }

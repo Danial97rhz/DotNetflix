@@ -94,7 +94,7 @@ namespace DotNetflix.Web.Controllers
         }
 
         public async Task<IActionResult> RateMovie(string movieId)
-        {
+        {            
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}getmovie/{movieId}");
             request.Headers.Add("Accept", "application/json");

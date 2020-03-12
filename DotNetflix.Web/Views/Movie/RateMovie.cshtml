@@ -6,23 +6,24 @@
 <br />
 <br />
 <div class="container">
-    <form  method="post" asp-action="SaveMovieRating"  asp-controller="UserMovie">
+    <form  method="post" asp-action="AddToRatedMovies"  asp-controller="UserMovie">
         <div class="row">
             <div class="slidecontainer">
-                <input type="range" @*asp-for="Rating"*@ min="1" max="10" value="5" class="slider" id="myRange">
+                <input type="range" name="UserRating" min="1" max="10" value="5" class="slider" id="myRange">
                 <p>Your rating: <span id="value"></span>/10</p>
             </div>
         </div>
         <div class="row">
             <div class="col-6">
                 <label>Review</label>
-                <textarea rows="8" @*asp-for="Review"*@ cols="60" placeholder="Type your review of @Model.Movie.Title..." id="padding-text-area"></textarea>
+                <textarea rows="8" name="ReviewText" cols="60" placeholder="Type your review of @Model.Movie.Title..." id="padding-text-area"></textarea>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <br />
-                <button asp-route-movieId="@Model.Movie.Id" type="submit" class="btn btn-info">Save Rating</button>
+                <input type="hidden" name="movieId" asp-for="@Model.Movie.Id" />
+                <button type="submit" class="btn btn-info">Save Rating</button>
             </div>
         </div>
     </form>
