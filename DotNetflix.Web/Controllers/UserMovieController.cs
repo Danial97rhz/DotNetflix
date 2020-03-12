@@ -81,7 +81,7 @@ namespace DotNetflix.Web.Controllers
             return RedirectToAction("RatedMovies", "UserMovie");
         }
 
-        [HttpPost]
+
         public async Task<IActionResult> AddToWishlist(string movieId)
         {
             WishlistOut wishlistMovie = new WishlistOut();
