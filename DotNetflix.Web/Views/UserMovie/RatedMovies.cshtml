@@ -1,1 +1,13 @@
-﻿
+﻿@model RateMovieViewModel
+
+<h1>Rated Movies</h1>
+
+
+        @foreach (var movie in Model.RatedMovies)
+        {
+            <div class="border border-info rounded m-2 p-2">
+                <h2>@movie.Movie.Title <small class="text-muted">(@movie.Movie.Year)</small></h2>
+                <h3 class="font-italic">@movie.UserRating/10</h3>
+                <p>@movie.ReviewText</p>                
+            </div>
+        }
