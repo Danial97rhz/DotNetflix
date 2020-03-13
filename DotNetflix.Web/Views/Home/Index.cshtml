@@ -1,10 +1,63 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@model CarouselViewModel
+
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <!--Test for header & footer från "_Layout.cshtml"-->
 </div>
+
+
+
+<div style="background-color:gray" id="HomeCarousel" class="carousel slide mb-2" data-ride="carousel">
+
+    <ol class="carousel-indicators">
+        <li data-target="#HomeCarousel" data-slide-to="0" class="active"></li>
+        @for (int i = 1; i < Model.Carouseldata.Count(); i++)
+        {
+            <li data-target="#HomeCarousel" data-slide-to="@i"></li>
+        }
+    </ol>
+
+
+    <div class="carousel-inner">
+
+        @{string s = "";}
+        @foreach (var data in Model.Carouseldata)
+        {
+            if (data.Id == Model.Carouseldata.First().Id)
+            {
+                s = "active";
+            }
+            else { s = ""; }
+            <div class="carousel-item @s container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img width="300" height="426" src="@data.ImgPath" alt="" />
+                    </div>
+                    <div class="col-sm-8">
+                        <h2>@data.Title</h2>
+                        <p>@data.Text</p>
+                        <i>@data.DateAdded.ToString("dddd, dd MMMM yyyy")</i>
+                    </div>
+                </div>
+            </div>
+        }
+        <a class="carousel-control-prev" href="#HomeCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#HomeCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-4">

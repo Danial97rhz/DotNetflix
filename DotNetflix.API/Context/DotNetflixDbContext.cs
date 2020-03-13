@@ -22,13 +22,29 @@ namespace DotNetflix.API.Context
         public DbSet<Movies> Movies { get; set; }
         public DbSet<MovieGenres> MovieGenres { get; set; }
         public DbSet<MoviesDetails> MoviesDetails { get; set; }
+        public DbSet<WishlistMovies> Wishlist { get; set; }
+        public DbSet<RatedMovies> RatedMovies { get; set; }
+
+        public DbSet<CarouselDatas> CarouselDatas { get; set; }
 
         //public DbSet<Role> Roles { get; set; }
         //public DbSet<User> Users { get; set; }
         //public DbSet<UserMovies> UserMovies { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<WishlistMovies>(entity =>
+            {
+                entity.HasKey(m => m.Id);
+
+            });
+
+            modelBuilder.Entity<RatedMovies>(entity =>
+            {
+                entity.HasKey(m => m.RatingId);
+                
+            });
             // IDENTITY: Call base class OnModelCreating
             base.OnModelCreating(modelBuilder);
 
@@ -43,7 +59,6 @@ namespace DotNetflix.API.Context
                 entity.HasOne(mg => mg.Movie)
                 .WithMany(m => m.MovieGenres)
                 .HasForeignKey(mg => mg.MoviesId);
-
 
             });
 
