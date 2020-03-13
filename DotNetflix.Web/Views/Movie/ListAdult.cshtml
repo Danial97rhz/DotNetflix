@@ -29,14 +29,10 @@
                     }
                 </td>
                 <td>
-                    <form asp-controller="Movie" asp-action="Wishlist" asp-route-movieid="@movie.Id">
-                        <button class="btn btn-outline-success">Add to wishlist</button>
-                    </form>
+                        <a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@movie.Id" class="btn btn-outline-success">Add to wishlist</a>
                 </td>
                 <td>
-                    <form asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id">
-                        <button class="btn btn-outline-primary">Rate Movie</button>
-                    </form>
+                        <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieId="@movie.Id" class="btn btn-outline-primary">Rate Movie</a>                    
                 </td>
             </tr>
 

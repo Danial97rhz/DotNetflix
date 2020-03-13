@@ -90,5 +90,29 @@ namespace DotNetflix.API.HelperMethods
             };           
             return moviesOut;
         }
+
+        public static List<WishList> ToWishlistFromObjectList(IEnumerable<WishlistMovies> wishlistEntity)
+        {
+            var wishlistList = new List<WishList>();
+
+            foreach (var entity in wishlistEntity)
+            {
+
+            WishList wishlistModel =
+            new WishList
+            {
+                Id = entity.Id,
+                UserId = entity.UserId,
+                DateAdded = entity.DateAdded,
+                MovieId = entity.MovieId,
+                Title = entity.Movie.Title,
+                Year = entity.Movie.Year,
+                Rating = entity.Movie.AvgRating
+            };
+                wishlistList.Add(wishlistModel);
+            }
+
+            return wishlistList;
+        }
     }
 }

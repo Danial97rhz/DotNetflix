@@ -124,6 +124,30 @@ namespace DotNetflix.API.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("DotNetflix.API.Entities.CarouselDatas", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImgPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CarouselDatas");
+                });
+
             modelBuilder.Entity("DotNetflix.API.Entities.Genres", b =>
                 {
                     b.Property<int>("Id")
@@ -326,6 +350,55 @@ namespace DotNetflix.API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("DotNetflix.API.Entities.RatedMovies", b =>
+                {
+                    b.Property<int>("RatingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("MovieId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ReviewText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserRating")
+                        .HasColumnType("int");
+
+                    b.HasKey("RatingId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("RatedMovies");
+                });
+
+            modelBuilder.Entity("DotNetflix.API.Entities.WishlistMovies", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MovieId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Wishlist");
+                });
+
             modelBuilder.Entity("DotNetflix.API.Entities.MovieGenres", b =>
                 {
                     b.HasOne("DotNetflix.API.Entities.Genres", "Genre")
@@ -397,6 +470,20 @@ namespace DotNetflix.API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DotNetflix.API.Entities.RatedMovies", b =>
+                {
+                    b.HasOne("DotNetflix.API.Entities.Movies", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId");
+                });
+
+            modelBuilder.Entity("DotNetflix.API.Entities.WishlistMovies", b =>
+                {
+                    b.HasOne("DotNetflix.API.Entities.Movies", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId");
                 });
 #pragma warning restore 612, 618
         }

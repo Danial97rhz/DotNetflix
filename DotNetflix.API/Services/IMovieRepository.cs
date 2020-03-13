@@ -16,5 +16,7 @@ namespace DotNetflix.API.Services
 
         Task<bool> SaveChangesAsync();
         void Add<T>(T entity) where T : class;
+
+        IQueryable<CarouselDatas> GetCarouselData();
     }
 }
