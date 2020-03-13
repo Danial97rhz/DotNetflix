@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\**" />
+    <Compile Remove="ModelsDto_Ska tas bort efter null tester\**" />
     <Content Remove="Migrations\**" />
+    <Content Remove="ModelsDto_Ska tas bort efter null tester\**" />
     <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="ModelsDto_Ska tas bort efter null tester\**" />
     <None Remove="Migrations\**" />
+    <None Remove="ModelsDto_Ska tas bort efter null tester\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +24,8 @@
     <Compile Include="Migrations\20200228005145_foreign-keys.Designer.cs" />
     <Compile Include="Migrations\20200302104154_MovieDetailsReleasedToString.cs" />
     <Compile Include="Migrations\20200302104154_MovieDetailsReleasedToString.Designer.cs" />
+    <Compile Include="Migrations\20200309113720_addedWishListRatedMoviesCarousel.cs" />
+    <Compile Include="Migrations\20200309113720_addedWishListRatedMoviesCarousel.Designer.cs" />
     <Compile Include="Migrations\DotNetflixDbContextModelSnapshot.cs" />
   </ItemGroup>
 
@@ -31,6 +37,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0-preview1.19506.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0-preview1-19509-03" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
