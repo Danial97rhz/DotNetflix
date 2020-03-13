@@ -9,7 +9,7 @@ namespace DotNetflix.API.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/Account")]
+    [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -63,7 +63,6 @@ namespace DotNetflix.API.Controllers
             var user = new ApplicationUser() { UserName = userToRegister.UserName };
             var result = await _userManager.CreateAsync(user, userToRegister.Password);
 
-            return Ok();
             if (result.Succeeded)
             {
                 return Ok();
