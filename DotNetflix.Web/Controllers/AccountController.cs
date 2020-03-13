@@ -74,7 +74,7 @@ namespace DotNetflix.Web.Controllers
             if(ModelState.IsValid)
             {
                 var client = _clientFactory.CreateClient();
-                var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:44324/api/Account");
+                var request = new HttpRequestMessage(HttpMethod.Post, $"http://localhost:51044/api/Account/Register");
 
                 var user = new AccountLoginDto()
                 {
@@ -84,7 +84,7 @@ namespace DotNetflix.Web.Controllers
 
                 var userJson = JsonSerializer.Serialize(user);
 
-                request.Headers.Add("Accept", "application/json");
+                //request.Headers.Add("Accept", "application/json");
                 request.Headers.Add("User-Agent", "DotNetflix.Web");
                 request.Content = new StringContent(userJson, Encoding.UTF8, "application/json");
 
