@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using DotNetflix.API.Entities;
+using DotNetflix.API.Models;
 
 namespace DotNetflix.API.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/Account")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -57,12 +58,12 @@ namespace DotNetflix.API.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(ApplicationUser applicationUser)
+        public async Task<IActionResult> Register(AccountLoginDto userToRegister)
         {
-            var user = new ApplicationUser() { UserName = applicationUser.UserName };
-            var result = await _userManager.CreateAsync(user, applicationUser.PasswordHash);
+            var user = new ApplicationUser() { UserName = userToRegister.UserName };
+            var result = await _userManager.CreateAsync(user, userToRegister.Password);
 
+            return Ok();
             if (result.Succeeded)
             {
                 return Ok();

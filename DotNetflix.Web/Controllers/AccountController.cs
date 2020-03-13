@@ -8,6 +8,7 @@ using DotNetflix.Web.ViewModels;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text;
+using DotNetflix.Web.Models;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -16,7 +17,6 @@ namespace DotNetflix.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
         private readonly IHttpClientFactory _clientFactory;
 
         public AccountController(UserManager<ApplicationUser> userManager,
@@ -68,18 +68,18 @@ namespace DotNetflix.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(LoginViewModel loginViewModel)
         {
             if(ModelState.IsValid)
             {
                 var client = _clientFactory.CreateClient();
-                var request = new HttpRequestMessage(HttpMethod.Post, $"http://localhost:51044/api/account/register/");
+                var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:44324/api/Account");
 
-                var user = new ApplicationUser()
+                var user = new AccountLoginDto()
                 {
                     UserName = loginViewModel.UserName,
-                    PasswordHash = loginViewModel.Password
+                    Password = loginViewModel.Password
                 };
 
                 var userJson = JsonSerializer.Serialize(user);
