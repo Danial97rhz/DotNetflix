@@ -34,8 +34,8 @@ namespace DotNetflix.Web.Controllers
             _clientFactory = clientFactory;
             _config = config;
             UserAPIRoot = _config.GetValue(typeof(string), "UserAPIRoot").ToString();
-            //_signInManager = signInManager;
-            //_userManager = userManager;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -50,8 +50,6 @@ namespace DotNetflix.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Wishlist(int userId)
         {
-            //var userId = Convert.ToInt32._userManager.GetUserId(User);
-
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{UserAPIRoot}GetWishlist/{userId}");
             request.Headers.Add("Accept", "application/json");
