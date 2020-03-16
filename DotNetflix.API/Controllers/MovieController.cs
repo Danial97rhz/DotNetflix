@@ -32,7 +32,6 @@ namespace DotNetflix.API.Controllers
             var movies = movieRepository.GetMovies(title);
 
             var mappedMovies = Map.ToMovie(movies)
-                .OrderBy(m => m.Title)
                 .ToList();
 
             if (mappedMovies == null)

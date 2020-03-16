@@ -28,6 +28,8 @@ namespace DotNetflix.Web.Controllers
 
         public async Task<IActionResult> List(string title)        
         {
+            if (string.IsNullOrEmpty(title)) title = "abc";
+
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}getmovies/{title}");
             request.Headers.Add("Accept", "application/json");

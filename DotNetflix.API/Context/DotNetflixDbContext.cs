@@ -60,7 +60,7 @@ namespace DotNetflix.API.Context
             modelBuilder.Entity<Movies>( entity =>
             {
                 entity.HasKey(m => m.MovieId);
-
+              
                 entity.HasOne(m => m.Details)
                 .WithOne(d => d.Movie);
             });

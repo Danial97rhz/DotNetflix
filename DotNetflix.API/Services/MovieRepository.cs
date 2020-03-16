@@ -31,13 +31,20 @@ namespace DotNetflix.API.Services
             {
                 title = title.ToLower();
             }
+            else
+            {
+                title = "";
+            }
 
-            // Filter movies on search term
+            // Filter movies on search term - AsNoTracking speeds up search but should only be used for readonly queries.
+
             var movies = context.Movies
                 .Where(m =>
-                    string.IsNullOrEmpty(title)
-                    || m.Title.ToLower().Contains(title)
-                    || m.Year.ToString().Equals(title));
+                    m.Title.ToLower().Contains(title)
+                    || m.Year.ToString().Equals(title))
+                .OrderByDescending(m => m.AvgRating)
+                .Take(30).AsNoTracking()
+                ;
 
             // Map to movie and return
             return movies;
