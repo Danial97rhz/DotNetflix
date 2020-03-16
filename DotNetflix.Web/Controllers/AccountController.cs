@@ -72,7 +72,7 @@ namespace DotNetflix.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return await Login(loginViewModel);
                 }
             }
             return View(loginViewModel);
