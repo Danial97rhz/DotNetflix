@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DotNetflix.Web.Auth
 {
-    public class ApplicationRole : IdentityRole
+    public class ApplicationRole : IdentityRole<int>
     {
     }
 }

@@ -92,8 +92,6 @@ namespace DotNetflix.Web.Controllers
 
         public IActionResult MyAccount()
         {
-            var id2 = _userManager.FindByIdAsync(User.Identity.GetUserId());
-            var id = User.Identity.GetUserId();
             var vm = new MyAccountViewModel()
             {
                 UserName = User.Identity.Name
@@ -103,9 +101,9 @@ namespace DotNetflix.Web.Controllers
         }
 
 
-        public async Task<IActionResult> EditUser(string id)
+        public async Task<IActionResult> EditUser(int id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id.ToString());
 
             if (user == null)
                 return RedirectToAction("UserManagement", _userManager.Users);
@@ -114,7 +112,7 @@ namespace DotNetflix.Web.Controllers
 
             // Create new EditUserView and fill with data from user object retrived from db
             var vm = new EditUserViewModel();
-            vm.Id = user.Id != null ? user.Id : "Unkown";
+            //vm.Id = user.Id != null ? user.Id : "Unkown";
             vm.Email = user.Email != null ? user.Email : "Unkown";
             vm.UserName = user.UserName != null ? user.UserName : "Unkown";
             vm.Birthdate = user.BirthDate != null ? user.BirthDate : new System.DateTime();
@@ -127,7 +125,7 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
         {
-            var user = await _userManager.FindByIdAsync(editUserViewModel.Id);
+            var user = await _userManager.FindByIdAsync(editUserViewModel.Id.ToString());
 
             if (user != null)
             {

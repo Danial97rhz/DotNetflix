@@ -12,10 +12,10 @@ namespace DotNetflix.Web.Controllers
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
         public AdminController(UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -77,7 +77,6 @@ namespace DotNetflix.Web.Controllers
 
             // Create new EditUserView and fill with data from user object retrived from db
             var vm = new EditUserViewModel();
-            vm.Id = user.Id != null ? user.Id : "Unkown";
             vm.Email = user.Email != null ? user.Email : "Unkown";
             vm.UserName = user.UserName != null ? user.UserName : "Unkown";
             vm.Birthdate = user.BirthDate != null ? user.BirthDate : new System.DateTime();
@@ -90,7 +89,7 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
         {
-            var user = await _userManager.FindByIdAsync(editUserViewModel.Id);
+            var user = await _userManager.FindByIdAsync(editUserViewModel.Id.ToString());
 
             if (user != null)
             {
@@ -148,7 +147,7 @@ namespace DotNetflix.Web.Controllers
 
             if (!ModelState.IsValid) return View(addRoleViewModel);
 
-            var role = new IdentityRole
+            var role = new ApplicationRole
             {
                 Name = addRoleViewModel.RoleName
             };
@@ -194,7 +193,7 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel editRoleViewModel)
         {
-            var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id);
+            var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id.ToString());
 
             if (role != null)
             {
@@ -214,9 +213,9 @@ namespace DotNetflix.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteRole(string id)
+        public async Task<IActionResult> DeleteRole(int id)
         {
-            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            ApplicationRole role = await _roleManager.FindByIdAsync(id.ToString());
             if (role != null)
             {
                 var result = await _roleManager.DeleteAsync(role);
@@ -231,9 +230,9 @@ namespace DotNetflix.Web.Controllers
             return View("RoleManagement", _roleManager.Roles);
         }
 
-        public async Task<IActionResult> AddUserToRole(string roleId)
+        public async Task<IActionResult> AddUserToRole(int roleId)
         {
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var role = await _roleManager.FindByIdAsync(roleId.ToString());
 
             if (role == null)
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -254,8 +253,8 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUserToRole(UserRoleViewModel userRoleViewModel)
         {
-            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
-            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId.ToString());
+            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId.ToString());
 
             var result = await _userManager.AddToRoleAsync(user, role.Name);
 
@@ -295,8 +294,8 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUserFromRole(UserRoleViewModel userRoleViewModel)
         {
-            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
-            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId.ToString());
+            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId.ToString());
 
             var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
 

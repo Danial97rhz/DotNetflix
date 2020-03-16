@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DotNetflix.Web.Auth;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,10 @@ namespace DotNetflix.Web.ViewModels
     {
         public UserRoleViewModel()
         {
-            Users = new List<IdentityUser>();
+            Users = new List<ApplicationUser>();
         }
-        public string UserId { get; set; }
-        public string RoleId { get; set; }
-        public List<IdentityUser> Users { get; set; }
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
+        public List<ApplicationUser> Users { get; set; }
     }
 }

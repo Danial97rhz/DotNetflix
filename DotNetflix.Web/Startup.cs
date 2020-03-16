@@ -32,7 +32,7 @@ namespace DotNetflix.Web
             // Services added for Identity ============>
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<ApplicationUser, IdentityRole>(
+            services.AddIdentity<ApplicationUser, ApplicationRole>(
                 //options =>
                 //{
                 //    options.Password.RequiredLength = 8;

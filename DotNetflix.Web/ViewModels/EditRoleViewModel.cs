@@ -8,7 +8,7 @@ namespace DotNetflix.Web.ViewModels
 {
     public class EditRoleViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter the role name")]
         [Display(Name = "Role name")]

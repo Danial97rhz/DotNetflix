@@ -6,7 +6,7 @@ namespace DotNetflix.Web.ViewModels
 {
     public class EditUserViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter the user name")]
         [Display(Name = "User name")]
