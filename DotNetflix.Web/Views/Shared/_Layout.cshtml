@@ -57,8 +57,8 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" id="myAccountLink" asp-controller="Account" asp-action="MyAccount">My Account</a>
                                 <hr class="dropdown-divider" />
-                                <a class="dropdown-item" href="#">Rated Movies</a>
-                                <a class="dropdown-item" href="#">Wishlist</a>
+                                <a class="dropdown-item" id="myReviewLink" asp-controller="UserMovie" asp-action="RatedMovies">Rated movies</a>
+                                <a class="dropdown-item" id="myWishlistLink" asp-controller="UserMovie" asp-action="Wishlist">Wishlist</a>
                             </div>
                         </li>
                     }
