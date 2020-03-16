@@ -1,4 +1,4 @@
-using DotNetflix.Web.Auth;
+﻿using DotNetflix.Web.Auth;
 using DotNetflix.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

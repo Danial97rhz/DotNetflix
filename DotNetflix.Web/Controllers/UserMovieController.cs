@@ -9,6 +9,9 @@ using DotNetflix.Web.Models;
 using DotNetflix.Web.ViewModels;
 using Microsoft.Extensions.Configuration;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using DotNetflix.Web.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -19,14 +22,21 @@ namespace DotNetflix.Web.Controllers
         private readonly IConfiguration _config;
 
         private readonly string UserAPIRoot;
+
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+
         [BindProperty]
         public RatedMovieOut MovieRating { get; set; }
 
-        public UserMovieController(IHttpClientFactory clientFactory, IConfiguration config)
+        public UserMovieController(IHttpClientFactory clientFactory, IConfiguration config, UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _clientFactory = clientFactory;
             _config = config;
             UserAPIRoot = _config.GetValue(typeof(string), "UserAPIRoot").ToString();
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -38,8 +48,11 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Wishlist(int userId = 1)
+        [Authorize]
+        public async Task<IActionResult> Wishlist()
         {
+            var userId = Convert.ToInt32(_userManager.GetUserId(User));
+
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{UserAPIRoot}GetWishlist/{userId}");
             request.Headers.Add("Accept", "application/json");
@@ -63,7 +76,7 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToRatedMovies(RatedMovieOut ratedMovie)
         {
-            ratedMovie.UserId = 1; //Remove after login stuff is implemented
+            ratedMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User)); 
 
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Post, $"{UserAPIRoot}PostRatedMovie");
@@ -86,7 +99,7 @@ namespace DotNetflix.Web.Controllers
         {
             WishlistOut wishlistMovie = new WishlistOut();
             wishlistMovie.DateAdded = DateTime.UtcNow;
-            wishlistMovie.UserId = 1; //Remove after login stuff is implemented
+            wishlistMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User));
             wishlistMovie.MovieId = movieId;
 
             var client = _clientFactory.CreateClient();
@@ -106,8 +119,10 @@ namespace DotNetflix.Web.Controllers
         }
 
 
-        public async Task<IActionResult> RatedMovies(int userId = 1)
+        public async Task<IActionResult> RatedMovies()
         {
+            int userId = Convert.ToInt32(_userManager.GetUserId(User));
+
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{UserAPIRoot}GetRatedMovieList/{userId}");
             request.Headers.Add("Accept", "application/json");
