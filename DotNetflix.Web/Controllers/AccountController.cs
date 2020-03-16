@@ -92,6 +92,8 @@ namespace DotNetflix.Web.Controllers
 
         public IActionResult MyAccount()
         {
+            var id2 = _userManager.FindByIdAsync(User.Identity.GetUserId());
+            var id = User.Identity.GetUserId();
             var vm = new MyAccountViewModel()
             {
                 UserName = User.Identity.Name

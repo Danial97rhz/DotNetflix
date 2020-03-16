@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotNetflix.Web.Context
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole, int>
     { 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)

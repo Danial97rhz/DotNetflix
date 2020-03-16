@@ -9,6 +9,9 @@ using DotNetflix.Web.Models;
 using DotNetflix.Web.ViewModels;
 using Microsoft.Extensions.Configuration;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using DotNetflix.Web.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -19,6 +22,10 @@ namespace DotNetflix.Web.Controllers
         private readonly IConfiguration _config;
 
         private readonly string UserAPIRoot;
+
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+
         [BindProperty]
         public RatedMovieOut MovieRating { get; set; }
 
@@ -27,6 +34,8 @@ namespace DotNetflix.Web.Controllers
             _clientFactory = clientFactory;
             _config = config;
             UserAPIRoot = _config.GetValue(typeof(string), "UserAPIRoot").ToString();
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -38,8 +47,10 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Wishlist(int userId = 1)
+        [Authorize]
+        public async Task<IActionResult> Wishlist()
         {
+            var userId = Convert.ToInt32._userManager.GetUserId(User);
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{UserAPIRoot}GetWishlist/{userId}");
             request.Headers.Add("Accept", "application/json");

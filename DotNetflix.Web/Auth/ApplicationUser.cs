@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DotNetflix.Web.Auth
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<int>
     {
         public DateTime BirthDate { get; set; }
         public string City { get; set; }
