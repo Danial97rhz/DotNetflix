@@ -49,8 +49,10 @@ namespace DotNetflix.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Wishlist(int userId)
+        public async Task<IActionResult> Wishlist()
         {
+            var userId = Convert.ToInt32(_userManager.GetUserId(User));
+
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{UserAPIRoot}GetWishlist/{userId}");
             request.Headers.Add("Accept", "application/json");
