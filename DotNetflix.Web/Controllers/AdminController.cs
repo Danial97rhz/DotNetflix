@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -28,9 +29,19 @@ namespace DotNetflix.Web.Controllers
 
         public IActionResult UserManagement()
         {
+            var vm = new UserManagementViewModel();
             var users = _userManager.Users;
+            //foreach (var user in users)
+            //{
+            //    new UserManagementUser
+            //    {
+            //        User = user,
+            //        Role = _userManager.GetRolesAsync(user.Id)
+            //    };
+            //}
 
-            return View(users);
+            return View(vm);
+
         }
 
         public IActionResult AddUser()

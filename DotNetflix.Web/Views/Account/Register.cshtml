@@ -1,9 +1,9 @@
 ﻿
-@model LoginViewModel
+@model RegisterUserViewModel
 
-<h2>Register now at Bethany's Pie Shop. It's free!</h2>
+<h2>Register as a new user at DotNetflix</h2>
 <form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
-    <h4>Create a new account and order your first pie today!</h4>
+    <h4>Create a new account and rate your favourite movies today!</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
@@ -19,10 +19,34 @@
             <input asp-for="Password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Register" />
+
+        <div class="form-group">
+            <label asp-for="Birthdate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Birthdate" class="form-control" />
+                <span asp-validation-for="Birthdate" class="text-danger"></span>
+            </div>
         </div>
-    </div>
+
+        <div class="form-group">
+            <label asp-for="City" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Country" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Register" />
+            </div>
+        </div>
 </form>

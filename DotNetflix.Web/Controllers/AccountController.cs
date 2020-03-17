@@ -63,26 +63,34 @@ namespace DotNetflix.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Register(RegisterUserViewModel registerUserViewModel)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = loginViewModel.UserName };                
-                var result = await _userManager.CreateAsync(user, loginViewModel.Password);
+                var user = new ApplicationUser() { UserName = registerUserViewModel.UserName };                
+                var result = await _userManager.CreateAsync(user, registerUserViewModel.Password);
 
                 if (result.Succeeded)
                 {
                     var role = new ApplicationRole() { Name = "User" };
                     var resultRole = await _userManager.AddToRoleAsync(user, role.Name);
-                    if(resultRole.Succeeded)
-                        return await Login(loginViewModel);
+                    if (resultRole.Succeeded)
+                    {
+                        var vm = new LoginViewModel
+                        {
+                            UserName = user.UserName,
+                            Password = user.PasswordHash
+                        };
+                        return await Login(vm);
+                    }
+                        
                     else
                         TempData["PostError"] = "Could not add new user to role, try again or contact support!";
                 }
                 else
                     TempData["PostError"] = "Could not create new user, try again or contact support!";
             }
-            return View(loginViewModel);
+            return View(registerUserViewModel);
         }
 
         [HttpPost]
