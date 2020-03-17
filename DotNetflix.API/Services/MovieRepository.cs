@@ -38,15 +38,36 @@ namespace DotNetflix.API.Services
 
             // Filter movies on search term - AsNoTracking speeds up search but should only be used for readonly queries.
 
+            //var movies = context.Movies
+            //    .Where(m =>
+            //        m.Title.ToLower().Contains(title)
+            //        || m.Year.ToString().Equals(title))
+            //    .OrderByDescending(m => m.AvgRating)
+            //    .Take(30).AsNoTracking()
+            //    ;
+
+            
+
+            var query = @"SELECT 
+                            TS.Title, 
+                            TS.[Year], 
+                            TS.MovieId, 
+                            TS.AvgRating, 
+                            TS.IsAdult, 
+                            TS.MoviesDetailsId, 
+                            TS.NumberOfVotes, 
+                            TS.OriginalTitle, 
+                            TS.RunTimeMinutes 
+                        FROM 
+                            dbo.TrigramSearch({0}) 
+                        AS TS";
+
             var movies = context.Movies
-                .Where(m =>
-                    m.Title.ToLower().Contains(title)
-                    || m.Year.ToString().Equals(title))
-                .OrderByDescending(m => m.AvgRating)
-                .Take(30).AsNoTracking()
-                ;
+                .FromSqlRaw(query, "%" + title + "%")
+                .OrderByDescending(m=>m.AvgRating);
 
             // Map to movie and return
+
             return movies;
         }
 
