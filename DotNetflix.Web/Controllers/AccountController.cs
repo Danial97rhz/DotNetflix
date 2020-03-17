@@ -72,6 +72,7 @@ namespace DotNetflix.Web.Controllers
 
                 if (result.Succeeded)
                 {
+
                     return await Login(loginViewModel);
                 }
             }
