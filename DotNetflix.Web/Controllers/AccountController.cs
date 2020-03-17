@@ -82,8 +82,7 @@ namespace DotNetflix.Web.Controllers
                             Password = user.PasswordHash
                         };
                         return await Login(vm);
-                    }
-                        
+                    }                        
                     else
                         TempData["PostError"] = "Could not add new user to role, try again or contact support!";
                 }
