@@ -17,10 +17,9 @@ namespace DotNetflix.Web.ViewModels
 
         public List<string> UserClaims { get; set; }
 
-        //[Required(ErrorMessage = "Please enter the birth date")]
-        //[Display(Name = "Birth date")]
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Birth date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Birthdate { get; set; }
 
         public string City { get; set; }

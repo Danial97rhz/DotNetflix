@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using DotNetflix.Web.Auth;
 using DotNetflix.Web.ViewModels;
+using System;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -37,7 +38,7 @@ namespace DotNetflix.Web.Controllers
             if (!ModelState.IsValid)
                 return View(loginViewModel);
 
-            var user = await _userManager.FindByNameAsync(loginViewModel.UserName);
+            var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
 
             if (user != null)
             {
@@ -67,19 +68,33 @@ namespace DotNetflix.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = registerUserViewModel.UserName };                
+                /* Create new user with the values given at registration then add user to db */
+                var user = new ApplicationUser() 
+                {
+                    Email = registerUserViewModel.Email,
+                    UserName = registerUserViewModel.UserName != null ?
+                        registerUserViewModel.UserName : registerUserViewModel.Email,
+                    BirthDate = registerUserViewModel.Birthdate != null ?
+                        registerUserViewModel.Birthdate : new DateTime(),
+                    City = registerUserViewModel.City != null ?
+                        registerUserViewModel.City : "Unknown",
+                    Country = registerUserViewModel.Country != null ?
+                        registerUserViewModel.Country : "Unknown"                   
+                };
+
                 var result = await _userManager.CreateAsync(user, registerUserViewModel.Password);
 
                 if (result.Succeeded)
                 {
+                    /* When a new user is added to the db give it the role of "User" */
                     var role = new ApplicationRole() { Name = "User" };
                     var resultRole = await _userManager.AddToRoleAsync(user, role.Name);
                     if (resultRole.Succeeded)
                     {
                         var vm = new LoginViewModel
                         {
-                            UserName = user.UserName,
-                            Password = user.PasswordHash
+                            Email = user.Email,
+                            Password = registerUserViewModel.Password
                         };
                         return await Login(vm);
                     }                        
@@ -104,11 +119,11 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
-        public IActionResult MyAccount()
+        public async Task<IActionResult> MyAccount()
         {
             var vm = new MyAccountViewModel()
             {
-                UserName = User.Identity.Name
+                User = await _userManager.GetUserAsync(HttpContext.User)
             };
 
             return View(vm);
@@ -120,7 +135,7 @@ namespace DotNetflix.Web.Controllers
             var user = await _userManager.FindByIdAsync(id.ToString());
 
             if (user == null)
-                return RedirectToAction("UserManagement", _userManager.Users);
+                return RedirectToAction("MyAccount");
 
             //var claims = await _userManager.GetClaimsAsync(user);
 

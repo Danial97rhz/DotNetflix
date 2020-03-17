@@ -4,9 +4,10 @@ namespace DotNetflix.Web.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "User name incorrect")]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        [Required(ErrorMessage = "Enter a valid email adress")]
+        [MaxLength(50)]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Password incorrect")]
         [DataType(DataType.Password)]
