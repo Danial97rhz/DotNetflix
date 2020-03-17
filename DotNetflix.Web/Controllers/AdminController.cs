@@ -27,21 +27,27 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
-        public IActionResult UserManagement()
+        public async Task<IActionResult> UserManagement()
         {
-            var vm = new UserManagementViewModel();
+            /* Populate UserManagerViewModel with user and role data */
             var users = _userManager.Users;
-            //foreach (var user in users)
-            //{
-            //    new UserManagementUser
-            //    {
-            //        User = user,
-            //        Role = _userManager.GetRolesAsync(user.Id)
-            //    };
-            //}
+
+            var vm = new UserManagementViewModel();
+            foreach (var user in users)
+            {
+                /* Get roles for each user then populate model and add to viewmodel*/
+                var rolesTmp = await _userManager.GetRolesAsync(user);
+
+                var vmUser = new UserManagementUser();
+                vmUser.Id = user.Id;
+                vmUser.Name = user.UserName;
+                vmUser.Email = user.Email;
+                vmUser.Role = rolesTmp;
+
+                vm.Users.Add(vmUser);
+            }
 
             return View(vm);
-
         }
 
         public IActionResult AddUser()

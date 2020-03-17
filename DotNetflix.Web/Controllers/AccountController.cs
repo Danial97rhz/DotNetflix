@@ -62,7 +62,7 @@ namespace DotNetflix.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUserViewModel registerUserViewModel)
         {
             if (ModelState.IsValid)

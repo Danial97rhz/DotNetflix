@@ -8,12 +8,19 @@ namespace DotNetflix.Web.ViewModels
 {
     public class UserManagementViewModel
     {
-        public IEnumerable<UserManagementUser> Users { get; set; }
+        public UserManagementViewModel()
+        {
+            Users = new List<UserManagementUser>();
+        }
+
+        public List<UserManagementUser> Users { get; set; }
     }
 
     public class UserManagementUser
     {
-        public ApplicationUser User { get; set; }
-        public ApplicationRole Role { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public IList<string> Role { get; set; }
     }
 }
