@@ -1,8 +1,8 @@
 ﻿@model MyAccountViewModel
+    <div class="container">
+        <h1>Welcome to your account @Model.User.UserName</h1>
 
-    <div class="container-fluid mx-0">
-        <h1 class="display-4 text-center text-white pt-3">Welcome to your account @Model.User.UserName</h1>
-    </div>
-    <div>
+        <hr />
         <a class="btn btn-info" asp-action="EditUser" asp-route-id="@Model.User.Id">Edit profile</a>
+        
     </div>
