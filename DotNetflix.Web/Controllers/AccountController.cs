@@ -165,14 +165,14 @@ namespace DotNetflix.Web.Controllers
                 var result = await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
-                    return RedirectToAction("UserManagement", _userManager.Users);
+                    return RedirectToAction("MyAccount");
 
                 ModelState.AddModelError("", "User not updated, something went wrong.");
 
                 return View(editUserViewModel);
             }
 
-            return RedirectToAction("UserManagement", _userManager.Users);
+            return RedirectToAction("MyAccount");
         }
 
         //[AllowAnonymous]

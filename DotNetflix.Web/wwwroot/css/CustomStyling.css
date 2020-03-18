@@ -38,7 +38,7 @@
 
 
 /*==================== MY ACCOUNT PAGE ======================*/
-#section_myAccount {
+/*#section_myAccount {
     background-image: url('../img/film.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -48,5 +48,5 @@
 
 #section_myAccount > .text-white {
     text-shadow: 2px 2px black;
-}
+}*/
 
