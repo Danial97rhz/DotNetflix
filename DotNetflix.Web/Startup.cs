@@ -33,13 +33,13 @@ namespace DotNetflix.Web
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, ApplicationRole>(
-                //options =>
-                //{
-                //    options.Password.RequiredLength = 8;
-                //    options.Password.RequireNonAlphanumeric = true;
-                //    options.Password.RequireUppercase = true;
-                //    options.User.RequireUniqueEmail = true;
-                //}
+                options =>
+                {
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                    options.User.RequireUniqueEmail = true;
+                }
                 )
                 .AddEntityFrameworkStores<AppDbContext>();
 

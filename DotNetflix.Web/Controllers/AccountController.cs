@@ -137,8 +137,6 @@ namespace DotNetflix.Web.Controllers
             if (user == null)
                 return RedirectToAction("MyAccount");
 
-            //var claims = await _userManager.GetClaimsAsync(user);
-
             // Create new EditUserView and fill with data from user object retrived from db
             var vm = new EditUserViewModel();
             //vm.Id = user.Id != null ? user.Id : "Unkown";
