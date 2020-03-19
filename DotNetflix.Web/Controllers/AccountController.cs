@@ -97,12 +97,12 @@ namespace DotNetflix.Web.Controllers
                             Password = registerUserViewModel.Password
                         };
                         return await Login(vm);
-                    }                        
-                    else
-                        TempData["PostError"] = "Could not add new user to role, try again or contact support!";
+                    } 
                 }
-                else
-                    TempData["PostError"] = "Could not create new user, try again or contact support!";
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
             return View(registerUserViewModel);
         }
