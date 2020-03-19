@@ -32,7 +32,6 @@ namespace DotNetflix.API.Controllers
             var movies = movieRepository.GetMovies(title);
 
             var mappedMovies = Map.ToMovie(movies)
-                .OrderBy(m => m.Title)
                 .ToList();
 
             if (mappedMovies == null)
@@ -41,9 +40,7 @@ namespace DotNetflix.API.Controllers
             }
             return Ok(mappedMovies);
         }
-
         
-
         [HttpGet("{movieId}")]
         public async Task<ActionResult<Movie>> GetMovieAsync(string movieId)
         {

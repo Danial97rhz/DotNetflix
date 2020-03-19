@@ -66,7 +66,7 @@ namespace DotNetflix.API.Migrations
             modelBuilder.Entity("DotNetflix.API.Entities.MovieGenres", b =>
                 {
                     b.Property<string>("MoviesId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("GenresId")
                         .HasColumnType("int");
@@ -81,7 +81,7 @@ namespace DotNetflix.API.Migrations
             modelBuilder.Entity("DotNetflix.API.Entities.Movies", b =>
                 {
                     b.Property<string>("MovieId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("AvgRating")
                         .HasColumnType("nvarchar(max)");
@@ -154,7 +154,7 @@ namespace DotNetflix.API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("MovieId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ReviewText")
                         .HasColumnType("nvarchar(max)");
@@ -183,7 +183,7 @@ namespace DotNetflix.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MovieId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

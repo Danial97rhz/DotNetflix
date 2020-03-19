@@ -42,7 +42,7 @@ namespace DotNetflix.API.Migrations
             modelBuilder.Entity("DotNetflix.API.Entities.MovieGenres", b =>
                 {
                     b.Property<string>("MoviesId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("GenresId")
                         .HasColumnType("int");
@@ -57,7 +57,7 @@ namespace DotNetflix.API.Migrations
             modelBuilder.Entity("DotNetflix.API.Entities.Movies", b =>
                 {
                     b.Property<string>("MovieId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("AvgRating")
                         .HasColumnType("nvarchar(max)");
