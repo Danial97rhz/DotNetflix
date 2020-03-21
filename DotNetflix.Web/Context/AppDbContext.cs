@@ -17,6 +17,11 @@ namespace DotNetflix.Web.Context
         {
             // IDENTITY: Call base class OnModelCreating
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationRole>().HasData(
+                new ApplicationRole { Name = "User", NormalizedName = "USER", Id = 1 },
+                new ApplicationRole { Name = "Administrator", NormalizedName = "ADMINISTRATOR", Id = 2 }
+                );
         }
     }
 }
