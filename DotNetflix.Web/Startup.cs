@@ -9,6 +9,8 @@ using DotNetflix.Web.Context;
 using Microsoft.AspNetCore.Identity;
 using DotNetflix.Web.Auth;
 using Microsoft.AspNetCore.Http;
+using System;
+using EmailService;
 
 namespace DotNetflix.Web
 {
@@ -29,7 +31,6 @@ namespace DotNetflix.Web
             services.AddMvc();
             services.AddHttpClient();
 
-            // Services added for Identity ============>
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, ApplicationRole>(
@@ -39,15 +40,22 @@ namespace DotNetflix.Web
                     options.Password.RequireNonAlphanumeric = true;
                     options.Password.RequireUppercase = true;
                     options.User.RequireUniqueEmail = true;
+                    options.SignIn.RequireConfirmedAccount = true;
                 }
                 )
-                .AddEntityFrameworkStores<AppDbContext>();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
-            //services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+                options.TokenLifespan = TimeSpan.FromHours(2));
+
+            var emailConfig = Configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
