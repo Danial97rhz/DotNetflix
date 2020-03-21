@@ -36,7 +36,8 @@ namespace DotNetflix.API.HelperMethods
                 LongPlot = m.Details.Plot,
                 PosterUrl = m.Details.Poster,
                 Director = m.Details.Director,
-                ReleaseDate = m.Details.Released
+                ReleaseDate = m.Details.Released,
+                Country = m.Details.Country
             });
 
             return moviesOut;
@@ -62,6 +63,7 @@ namespace DotNetflix.API.HelperMethods
                 moviesOut.PosterUrl = moviesIn.Details.Poster;
                 moviesOut.Director = moviesIn.Details.Director;
                 moviesOut.ReleaseDate = moviesIn.Details.Released;
+                moviesOut.Country = moviesIn.Details.Country;
             }
             return moviesOut;
         }
@@ -86,7 +88,8 @@ namespace DotNetflix.API.HelperMethods
                 LongPlot = moviesDetails.Plot,
                 PosterUrl = moviesDetails.Poster,
                 Director = moviesDetails.Director,
-                ReleaseDate = moviesDetails.Released
+                ReleaseDate = moviesDetails.Released,
+                Country = moviesDetails.Country
             };           
             return moviesOut;
         }

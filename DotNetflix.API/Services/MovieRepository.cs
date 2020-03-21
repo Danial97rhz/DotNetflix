@@ -154,7 +154,8 @@ namespace DotNetflix.API.Services
                     Actors = "(Unknown)",
                     Director = "(Unknown)",
                     Released = "(Unknown)",
-                    Poster = "https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg"
+                    Poster = "https://thefilmuniverse.com/wp-content/uploads/2019/09/Poster_Not_Available2.jpg",
+                    Country = "(Unknown)"
                 };
 
                 return details;

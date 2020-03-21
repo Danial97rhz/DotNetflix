@@ -15,5 +15,6 @@ namespace DotNetflix.API.Entities
         public string Released { get; set; }        
         public Movies Movie { get; set; }
         public string Actors { get; set; }
+        public string Country { get; set; }
     }
 }

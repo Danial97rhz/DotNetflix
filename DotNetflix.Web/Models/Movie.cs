@@ -17,6 +17,7 @@ namespace DotNetflix.Web.Models
         public int? Year { get; set; }
         public int? RunTime { get; set; }
         public bool IsAdult { get; set; }
+        public string Country { get; set; }
         public List<string> Actors { get; set; }
         public List<string> Genres { get; set; }
     }

@@ -26,6 +26,8 @@
     <Compile Include="Migrations\20200302104154_MovieDetailsReleasedToString.Designer.cs" />
     <Compile Include="Migrations\20200309113720_addedWishListRatedMoviesCarousel.cs" />
     <Compile Include="Migrations\20200309113720_addedWishListRatedMoviesCarousel.Designer.cs" />
+    <Compile Include="Migrations\20200321160402_countryAdded.cs" />
+    <Compile Include="Migrations\20200321160402_countryAdded.Designer.cs" />
     <Compile Include="Migrations\DotNetflixDbContextModelSnapshot.cs" />
   </ItemGroup>
 
