@@ -65,15 +65,6 @@ namespace DotNetflix.Web.Controllers
                     /* When a new user is added to the db give it the role of "User" */
                     var role = new ApplicationRole() { Name = "User" };
                     var resultRole = await _userManager.AddToRoleAsync(user, role.Name);
-                    if (resultRole.Succeeded)
-                    {
-                        var vm = new LoginViewModel
-                        {
-                            Email = user.Email,
-                            Password = registerUserViewModel.Password
-                        };
-                        return await Login(vm);
-                    }
 
                     // If registration confirmation is required send confirmation email else login user.
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
