@@ -1,0 +1,54 @@
+﻿@model DotNetflix.Web.Models.SearchResult
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+<h1>SearchResult</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Genres
+            </th>
+            <th>
+                Wishlist
+            </th>
+            <th>
+                Rate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var movie in Model.Movies) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Genres)
+            </td>
+            <td>
+                <a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@movie.Id" type="submit" class="btn btn-info">Add to wishlist</a>
+            </td>
+            <td>
+                <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id" type="submit" class="btn btn-info">Rate movie</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

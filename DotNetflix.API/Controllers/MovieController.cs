@@ -40,7 +40,27 @@ namespace DotNetflix.API.Controllers
             }
             return Ok(mappedMovies);
         }
-        
+
+        [HttpGet]
+        public ActionResult<SearchResult> GetPaginatedMovies(Search search)
+        {
+            var movies = movieRepository.GetMovies(search.Title);
+            int count = movies.Count();
+
+            SearchResult sr = new SearchResult();
+
+            sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
+                .ToList();
+            sr.Count = count;
+            sr.Title = search.Title;
+
+            if (sr.Movies == null)
+            {
+                return NotFound("Movie not found");
+            }
+            return Ok(sr);
+        }
+
         [HttpGet("{movieId}")]
         public async Task<ActionResult<Movie>> GetMovieAsync(string movieId)
         {

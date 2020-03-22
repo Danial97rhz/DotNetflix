@@ -41,6 +41,7 @@ namespace DotNetflix.Web.Controllers
                 using var responseStream = await response.Content.ReadAsStreamAsync();
                 var movies = await JsonSerializer.DeserializeAsync<IEnumerable<Movie>>(responseStream,
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
                 var vm = new MovieListViewModel() { Movies = movies };
 
                 return View(vm);
