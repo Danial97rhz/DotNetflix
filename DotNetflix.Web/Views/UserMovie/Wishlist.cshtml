@@ -6,9 +6,6 @@
 
 <h1>Wishlist</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -17,16 +14,16 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var movie in Model.WishlistMovies) {
+@foreach (var wishlistMovie in Model.WishlistMovies) {
         <tr>
-            <td><a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.MovieId">
-                @movie.Title
-                @movie.Year.GetValueOrDefault()
+            <td><a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@wishlistMovie.MovieId">
+                @wishlistMovie.Title
+                @wishlistMovie.Year.GetValueOrDefault()
             </a></td>
-            <td>@movie.DateAdded.ToShortDateString()</td>
+            <td>@wishlistMovie.DateAdded.ToShortDateString()</td>
             <td>
-                <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.MovieId" type="submit" class="btn btn-info">Rate movie</a>                
-                <a asp-controller="UserMovie" asp-action="RemoveFromWishlist" asp-route-movieId="@movie.MovieId" type="submit" class="btn btn-outline-danger mr-1">Remove from wishlist</a>
+                <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@wishlistMovie.MovieId" type="submit" class="btn btn-info">Rate movie</a>                
+                <a asp-controller="UserMovie" asp-action="RemoveWishlistMovie" asp-route-id="@wishlistMovie.Id" type="submit" class="btn btn-outline-danger mr-1">Remove from wishlist</a>
             </td>
         </tr>
 }

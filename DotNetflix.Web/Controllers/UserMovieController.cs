@@ -73,6 +73,25 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> RemoveWishlistMovie(int id)
+        {
+            var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"{UserAPIRoot}DeleteWishlistMovie/{id}");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("User-Agent", "DotNetflix.Web");
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Wishlist", "UserMovie");
+            }
+            else
+            {
+                return BadRequest("Delete failed");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddToRatedMovies(RatedMovieOut ratedMovie)
         {
