@@ -45,14 +45,17 @@ namespace DotNetflix.API.Controllers
         public ActionResult<SearchResult> GetPaginatedMovies(Search search)
         {
             var movies = movieRepository.GetMovies(search.Title);
-            int count = movies.Count();
 
-            SearchResult sr = new SearchResult();
+            SearchResult sr = new SearchResult()
+            {
+                Count = movies.Count(),
+                Title = search.Title,
+                CurrentPage = search.CurrentPage,
+                PageSize = search.PageSize
+            };
 
             sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
                 .ToList();
-            sr.Count = count;
-            sr.Title = search.Title;
 
             if (sr.Movies == null)
             {

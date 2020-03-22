@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DotNetflix.Web.Models;
@@ -25,7 +26,12 @@ namespace DotNetflix.Web.Controllers
             MovieAPIRoot = _config.GetValue(typeof(string), "MovieAPIRoot").ToString();
         }
 
-        public async Task<IActionResult> Index(Search search)
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> SearchResult(Search search)
         {
             if (string.IsNullOrEmpty(search.Title)) search.Title = "abc";
 
@@ -34,18 +40,21 @@ namespace DotNetflix.Web.Controllers
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("User-Agent", "DotNetflix.Web");
 
+            var searchJson = JsonSerializer.Serialize(search);
+            request.Content = new StringContent(searchJson, Encoding.UTF8, "application/json");
+
             var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {
                 using var responseStream = await response.Content.ReadAsStreamAsync();
-                var movies = await JsonSerializer.DeserializeAsync<IEnumerable<Movie>>(responseStream,
+                var movies = await JsonSerializer.DeserializeAsync<SearchResult>(responseStream,
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                SearchResult searchResultVM = new SearchResult();
+                //SearchResult searchResultVM = new SearchResult();
 
-                searchResultVM.Movies = movies;
+                //searchResultVM.Movies = movies;
 
-                return View(searchResultVM);
+                return View(movies);
             }
             else
             {
