@@ -73,6 +73,7 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<IActionResult> RemoveWishlistMovie(int id)
         {
             var client = _clientFactory.CreateClient();
@@ -92,11 +93,12 @@ namespace DotNetflix.Web.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddToRatedMovies(RatedMovieOut ratedMovie)
         {
             ratedMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User)); 
-
+            
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Post, $"{UserAPIRoot}PostRatedMovie");
 
@@ -152,16 +154,13 @@ namespace DotNetflix.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 using var responseStream = await response.Content.ReadAsStreamAsync();
-                var movies = await JsonSerializer.DeserializeAsync<IEnumerable<RatedMovie>>(responseStream,
+                List<RateMovieViewModel> movies = await JsonSerializer.DeserializeAsync<List<RateMovieViewModel>>(responseStream,
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                var ratedMovieVM = new RateMovieViewModel() { RatedMovies = movies };
+                //List<RateMovieViewModel> ratedMovieVM = movies;
 
-                return View(ratedMovieVM);
+                return View(movies);
             }
             return View();
         }
-
-
-
     }
 }

@@ -9,6 +9,12 @@ namespace DotNetflix.Web.ViewModels
 {
     public class RateMovieViewModel
     {
-        public IEnumerable<RatedMovie> RatedMovies { get; set; }
+        public int RatingId { get; set; }
+        public string MovieId { get; set; }
+        public Movie Movie { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public int UserRating { get; set; }
+        public string ReviewText { get; set; }
     }
 }

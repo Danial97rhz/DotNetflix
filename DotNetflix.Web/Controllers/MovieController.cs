@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using DotNetflix.Web.Models;
 using Microsoft.Extensions.Configuration;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DotNetflix.Web.Controllers
 {
@@ -94,7 +93,6 @@ namespace DotNetflix.Web.Controllers
 
             return View();
         }
-
         public async Task<IActionResult> RateMovie(string movieId)
         {            
             var client = _clientFactory.CreateClient();

@@ -51,7 +51,7 @@ namespace DotNetflix.API.Services
         {
             var ratedList = _context.RatedMovies
                 .Where(x => x.UserId == userId)
-                .Include(m => m.Movie)                
+                .Include(m => m.Movie)
                 .ToList();
 
             return ratedList;
