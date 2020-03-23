@@ -6,22 +6,134 @@ using System.Threading.Tasks;
 using DotNetflix.Web.Auth;
 using DotNetflix.Web.ViewModels;
 using System;
+using EmailService;
+using System.Linq;
+using DotNetflix.Web.Models;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace DotNetflix.Web.Controllers
 {
-    //[Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailSender _emailSender;
 
-        public AccountController(UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
 
+        /***************************************************
+                        REGISTER NEW USER
+        ***************************************************/
+        [HttpGet] // SHOW VIEW TO REGISTER NEW USER
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterUserViewModel registerUserViewModel)
+        {            
+            if (ModelState.IsValid)
+            {
+                /* Create new user with the values given at registration then add user to db */
+                var user = new ApplicationUser()
+                {
+                    Email = registerUserViewModel.Email,
+                    UserName = registerUserViewModel.UserName != null ?
+                        registerUserViewModel.UserName : registerUserViewModel.Email,
+                    BirthDate = registerUserViewModel.Birthdate != null ?
+                        registerUserViewModel.Birthdate : new DateTime(),
+                    City = registerUserViewModel.City != null ?
+                        registerUserViewModel.City : "Unknown",
+                    Country = registerUserViewModel.Country != null ?
+                        registerUserViewModel.Country : "Unknown"
+                };
+
+                var result = await _userManager.CreateAsync(user, registerUserViewModel.Password);
+                if (result.Succeeded)
+                {
+                    /* When a new user is added to the db give it the role of "User" */
+                    var role = new ApplicationRole() { Name = "User" };
+                    var resultRole = await _userManager.AddToRoleAsync(user, role.Name);
+
+                    // If registration confirmation is required send confirmation email else login user.
+                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    {
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = Url.Action(
+                            "ConfirmEmail",
+                            "Account",
+                            new { code, userId = user.Id },
+                            Request.Scheme);
+
+                        var message = new Message(
+                            registerUserViewModel.Email,
+                            "Confirm your email",
+                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                        _emailSender.SendEmail(message);
+
+                        return RedirectToAction("RegisterConfirmation", "Account");
+                    }
+                    else
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(registerUserViewModel);
+        }
+
+        [HttpGet] // SHOW EMAIL SENT CONFIRMATION MESSAGE
+        public IActionResult RegisterConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet] // CONFIRM EMAIL 
+        public async Task<IActionResult> ConfirmEmail(string code, string userId)
+        {
+            if (userId == null || code == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userId}'.");
+            }
+
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var vm = new ConfirmEmailViewModel
+            {
+                StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email."
+            };
+
+            return View(vm);
+        }
+
+
+        /**********************************************
+                        LOGIN / LOGOUT
+        ***********************************************/
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -56,57 +168,6 @@ namespace DotNetflix.Web.Controllers
             return View(loginViewModel);
         }
 
-
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterUserViewModel registerUserViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                /* Create new user with the values given at registration then add user to db */
-                var user = new ApplicationUser() 
-                {
-                    Email = registerUserViewModel.Email,
-                    UserName = registerUserViewModel.UserName != null ?
-                        registerUserViewModel.UserName : registerUserViewModel.Email,
-                    BirthDate = registerUserViewModel.Birthdate != null ?
-                        registerUserViewModel.Birthdate : new DateTime(),
-                    City = registerUserViewModel.City != null ?
-                        registerUserViewModel.City : "Unknown",
-                    Country = registerUserViewModel.Country != null ?
-                        registerUserViewModel.Country : "Unknown"                   
-                };
-
-                var result = await _userManager.CreateAsync(user, registerUserViewModel.Password);
-
-                if (result.Succeeded)
-                {
-                    /* When a new user is added to the db give it the role of "User" */
-                    var role = new ApplicationRole() { Name = "User" };
-                    var resultRole = await _userManager.AddToRoleAsync(user, role.Name);
-                    if (resultRole.Succeeded)
-                    {
-                        var vm = new LoginViewModel
-                        {
-                            Email = user.Email,
-                            Password = registerUserViewModel.Password
-                        };
-                        return await Login(vm);
-                    } 
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-            return View(registerUserViewModel);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -119,6 +180,10 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
+
+        /************************************************
+                     MY ACCOUNT / EDIT USER
+        ************************************************/
         public async Task<IActionResult> MyAccount()
         {
             var vm = new MyAccountViewModel()
@@ -175,58 +240,108 @@ namespace DotNetflix.Web.Controllers
             return RedirectToAction("MyAccount");
         }
 
-        //[AllowAnonymous]
-        //public IActionResult GoogleLogin(string returnUrl = null)
-        //{
-        //    var redirectUrl = Url.Action("GoogleLoginCallback", "Account", new { ReturnUrl = returnUrl });
-        //    var properties = _signInManager.ConfigureExternalAuthenticationProperties(ExternalLoginServiceConstants.GoogleProvider, redirectUrl);
-        //    return Challenge(properties, ExternalLoginServiceConstants.GoogleProvider);
-        //}
 
-        //[AllowAnonymous]
-        //public async Task<IActionResult> GoogleLoginCallback(string returnUrl = null, string serviceError = null)
-        //{
-        //    if (serviceError != null)
-        //    {
-        //        ModelState.AddModelError(string.Empty, $"Error from external provider: {serviceError}");
-        //        return View(nameof(Login));
-        //    }
+        /***************************************************
+                      RESET FORGOTTEN PASSWORD
+        ***************************************************/
+        [HttpGet] // LET THE USER ENTER A EMAIL ADDRESS TO SEND CONFIRMATION LINK TO
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
 
-        //    var info = await _signInManager.GetExternalLoginInfoAsync();
-        //    if (info == null)
-        //    {
-        //        return RedirectToAction(nameof(Login));
-        //    }
 
-        //    var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
-        //    if (result.Succeeded)
-        //    {
-        //        if (returnUrl == null)
-        //            return RedirectToAction("index", "home");
+        [HttpPost] // SEND CONFIRMATION LINK TO USER EMAIL
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(vm.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                }
 
-        //        return Redirect(returnUrl);
-        //    }
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action(
+                    "ResetPassword",
+                    "Account",
+                    new { code, email = user.Email },
+                    Request.Scheme);
 
-        //    var user = new ApplicationUser
-        //    {
-        //        Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
-        //        UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
-        //    };
+                var message = new Message(
+                    vm.Email,
+                    "Reset Password",
+                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-        //    var identityResult = await _userManager.CreateAsync(user);
+                _emailSender.SendEmail(message);
 
-        //    if (!identityResult.Succeeded) return AccessDenied();
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }
+            return View(vm);
+        }
 
-        //    identityResult = await _userManager.AddLoginAsync(user, info);
+        [HttpGet] // SHOW EMAIL SENT CONFIRMATION MESSAGE
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
 
-        //    if (!identityResult.Succeeded) return AccessDenied();
+        [HttpGet] // SHOW VIEW FOR USER TO ENTER NEW PASSWORD
+        public IActionResult ResetPassword(string code, string email)
+        {
+            if (code == null)
+            {
+                return BadRequest("A code must be supplied for password reset.");
+            }
+            else
+            {
+                var vm = new ResetPasswordViewModel
+                {
+                    Code = code,
+                    Email = email
+                };
+                return View(vm);
+            }
+        }
 
-        //    await _signInManager.SignInAsync(user, false);
+        [HttpPost] // RESET THE USERS PASSWORD
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
-        //    if (returnUrl == null)
-        //        return RedirectToAction("index", "home");
+            var user = await _userManager.FindByEmailAsync(vm.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
 
-        //    return Redirect(returnUrl);
-        //}
+            var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(vm.Code));
+            var result = await _userManager.ResetPasswordAsync(user, code, vm.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View(vm);
+        }
+
+        [HttpGet] // SHOW RESET PASSWORD CONFIRMATION MESSAGE
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
     }
 }
