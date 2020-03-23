@@ -57,6 +57,7 @@ namespace DotNetflix.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                AppDbInitializer.SeedUser(userManager);
             }
             else
             {
@@ -85,7 +86,7 @@ namespace DotNetflix.Web
 
             app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
 
-            AppDbInitializer.SeedUser(userManager);
+            
         }
     }
 }

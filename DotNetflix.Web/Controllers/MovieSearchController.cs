@@ -61,7 +61,6 @@ namespace DotNetflix.Web.Controllers
             {
                 return View();
             }
-
         }
     }
 }

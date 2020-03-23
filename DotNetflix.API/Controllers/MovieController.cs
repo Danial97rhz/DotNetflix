@@ -57,10 +57,6 @@ namespace DotNetflix.API.Controllers
             sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
                 .ToList();
 
-            if (sr.Movies == null)
-            {
-                return NotFound("Movie not found");
-            }
             return Ok(sr);
         }
 
@@ -88,7 +84,6 @@ namespace DotNetflix.API.Controllers
 
                 movieModel = Map.ToMovieFromObject(movie, detailsEntity);
             }
-            
 
             return Ok(movieModel);
         }
