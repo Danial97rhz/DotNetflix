@@ -25,6 +25,11 @@ namespace DotNetflix.Web.Controllers
             MovieAPIRoot = _config.GetValue(typeof(string), "MovieAPIRoot").ToString();
         }
 
+        public IActionResult Genres()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> List(string title)        
         {
             if (string.IsNullOrEmpty(title)) title = "abc";
