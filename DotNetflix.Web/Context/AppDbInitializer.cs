@@ -16,7 +16,8 @@ namespace DotNetflix.Web.Context
                 ApplicationUser user = new ApplicationUser()
                 {
                     UserName = "admin",
-                    Email = "admin@dotnetflix.com"
+                    Email = "admin@dotnetflix.com",
+                    EmailConfirmed = true
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "Password1!").Result;
