@@ -1,4 +1,4 @@
-﻿@model DotNetflix.Web.Models.SearchResult
+﻿@model DotNetflix.Web.ViewModels.SearchResultViewModel
 
 @{
     ViewData["Title"] = "SearchResult";
@@ -7,7 +7,7 @@
 <h1>SearchResult</h1>
 
 <p>
-Your search generated @Model.Count results.
+    Your search generated @Model.SearchResult.Count results.
 </p>
 <table class="table">
     <thead>
@@ -31,16 +31,25 @@ Your search generated @Model.Count results.
         </tr>
     </thead>
     <tbody>
-@foreach (var movie in Model.Movies) {
+        @foreach (var movie in Model.SearchResult.Movies)
+        {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => movie.Title)
+                <a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.Id">@movie.Title</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => movie.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => movie.Genres)
+                @{
+                    int nrGenres = movie.Genres.Count();
+                    for (int i = 0; i < nrGenres; i++)
+                    {
+                        @movie.Genres[i];
+                        if (i + 1 < nrGenres && nrGenres != 0)
+                        { <span> | </span> }
+                    }
+                }
             </td>
             <td>
                 <a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@movie.Id" type="submit" class="btn btn-info">Add to wishlist</a>
@@ -49,6 +58,64 @@ Your search generated @Model.Count results.
                 <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id" type="submit" class="btn btn-info">Rate movie</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
+
+
+<div>
+
+    <ul class="pagination">
+
+        <li class="page-item @(!Model.SearchResult.ShowFirst? "disabled":"")">
+
+            <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="1" class="page-link"><i class="fas fa-fast-backward"></i></a>
+
+        </li>
+
+
+
+        <li class="page-item @(!Model.SearchResult.ShowPrevious? "disabled":"")">
+
+            <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@(Model.SearchResult.CurrentPage -1)" class="page-link"><i class="fas fa-step-backward"></i></a>
+
+        </li>
+
+        <li class="page-item  @(!Model.SearchResult.ShowNext? "disabled":"")">
+
+            <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@(Model.SearchResult.CurrentPage + 1)" class="page-link"><i class="fas fa-step-forward"></i></a>
+
+        </li>
+
+
+
+        <li class="page-item  @(!Model.SearchResult.ShowLast? "disabled":"")">
+
+            <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@Model.SearchResult.TotalPages" class="page-link"><i class="fas fa-fast-forward"></i></a>
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+@*<div>
+
+    <ul class="pagination">
+
+        @for (var i = 1; i <= Model.TotalPages; i++)
+
+        {
+
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+
+                <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
+
+            </li>
+
+        }
+
+    </ul>
+
+</div>*@

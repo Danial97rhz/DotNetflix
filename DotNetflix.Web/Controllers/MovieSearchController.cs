@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DotNetflix.Web.Models;
+using DotNetflix.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -50,11 +51,11 @@ namespace DotNetflix.Web.Controllers
                 using var responseStream = await response.Content.ReadAsStreamAsync();
                 var movies = await JsonSerializer.DeserializeAsync<SearchResult>(responseStream,
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                //SearchResult searchResultVM = new SearchResult();
+                SearchResultViewModel searchResultVM = new SearchResultViewModel();
 
-                //searchResultVM.Movies = movies;
+                searchResultVM.SearchResult = movies;
 
-                return View(movies);
+                return View(searchResultVM);
             }
             else
             {

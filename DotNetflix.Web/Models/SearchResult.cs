@@ -17,5 +17,10 @@ namespace DotNetflix.Web.Models
 
         public IEnumerable<Movie> Movies { get; set; }
         public string Title { get; set; }
+
+        public bool ShowNext => CurrentPage < TotalPages;
+        public bool ShowPrevious => CurrentPage > 1;
+        public bool ShowFirst => CurrentPage != 1;
+        public bool ShowLast => CurrentPage != TotalPages;
     }
 }
