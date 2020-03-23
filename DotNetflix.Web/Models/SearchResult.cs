@@ -21,6 +21,6 @@ namespace DotNetflix.Web.Models
         public bool ShowNext => CurrentPage < TotalPages;
         public bool ShowPrevious => CurrentPage > 1;
         public bool ShowFirst => CurrentPage != 1;
-        public bool ShowLast => CurrentPage != TotalPages;
+        public bool ShowLast => CurrentPage <= TotalPages;
     }
 }
