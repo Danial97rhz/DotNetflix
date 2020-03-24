@@ -11,6 +11,7 @@ using DotNetflix.Web.Auth;
 using Microsoft.AspNetCore.Http;
 using System;
 using EmailService;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetflix.Web
 {
@@ -28,7 +29,9 @@ namespace DotNetflix.Web
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddMvc();
+            services.AddMvc(options =>
+                // Activate anti forgery on all post and put requests in the project
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
             services.AddHttpClient();
 
             services.AddDbContext<AppDbContext>(options =>
