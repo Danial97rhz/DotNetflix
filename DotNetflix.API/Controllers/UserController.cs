@@ -4,6 +4,7 @@ using DotNetflix.API.Models;
 using DotNetflix.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace DotNetflix.API.Controllers
@@ -13,6 +14,7 @@ namespace DotNetflix.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _repository;
+        private readonly HtmlEncoder _htmlEncoder;
 
         public UserController(IUserRepository repository)
         {

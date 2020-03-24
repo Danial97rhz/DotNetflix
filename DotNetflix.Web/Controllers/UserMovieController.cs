@@ -12,6 +12,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using DotNetflix.Web.Auth;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.Encodings.Web;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -24,18 +25,24 @@ namespace DotNetflix.Web.Controllers
         private readonly string UserAPIRoot;
 
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly HtmlEncoder _htmlEncoder;
         private readonly UserManager<ApplicationUser> _userManager;
 
         [BindProperty]
         public RatedMovieOut MovieRating { get; set; }
 
-        public UserMovieController(IHttpClientFactory clientFactory, IConfiguration config, UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public UserMovieController(
+            IHttpClientFactory clientFactory, 
+            IConfiguration config, 
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            HtmlEncoder htmlEncoder)
         {
             _clientFactory = clientFactory;
             _config = config;
             UserAPIRoot = _config.GetValue(typeof(string), "UserAPIRoot").ToString();
             _signInManager = signInManager;
+            _htmlEncoder = htmlEncoder;
             _userManager = userManager;
         }
 
@@ -97,6 +104,10 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToRatedMovies(RatedMovieOut ratedMovie)
         {
+            // Sanitize user inputs
+            ratedMovie.ReviewText = _htmlEncoder.Encode(ratedMovie.ReviewText);
+
+            ratedMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User)); 
             ratedMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User));
             ratedMovie.UserName = _userManager.GetUserName(User);
 
