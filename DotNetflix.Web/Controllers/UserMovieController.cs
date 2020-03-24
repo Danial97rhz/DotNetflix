@@ -108,7 +108,6 @@ namespace DotNetflix.Web.Controllers
             ratedMovie.ReviewText = _htmlEncoder.Encode(ratedMovie.ReviewText);
 
             ratedMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User)); 
-            ratedMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User));
             ratedMovie.UserName = _userManager.GetUserName(User);
 
             var client = _clientFactory.CreateClient();
