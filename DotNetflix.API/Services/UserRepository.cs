@@ -46,7 +46,14 @@ namespace DotNetflix.API.Services
         {
             return (await _context.SaveChangesAsync()) > 0;
         }
-
+        public List<RatedMovies> GetRecentReviews()
+        {
+            return _context.RatedMovies
+                .Include(x => x.Movie)
+                .OrderByDescending(y => y.RatingId)
+                .Take(5).ToList();
+        }
+             
         public List<RatedMovies> GetRatedMovieList(int userId)
         {
             var ratedList = _context.RatedMovies

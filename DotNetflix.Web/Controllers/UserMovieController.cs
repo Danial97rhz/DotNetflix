@@ -97,8 +97,9 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToRatedMovies(RatedMovieOut ratedMovie)
         {
-            ratedMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User)); 
-            
+            ratedMovie.UserId = Convert.ToInt32(_userManager.GetUserId(User));
+            ratedMovie.UserName = _userManager.GetUserName(User);
+
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Post, $"{UserAPIRoot}PostRatedMovie");
 

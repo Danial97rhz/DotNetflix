@@ -109,7 +109,14 @@ namespace DotNetflix.API.Controllers
             return RatedMovieList;
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<RatedMovies>> GetMostRecentReviews()
+        {
+            var reviews = _repository.GetRecentReviews();
 
+            return reviews;
+        }
+             
 
         [HttpGet("{id}")]
         public ActionResult<RatedMovies> GetRatedMovie(int id)

@@ -1,0 +1,10 @@
+﻿@model IEnumerable<RateMovieViewModel>
+
+@foreach (var review in Model)
+{
+    <div class="border border-success">
+        <p>@review.Movie.Title</p>
+        <p>Rating @review.UserRating/10</p>
+        <p>Reviewed by @review.UserName</p>
+    </div>
+}

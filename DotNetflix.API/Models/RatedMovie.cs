@@ -12,8 +12,7 @@ namespace DotNetflix.API.Models
         public string MovieId { get; set; }
         public Movie Movie { get; set; }
         public int UserId { get; set; }
-        //User not yet implemented.
-        //public User User { get; set; }
+        public string UserName { get; set; }
         public int UserRating { get; set; }
         public string ReviewText { get; set; }
     }
