@@ -13,7 +13,7 @@ namespace DotNetflix.API.Services
         Movies GetMovie(string movieId, bool includeDetails = true);
         Task<MoviesDetails> GetMovieDetails(string movieId);
         IQueryable<Movies> GetMoviesByGenre(int genreId);
-
+        Task<MoviesDetails> AttachDetailsToMovie(string movieId);
         Task<bool> SaveChangesAsync();
         void Add<T>(T entity) where T : class;
 

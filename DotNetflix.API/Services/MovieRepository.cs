@@ -1,6 +1,7 @@
 ﻿using DotNetflix.API.Context;
 using DotNetflix.API.Entities;
 using DotNetflix.API.HelperMethods;
+using DotNetflix.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -22,9 +23,16 @@ namespace DotNetflix.API.Services
             // Throw exception if context is null.
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
+        public async Task<MoviesDetails> AttachDetailsToMovie(string movieId)
+        {
+            var movieEntity = GetMovie(movieId);
+            var detailsEntity = await GetMovieDetails(movieId);
+            detailsEntity.Movie = movieEntity;
+            Add(detailsEntity);
+            await SaveChangesAsync();
+            return detailsEntity;
+        }
 
-        /* Get all movies containing search term.
-        If search term is left empty all movies are returned*/
         public IQueryable<Movies> GetMovies(string title)
         {
             if (!string.IsNullOrEmpty(title))
@@ -46,7 +54,7 @@ namespace DotNetflix.API.Services
             //    .Take(30).AsNoTracking()
             //    ;
 
-            
+             
 
             var query = @"SELECT 
                             TS.Title, 

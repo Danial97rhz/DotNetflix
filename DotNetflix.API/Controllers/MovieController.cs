@@ -53,7 +53,7 @@ namespace DotNetflix.API.Controllers
                 CurrentPage = search.CurrentPage,
                 PageSize = search.PageSize
             };
-
+            
             sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
                 .ToList();
 
@@ -62,15 +62,9 @@ namespace DotNetflix.API.Controllers
            
                 if (sr.Movies[i].PosterUrl == null || !sr.Movies[i].PosterUrl.StartsWith("http"))
                 {
-                    var detailsEntity = await movieRepository.GetMovieDetails(sr.Movies[i].Id);
-                    var movieEntity = movieRepository.GetMovie(sr.Movies[i].Id);
+                    var mdetails = await movieRepository.AttachDetailsToMovie(sr.Movies[i].Id);
 
-                    detailsEntity.Movie = movieEntity;
-
-                    movieRepository.Add(detailsEntity);
-                    await movieRepository.SaveChangesAsync();
-
-                    sr.Movies[i] = Map.ToMovieFromObject(movieEntity, detailsEntity);
+                    sr.Movies[i] = Map.ToMovieFromObject(mdetails.Movie, mdetails);
                 }
             }
 
