@@ -64,7 +64,7 @@ namespace DotNetflix.Web.Controllers
             {
                 UserName = addUserViewModel.UserName,
                 Email = addUserViewModel.Email,
-                BirthDate = addUserViewModel.Birthdate,
+                Birthdate = addUserViewModel.Birthdate,
                 City = addUserViewModel.City,
                 Country = addUserViewModel.Country
             };
@@ -96,7 +96,7 @@ namespace DotNetflix.Web.Controllers
             var vm = new EditUserViewModel();
             vm.Email = user.Email != null ? user.Email : "Unkown";
             vm.UserName = user.UserName != null ? user.UserName : "Unkown";
-            vm.Birthdate = user.BirthDate != null ? user.BirthDate : new System.DateTime();
+            vm.Birthdate = user.Birthdate != null ? user.Birthdate : new System.DateTime();
             vm.City = user.City != null ? user.City : "Unkown";
             vm.Country = user.Country != null ? user.Country : "Unkown";
 
@@ -112,7 +112,7 @@ namespace DotNetflix.Web.Controllers
             {
                 user.Email = editUserViewModel.Email;
                 user.UserName = editUserViewModel.UserName;
-                user.BirthDate = editUserViewModel.Birthdate;
+                user.Birthdate = editUserViewModel.Birthdate;
                 user.City = editUserViewModel.City;
                 user.Country = editUserViewModel.Country;
 

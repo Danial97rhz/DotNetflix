@@ -1,8 +1,77 @@
 ﻿@model MyAccountViewModel
-    <div class="container my-5">
-        <h1>Welcome to your account @Model.User.UserName</h1>
 
+<div class="container">
+
+    <div class="text-center p-3">
+        <h1>Welcome to your account @Model.User.UserName</h1>
         <hr />
-        <a class="btn btn-info" asp-action="EditUser" asp-route-id="@Model.User.Id">Edit profile</a>
-        
     </div>
+        
+    <div class="row justify-content-center">
+
+        <div class="col-lg-2 col-md-3 col-sm-4 col-8">
+            <div class="row px-2">
+                @if (Model.User.Avatar == null)
+                {
+                    <img class="img-fluid"
+                        src="~/img/Avatars/User_Avatar-512.webp"
+                        alt="User avatar image"
+                        data-toggle="modal"
+                        data-target="#chooseAvatarModal" 
+                        style="cursor:pointer"/>
+                }
+                else
+                {
+                    <img class="img-fluid"
+                        src="@Url.Action("GetAvatar", "Account")"
+                        alt="User avatar image"
+                        data-toggle="modal"
+                        data-target="#chooseAvatarModal"
+                        style="cursor:pointer"/>
+                }
+            </div>
+            <div class="row px-2 py-4 justify-content-center">
+                <a class="btn btn-info" asp-action="EditUser" asp-route-id="@Model.User.Id">Edit user details</a>
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-md-6 col-sm-6">
+            <h3 class="text-danger">User details</h3>
+            <p>
+                Email: @Model.User.Email<br>
+                Username: @Model.User.UserName<br>
+                Birtdate: @Model.User.Birthdate.ToShortDateString()<br>
+                City: @Model.User.City<br>
+                Country: @Model.User.Country
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<!-- Choose avatar Modal -->
+<div class="modal" id="chooseAvatarModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Select profile image</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="UploadAvatar">
+                    <div class="form-group">
+                        <input type="file" name="file" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
