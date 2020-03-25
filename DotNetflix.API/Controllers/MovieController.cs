@@ -42,7 +42,7 @@ namespace DotNetflix.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<SearchResult> GetPaginatedMovies(Search search)
+        public async Task<ActionResult<SearchResult>> GetPaginatedMovies(Search search)
         {
             var movies = movieRepository.GetMovies(search.Title);
 
@@ -56,6 +56,27 @@ namespace DotNetflix.API.Controllers
 
             sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
                 .ToList();
+
+            //foreach (var movie in sr.Movies)
+            //{
+
+            for (int i = 0; i < sr.Movies.Count(); i++)
+            {
+           
+                if (sr.Movies[i].PosterUrl == null || !sr.Movies[i].PosterUrl.StartsWith("http"))
+                {
+                    var detailsEntity = await movieRepository.GetMovieDetails(sr.Movies[i].Id);
+                    var movieEntity = movieRepository.GetMovie(sr.Movies[i].Id);
+
+                    detailsEntity.Movie = movieEntity;
+
+                    movieRepository.Add(detailsEntity);
+                    await movieRepository.SaveChangesAsync();
+
+                    sr.Movies[i] = Map.ToMovieFromObject(movieEntity, detailsEntity);
+                }
+            }
+            //}
 
             return Ok(sr);
         }

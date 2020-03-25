@@ -7,7 +7,7 @@ namespace DotNetflix.API.Models
 {
     public class SearchResult
     {
-        public IEnumerable<Movie> Movies { get; set; }
+        public List<Movie> Movies { get; set; }
         public int Count { get; set; }
         public int PageSize { get; set; }
         public int CurrentPage { get; set; }
