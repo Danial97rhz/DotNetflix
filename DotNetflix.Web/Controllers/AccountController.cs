@@ -244,24 +244,25 @@ namespace DotNetflix.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadAvatar(IFormFile file)
         {
-            using (var ms = new MemoryStream())
+            if (file != null && file.Length > 0)
             {
-                await file.CopyToAsync(ms);
-
-                // Upload the file if less than 2 MB
-                if (ms.Length < 2097152)
+                using (var ms = new MemoryStream())
                 {
-                    // Call edit user to update user with new avatar
-                    var user = await _userManager.GetUserAsync(User);
-                    user.Avatar = ms.ToArray();
+                    await file.CopyToAsync(ms);
 
-                    var result = await _userManager.UpdateAsync(user);
-                    if (result.Succeeded)
-                        return RedirectToAction("MyAccount");
+                    // Upload the file if less than 2 MB
+                    if (ms.Length < 2097152)
+                    {
+                        // Call edit user to update user with new avatar
+                        var user = await _userManager.GetUserAsync(User);
+                        user.Avatar = ms.ToArray();
 
-
+                        var result = await _userManager.UpdateAsync(user);
+                        if (result.Succeeded)
+                            return RedirectToAction("MyAccount");
+                    }
                 }
-            }               
+            }             
             return RedirectToAction("MyAccount");
         }
 
