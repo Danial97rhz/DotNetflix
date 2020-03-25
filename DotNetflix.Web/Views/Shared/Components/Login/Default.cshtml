@@ -4,15 +4,15 @@
 {
     <form asp-area="" asp-controller="Account" asp-action="Logout" id="logoutForm" method="post">
         <ul class="nav navbar-nav">
-            <li style="max-height:20px">
+            <li>
                 @if (Model.User.Avatar == null)
                 {
-                    <img 
+                    <img style="max-height:40px"
                          src="~/img/Avatars/User_Avatar-512.webp" />
                 }
                 else
                 {
-                    <img style="max-width:30px"
+                    <img style="max-height:40px"
                          src="@Url.Action("GetAvatar", "Account")" />
                 }
             </li>
