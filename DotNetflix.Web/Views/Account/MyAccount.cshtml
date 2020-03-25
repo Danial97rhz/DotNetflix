@@ -10,7 +10,7 @@
     <div class="row justify-content-center">
 
         <div class="col-lg-2 col-md-3 col-sm-4 col-8">
-            <div class="row px-2">
+            <div class="row px-2 justify-content-center">
                 @if (Model.User.Avatar == null)
                 {
                     <img class="img-fluid"
@@ -37,15 +37,29 @@
 
         <div class="col-lg-5 col-md-6 col-sm-6">
             <h3 class="text-danger">User details</h3>
-            <p>
-                Email: @Model.User.Email<br>
-                Username: @Model.User.UserName<br>
-                Birtdate: @Model.User.Birthdate.ToShortDateString()<br>
-                City: @Model.User.City<br>
-                Country: @Model.User.Country
-            </p>
+            <table class="table table-borderless myAccountTable table-sm">
+                <tr>
+                    <td>Email</td>
+                    <td>@Model.User.Email</td>
+                </tr>
+                <tr class="py-0">
+                    <td>Username</td>
+                    <td>@Model.User.UserName</td>
+                </tr>
+                <tr>
+                    <td>Birtdate</td>
+                    <td>@Model.User.Birthdate.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td>@Model.User.City</td>
+                </tr>
+                <tr>
+                    <td>Country</td>
+                    <td>@Model.User.Country</td>
+                </tr>
+            </table>
         </div>
-
     </div>
 </div>
 

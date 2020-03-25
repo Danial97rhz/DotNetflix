@@ -1,0 +1,41 @@
+﻿@model LoginComponentViewModel
+
+@if (Model.IsSignedIn)
+{
+    <form asp-area="" asp-controller="Account" asp-action="Logout" id="logoutForm" method="post">
+        <ul class="nav navbar-nav">
+            <li style="max-height:20px">
+                @if (Model.User.Avatar == null)
+                {
+                    <img 
+                         src="~/img/Avatars/User_Avatar-512.webp" />
+                }
+                else
+                {
+                    <img style="max-width:30px"
+                         src="@Url.Action("GetAvatar", "Account")" />
+                }
+            </li>
+            <li class="nav-item">
+                <p class="nav-link">
+                   
+                    Logged in as @Model.User.UserName
+                </p>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="logoutLink" asp-controller="Account" asp-action="Logout">Logout</a>
+            </li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" id="registerLink" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="loginLink" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    </ul>
+}

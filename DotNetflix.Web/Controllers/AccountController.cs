@@ -171,7 +171,6 @@ namespace DotNetflix.Web.Controllers
             return View(loginViewModel);
         }
 
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
