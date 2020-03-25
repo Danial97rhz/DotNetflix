@@ -12,6 +12,9 @@ using DotNetflix.Web.Models;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.IO;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -51,7 +54,7 @@ namespace DotNetflix.Web.Controllers
                     Email = registerUserViewModel.Email,
                     UserName = registerUserViewModel.UserName != null ?
                         registerUserViewModel.UserName : registerUserViewModel.Email,
-                    BirthDate = registerUserViewModel.Birthdate != null ?
+                    Birthdate = registerUserViewModel.Birthdate != null ?
                         registerUserViewModel.Birthdate : new DateTime(),
                     City = registerUserViewModel.City != null ?
                         registerUserViewModel.City : "Unknown",
@@ -168,7 +171,6 @@ namespace DotNetflix.Web.Controllers
             return View(loginViewModel);
         }
 
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -194,7 +196,6 @@ namespace DotNetflix.Web.Controllers
             return View(vm);
         }
 
-
         public async Task<IActionResult> EditUser(int id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
@@ -207,7 +208,7 @@ namespace DotNetflix.Web.Controllers
             //vm.Id = user.Id != null ? user.Id : "Unkown";
             vm.Email = user.Email != null ? user.Email : "Unkown";
             vm.UserName = user.UserName != null ? user.UserName : "Unkown";
-            vm.Birthdate = user.BirthDate != null ? user.BirthDate : new System.DateTime();
+            vm.Birthdate = user.Birthdate != null ? user.Birthdate : new System.DateTime();
             vm.City = user.City != null ? user.City : "Unkown";
             vm.Country = user.Country != null ? user.Country : "Unkown";
 
@@ -223,7 +224,7 @@ namespace DotNetflix.Web.Controllers
             {
                 user.Email = editUserViewModel.Email;
                 user.UserName = editUserViewModel.UserName;
-                user.BirthDate = editUserViewModel.Birthdate;
+                user.Birthdate = editUserViewModel.Birthdate;
                 user.City = editUserViewModel.City;
                 user.Country = editUserViewModel.Country;
 
@@ -238,6 +239,40 @@ namespace DotNetflix.Web.Controllers
             }
 
             return RedirectToAction("MyAccount");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadAvatar(IFormFile file)
+        {
+            using (var ms = new MemoryStream())
+            {
+                await file.CopyToAsync(ms);
+
+                // Upload the file if less than 2 MB
+                if (ms.Length < 2097152)
+                {
+                    // Call edit user to update user with new avatar
+                    var user = await _userManager.GetUserAsync(User);
+                    user.Avatar = ms.ToArray();
+
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                        return RedirectToAction("MyAccount");
+
+
+                }
+            }               
+            return RedirectToAction("MyAccount");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAvatar()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            FileResult avatar = File(user.Avatar, "image/png");
+
+            return avatar;
         }
 
 
