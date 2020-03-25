@@ -166,10 +166,5 @@ namespace DotNetflix.API.Controllers
             
             return NoContent();
         }
-
-        //private bool WishlistMoviesExists(int id)
-        //{
-        //    return _context.Wishlist.Any(e => e.Id == id);
-        //}
     }
 }

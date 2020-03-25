@@ -57,9 +57,6 @@ namespace DotNetflix.API.Controllers
             sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
                 .ToList();
 
-            //foreach (var movie in sr.Movies)
-            //{
-
             for (int i = 0; i < sr.Movies.Count(); i++)
             {
            
@@ -76,7 +73,6 @@ namespace DotNetflix.API.Controllers
                     sr.Movies[i] = Map.ToMovieFromObject(movieEntity, detailsEntity);
                 }
             }
-            //}
 
             return Ok(sr);
         }
@@ -111,11 +107,33 @@ namespace DotNetflix.API.Controllers
 
 
         [HttpGet("{genreId}")]
-        public ActionResult<Movie> GetMoviesByGenre(int genreId)
+        public async Task<ActionResult<Movie>> GetMoviesByGenre(int genreId)
         {
             var movies = movieRepository.GetMoviesByGenre(genreId);
 
-            var mappedmovies = Map.ToMovie(movies).ToList();
+            var mappedmovies = Map.ToMovie(
+                movies
+                .Where(x => x.NumberOfVotes > 50000).
+                OrderByDescending(x => x.AvgRating)
+                .Take(16)
+                ).ToList();
+
+            for (int i = 0; i < mappedmovies.Count(); i++)
+            {
+
+                if (mappedmovies[i].PosterUrl == null || !mappedmovies[i].PosterUrl.StartsWith("http"))
+                {
+                    var detailsEntity = await movieRepository.GetMovieDetails(mappedmovies[i].Id);
+                    var movieEntity = movieRepository.GetMovie(mappedmovies[i].Id);
+
+                    detailsEntity.Movie = movieEntity;
+
+                    movieRepository.Add(detailsEntity);
+                    await movieRepository.SaveChangesAsync();
+
+                    mappedmovies[i] = Map.ToMovieFromObject(movieEntity, detailsEntity);
+                }
+            }
 
             if (mappedmovies == null)
             {
@@ -126,15 +144,36 @@ namespace DotNetflix.API.Controllers
         }
 
         [HttpGet("{isAdult}")]
-        public ActionResult<IEnumerable<Movie>> GetAdultMovies(bool isAdult)
+        public async Task<ActionResult<IEnumerable<Movie>>> GetAdultMovies(bool isAdult)
         {
             var movies = movieRepository.GetAdultMovies(isAdult);
 
-            var mappedMovies = Map.ToMovie(movies).ToList();
+            var mappedMovies = Map.ToMovie(
+                movies
+                .Where(x => x.NumberOfVotes > 100)
+                .OrderByDescending(x => x.AvgRating)
+                .Take(16)
+                ).ToList();
 
             if (mappedMovies == null)
             {
                 return NotFound("No movies of selected genre could be found.");
+            }
+            for (int i = 0; i < mappedMovies.Count(); i++)
+            {
+
+                if (mappedMovies[i].PosterUrl == null || !mappedMovies[i].PosterUrl.StartsWith("http"))
+                {
+                    var detailsEntity = await movieRepository.GetMovieDetails(mappedMovies[i].Id);
+                    var movieEntity = movieRepository.GetMovie(mappedMovies[i].Id);
+
+                    detailsEntity.Movie = movieEntity;
+
+                    movieRepository.Add(detailsEntity);
+                    await movieRepository.SaveChangesAsync();
+
+                    mappedMovies[i] = Map.ToMovieFromObject(movieEntity, detailsEntity);
+                }
             }
             return Ok(mappedMovies);
         }

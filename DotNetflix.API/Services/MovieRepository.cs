@@ -87,7 +87,7 @@ namespace DotNetflix.API.Services
         public IQueryable<Movies> GetAdultMovies(bool isAdult)
         {
             var movies = context.Movies
-                .Where(x=> x.IsAdult == true).OrderByDescending(x => x.AvgRating).Take(10);
+                .Where(x=> x.IsAdult == true);
 
             return movies;
         }
@@ -96,8 +96,7 @@ namespace DotNetflix.API.Services
         {
             var movies = (from mg in context.MovieGenres
                           where mg.GenresId == genreId
-                          select mg.Movie).Where(x=>x.NumberOfVotes>50000).OrderByDescending(x=> x.AvgRating).Take(10);
-
+                          select mg.Movie);
             return movies;
 
         }
