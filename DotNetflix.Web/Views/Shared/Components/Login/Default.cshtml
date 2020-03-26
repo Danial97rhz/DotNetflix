@@ -2,31 +2,42 @@
 
 @if (Model.IsSignedIn)
 {
-    <form asp-area="" asp-controller="Account" asp-action="Logout" id="logoutForm" method="post">
-        <ul class="nav navbar-nav">
-            <li>
+    <ul class="nav navbar-nav">
+        <li class="nav-item">
+            <p class="nav-link">
+                Logged in as @Model.User.UserName
+            </p>
+        </li>
+        <li class="nav-item dropdown">
+            <button class="nav-link text-nowrap p-0 m-0 border-0"
+                    style="max-height:40px; max-width:40px;"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
                 @if (Model.User.Avatar == null)
                 {
-                    <img style="max-height:40px"
+                    <img class="img-fluid"
                          src="~/img/Avatars/User_Avatar-512.webp" />
                 }
                 else
                 {
-                    <img style="max-height:40px"
+                    <img class="img-fluid"
                          src="@Url.Action("GetAvatar", "Account")" />
                 }
-            </li>
-            <li class="nav-item">
-                <p class="nav-link">
-                   
-                    Logged in as @Model.User.UserName
-                </p>
-            </li>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" asp-controller="Account" asp-action="MyAccount" asp-route-view ="Profile">Profile</a>
+                <a class="dropdown-item" asp-controller="Account" asp-action="MyAccount" asp-route-view ="Rated movies">Rated movies</a>
+                <a class="dropdown-item" asp-controller="Account" asp-action="MyAccount" asp-route-view ="Wishlist">Wishlist</a>
+
+            </div>
+        </li>
             <li class="nav-item">
                 <a class="nav-link museofont btn btn-info pt-0 pb-0 pl-1 pr-1" id="logoutLink" asp-controller="Account" asp-action="Logout">Logout</a>
             </li>
-        </ul>
-    </form>
+    </ul>
 }
 else
 {

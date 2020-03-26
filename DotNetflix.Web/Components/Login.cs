@@ -8,13 +8,13 @@ namespace DotNetflix.Web.Components
 {
     public partial class Login : ViewComponent
     {
-        private readonly UserManager<ApplicationUser> _userManger;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public Login(UserManager<ApplicationUser> userManger,
+        public Login(UserManager<ApplicationUser> userManager,
                      SignInManager<ApplicationUser> signInManager)
         {
-            _userManger = userManger;
+            _userManager = userManager;
             _signInManager = signInManager;
         }
 
@@ -22,7 +22,7 @@ namespace DotNetflix.Web.Components
         {
             var vm = new LoginComponentViewModel
             {
-                User = await _userManger.GetUserAsync(HttpContext.User),
+                User = await _userManager.GetUserAsync(HttpContext.User),
                 IsSignedIn = _signInManager.IsSignedIn(HttpContext.User)
             };
 
