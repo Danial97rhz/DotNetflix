@@ -15,37 +15,46 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] DotNetflix</title>
+    <link href="~/css/CustomStyling.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/css/CustomStyling.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
 </head>
-<body>
+<body class="bg-dark">
     <!--Header-->
     <header>
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
             <!--Logo DOTNETFLIX-->
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://fontmeme.com/permalink/200221/23272f102a3458b26133c79bc69597bb.png" alt="netflix-font" border="0" width="137" height="31"></a>
-            <!-- END Logo-->
 
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="img-fluid" src="~/img/Logo/DotNetflixLogo.png" alt="netflix-font" border="0"></a>
+            <!-- END Logo-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        @await Component.InvokeAsync("SearchBar")
+            <div class="collapse navbar-collapse pr-0" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-0">
+                    <li class="nav-item bebafont font30 ">
+                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Home" asp-action="Index">Movies</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Movie" asp-action="Genres">Genres</a>
+                    <li class="nav-item bebafont font30 ">
+                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Movie" asp-action="Genres">Genres</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">Latest</a>
+                    <li class="nav-item bebafont font30">
+                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Movie" asp-action="Genres">Reviews</a>
                     </li>
+                    <li class="nav-item bebafont font30">
+                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Movie" asp-action="Genres">Wishlists</a>
+                    </li>
+                    @if (!SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item bebafont font30">
+                            <a class="nav-link text-nowrap colormedium" id="registerLink" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                    }
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown nav-font">
                             <a class="nav-link dropdown-toggle text-nowrap"
                                href="#"
                                id="navbarDropdown"
@@ -56,10 +65,10 @@
                                 My pages
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" id="myAccountLink" asp-controller="Account" asp-action="MyAccount">My Account</a>
+                                <a class="dropdown-item museofont" id="myAccountLink" asp-controller="Account" asp-action="MyAccount">My Account</a>
                                 <hr class="dropdown-divider" />
-                                <a class="dropdown-item" id="myReviewLink" asp-controller="UserMovie" asp-action="RatedMovies">Rated movies</a>
-                                <a class="dropdown-item" id="myWishlistLink" asp-controller="UserMovie" asp-action="Wishlist">Wishlist</a>
+                                <a class="dropdown-item museofont" " id="myReviewLink" asp-controller="UserMovie" asp-action="RatedMovies">Rated movies</a>
+                                <a class="dropdown-item museofont" " id="myWishlistLink" asp-controller="UserMovie" asp-action="Wishlist">Wishlist</a>
                             </div>
                         </li>
                     }
@@ -67,18 +76,25 @@
                     {
                         @await Component.InvokeAsync("AdminMenu")
                     }
-                    @await Component.InvokeAsync("Login")
+
+                    @*<li class="nav-item pl-5">*@
+
+                    @*</li>*@
                 </ul>
 
             </div>
+            @await Component.InvokeAsync("Login")
+            @await Component.InvokeAsync("SearchBar")
         </nav>
     </header>
     <!--END Header-->
 
     <div class="container-fluid px-0" style="margin-top: 65px">
         <main role="main">
-            <div class="container min-vh-100 pt-2">
-                @RenderBody()
+            <div class="container-fluid min-vh-100 bg-dark" style="margin-top: 10px">
+                <div class="siteborder p-2 mt-3">
+                    @RenderBody()
+                </div>
             </div>            
         </main>
     </div>
@@ -87,7 +103,7 @@
     <!-- Footer-->
     <footer class="position-relative z-index-10 d-print-none">
         <!-- Main block - menus, subscribe form-->
-        <div class="py-6 bg-dark text-muted">
+        @*<div class="py-6 bg-dark text-muted">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 mb-5 mb-lg-0 align-content-sm-around">
@@ -130,7 +146,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
         <!-- Copyright section of the footer-->
         <div class="py-6 font-weight-light bg-gray-800 text-gray-300">
             <div class="container">

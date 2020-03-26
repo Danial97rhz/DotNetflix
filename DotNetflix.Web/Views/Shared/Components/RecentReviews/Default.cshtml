@@ -2,9 +2,9 @@
 
 @foreach (var review in Model)
 {
-    <div class="border border-success">
-        <p>@review.Movie.Title</p>
-        <p>Rating @review.UserRating/10</p>
-        <p>Reviewed by @review.UserName</p>
+    <div>
+        <b class="bebafont colordark font24">@review.Movie.Title</b>
+        <p class="btn btn-info rounded-circle font24 colorlight bebafont">@review.UserRating</p>        
+        <p class="museofont colordark font24">By @review.UserName</p>
     </div>
 }

@@ -1,4 +1,61 @@
-﻿.slidecontainer {
+﻿@font-face {
+    font-family: 'bebasneue-regular';
+    src: url('../lib/font-awesome/webfonts/bebasneue-regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'museosans_500';
+    src: url('../lib/font-awesome/webfonts/museosans_500.otf') format('opentype');
+}
+.bebafont {
+    font-family: 'bebasneue-regular';
+}
+.museofont {
+    font-family: 'museosans-100';
+}
+.font30 {
+    font-size: 30pt;
+}
+.font40 {
+    font-size: 40pt;
+}
+.font24 {
+    font-size: 24pt !important;
+}
+.colorlight {
+    color: #F5F4E1 !important;
+}
+.colorlightbg {
+    background-color: #F5F4E1;
+}
+.colordark {
+    color: #686460 !important;
+}
+.colormedium {
+    color: #85967A !important;
+}
+.colorlight:hover {
+    color: #abaa9d !important;
+}
+.colordark:hover {
+    color: #95928f !important;
+}
+.colormedium:hover {
+    color: #a9b5a1 !important;
+}
+@font-face {
+    font-family: 'museosans-100';
+    src: url('../lib/font-awesome/webfonts/museosans-100.otf') format('opentype');
+}
+.siteborder {
+    border-style: solid;
+    border-color: #686460;
+    border-width: 1px;
+    border-radius: 5px;
+}
+p, div {
+    font-family: museosans-100;
+}
+.slidecontainer {
     width: 100%; /* Width of the outside container */
 }
 
