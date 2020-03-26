@@ -23,8 +23,12 @@
                 </td>
                 <td>@wishlistMovie.DateAdded.ToShortDateString()</td>
                 <td>
-                    <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@wishlistMovie.MovieId" type="submit" class="btn btn-sm btn-info">Rate</a>
-                    <a asp-controller="UserMovie" asp-action="RemoveWishlistMovie" asp-route-id="@wishlistMovie.Id" type="submit" class="btn btn-sm btn-outline-danger mr-1">Remove</a>
+                    <!-- Only show rate and remove buttons to signed in user on pesonal page -->
+                    @if ((bool)ViewData["SignedInUser"])
+                    {
+                        <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@wishlistMovie.MovieId" type="submit" class="btn btn-sm btn-info">Rate</a>
+                        <a asp-controller="UserMovie" asp-action="RemoveWishlistMovie" asp-route-id="@wishlistMovie.Id" type="submit" class="btn btn-sm btn-outline-danger mr-1">Remove</a>
+                    }
                 </td>
             </tr>
         }

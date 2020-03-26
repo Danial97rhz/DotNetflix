@@ -35,10 +35,17 @@ namespace DotNetflix.Web.Components
         {
             // Get user. If id is passed in then get user by that id else get the logged in user.
             var user = new ApplicationUser();
+            var signedInUser = false;
             if (id != null)
-                user = await _userManager.FindByIdAsync(id.ToString());            
+            {
+                user = await _userManager.FindByIdAsync(id.ToString());
+            }                           
             else
+            {
                 user = await _userManager.GetUserAsync(HttpContext.User);
+                signedInUser = true;
+            }
+                
 
             var client = _clientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{_userAPIRoot}GetWishlist/{user.Id}");
@@ -54,6 +61,8 @@ namespace DotNetflix.Web.Components
                 var movies = await JsonSerializer.DeserializeAsync<IEnumerable<Wishlist>>(responseStream,
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 var wishlistVM = new WishlistViewModel() { WishlistMovies = movies };
+
+                ViewData["SignedInUser"] = signedInUser;
 
                 return View(wishlistVM);
             }
