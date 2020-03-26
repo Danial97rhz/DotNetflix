@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<RateMovieViewModel>
 
-<h3 class="text-danger">Rated Movies</h3>
+<h3 class="text-info">Rated Movies</h3>
 
 @foreach (var movie in Model)
 {
@@ -10,7 +10,7 @@
                 @movie.Movie.Title
                 <span class="text-muted">(@movie.Movie.Year)</span>
                 <div class="d-inline justify-content-end">
-                    <strong class="text-danger ">@movie.UserRating/10</strong>
+                    <strong class="text-info ">@movie.UserRating/10</strong>
                 </div>
                 
                 
