@@ -75,7 +75,8 @@ namespace DotNetflix.Web.Controllers
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 var wishlistVM = new WishlistViewModel() { WishlistMovies = movies };
 
-                return View(wishlistVM);
+                //Redirect to personal wishlist
+                return RedirectToAction("MyAccount", "Account", new { view = "Wishlist" });
             }
             return View();
         }
@@ -120,7 +121,7 @@ namespace DotNetflix.Web.Controllers
                 TempData["PostError"] = "Something went wrong, try again or contact support!";
             }
 
-            return RedirectToAction("RatedMovies", "UserMovie");
+            return RedirectToAction("MyAccount", "Account", new { view = "Rated movies"} );
         }
 
 
@@ -147,7 +148,7 @@ namespace DotNetflix.Web.Controllers
             return RedirectToAction("Wishlist", "UserMovie");
         }
 
-
+        /* Metod för att visa rate movies */
         public async Task<IActionResult> RatedMovies()
         {
             int userId = Convert.ToInt32(_userManager.GetUserId(User));

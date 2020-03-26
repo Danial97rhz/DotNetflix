@@ -43,6 +43,12 @@
                     <li class="nav-item">
                         <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">Latest</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Lists">Lists</a>
+                    </li>
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                     {
                         @await Component.InvokeAsync("AdminMenu")
