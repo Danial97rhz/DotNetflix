@@ -1,17 +1,18 @@
-﻿@model MyAccountViewModel
+﻿@using DotNetflix.Web.Auth
+@model ApplicationUser
 
-<div class="container">
+<div class="container-fluid">
 
     <div class="text-center p-3">
-        <h1>Welcome to your account @Model.User.UserName</h1>
+        <h1>Welcome to your account @Model.UserName</h1>
         <hr />
     </div>
         
     <div class="row justify-content-center">
-
+        <!-- First column with profile image and buttons to change view content -->
         <div class="col-lg-2 col-md-3 col-sm-4 col-8">
             <div class="row px-2 justify-content-center">
-                @if (Model.User.Avatar == null)
+                @if (Model.Avatar == null)
                 {
                     <img class="img-fluid"
                         src="~/img/Avatars/User_Avatar-512.webp"
@@ -30,35 +31,36 @@
                         style="cursor:pointer"/>
                 }
             </div>
-            <div class="row px-2 py-4 justify-content-center">
-                <a class="btn btn-info" asp-action="EditUser" asp-route-id="@Model.User.Id">Edit user details</a>
+            <div class="row px-2">
+                <form asp-action="MyAccount" method="get" class="text-center">
+                    <input style="width:150px" type="submit" name="view" value="Profile"
+                           @{ string tmp = (string)ViewData["View"] == "Profile" ? "btn-info" : "btn-outline-info"; }
+                           class="@tmp btn btn-sm m-1">
+                    <input style="width:150px" type="submit" name="view" value="Rated movies"
+                           @{ tmp = (string)ViewData["View"] == "Rated movies" ? "btn-info" : "btn-outline-info"; }
+                           class="@tmp btn btn-sm m-1">
+                    <input style="width:150px" type="submit" name="view" value="Wishlist"
+                           @{ tmp = (string)ViewData["View"] == "Wishlist" ? "btn-info" : "btn-outline-info"; }
+                           class="@tmp btn btn-sm m-1">
+                </form>
             </div>
         </div>
-
-        <div class="col-lg-5 col-md-6 col-sm-6">
-            <h3 class="text-danger">User details</h3>
-            <table class="table table-borderless myAccountTable table-sm">
-                <tr>
-                    <td>Email</td>
-                    <td>@Model.User.Email</td>
-                </tr>
-                <tr class="py-0">
-                    <td>Username</td>
-                    <td>@Model.User.UserName</td>
-                </tr>
-                <tr>
-                    <td>Birtdate</td>
-                    <td>@Model.User.Birthdate.ToShortDateString()</td>
-                </tr>
-                <tr>
-                    <td>City</td>
-                    <td>@Model.User.City</td>
-                </tr>
-                <tr>
-                    <td>Country</td>
-                    <td>@Model.User.Country</td>
-                </tr>
-            </table>
+        <!-- Second column displays content depending on which button has been pressed -->
+        <div class="col-lg-10 col-md-9 col-sm-8">
+            @switch (ViewData["View"])
+            {
+                case "Profile":
+                    @await Component.InvokeAsync("MyAccountProfile")
+                    break;
+                case "Rated movies":
+                    @await Component.InvokeAsync("MyAccountRatedMovies")
+                    break;
+                case "Wishlist":
+                    @await Component.InvokeAsync("MyAccountWishlist")
+                    break;
+                default:
+                    break;
+            }
         </div>
     </div>
 </div>
@@ -85,6 +87,7 @@
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 </div>

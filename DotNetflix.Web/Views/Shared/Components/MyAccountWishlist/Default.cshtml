@@ -1,0 +1,34 @@
+﻿@model WishlistViewModel
+
+@{
+    ViewData["Title"] = "Wishlist";
+}
+
+<h3 class="text-danger">Wishlist</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title / Year</th>
+            <th>Added to wishlist</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var wishlistMovie in Model.WishlistMovies)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@wishlistMovie.MovieId">
+                        @wishlistMovie.Title
+                        @wishlistMovie.Year.GetValueOrDefault()
+                    </a>
+                </td>
+                <td>@wishlistMovie.DateAdded.ToShortDateString()</td>
+                <td>
+                    <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@wishlistMovie.MovieId" type="submit" class="btn btn-sm btn-info">Rate</a>
+                    <a asp-controller="UserMovie" asp-action="RemoveWishlistMovie" asp-route-id="@wishlistMovie.Id" type="submit" class="btn btn-sm btn-outline-danger mr-1">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

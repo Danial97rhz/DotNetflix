@@ -186,14 +186,12 @@ namespace DotNetflix.Web.Controllers
         /************************************************
                      MY ACCOUNT / EDIT USER
         ************************************************/
-        public async Task<IActionResult> MyAccount()
+        [HttpGet]
+        public async Task<IActionResult> MyAccount(string view = "Profile")
         {
-            var vm = new MyAccountViewModel()
-            {
-                User = await _userManager.GetUserAsync(HttpContext.User)
-            };
-
-            return View(vm);
+            var user = await _userManager.GetUserAsync(User);
+            ViewData["View"] = view;
+            return View(user);
         }
 
         public async Task<IActionResult> EditUser(int id)
