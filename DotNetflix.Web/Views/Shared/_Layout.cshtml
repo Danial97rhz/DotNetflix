@@ -43,33 +43,18 @@
                     <li class="nav-item">
                         <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Index">Latest</a>
                     </li>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-nowrap"
-                               href="#"
-                               id="navbarDropdown"
-                               role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                My pages
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" id="myAccountLink" asp-controller="Account" asp-action="MyAccount">My Account</a>
-                                <hr class="dropdown-divider" />
-                                <a class="dropdown-item" id="myReviewLink" asp-controller="UserMovie" asp-action="RatedMovies">Rated movies</a>
-                                <a class="dropdown-item" id="myWishlistLink" asp-controller="UserMovie" asp-action="Wishlist">Wishlist</a>
-                            </div>
-                        </li>
-                    }
+                    <li class="nav-item">
+                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nowrap" asp-area="" asp-controller="Home" asp-action="Lists">Lists</a>
+                    </li>
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                     {
                         @await Component.InvokeAsync("AdminMenu")
                     }
                     @await Component.InvokeAsync("Login")
                 </ul>
-
             </div>
         </nav>
     </header>
