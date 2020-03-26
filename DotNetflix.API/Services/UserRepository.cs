@@ -17,6 +17,15 @@ namespace DotNetflix.API.Services
             _context = context;
         }
 
+        // Get the ids for all users that have added movies to their wishlist
+        public List<int> GetUsersWithWishlist()
+        {
+            return _context.Wishlist
+               .Select(x => (int)x.UserId)
+               .Distinct()
+               .ToList();
+        }
+
         public List<WishlistMovies> GetWishList(int userId)
         {
             var wishlist = _context.Wishlist

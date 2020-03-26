@@ -13,6 +13,11 @@ namespace DotNetflix.Web.Context
 
         }
 
+        public AppDbContext()
+        {
+
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // IDENTITY: Call base class OnModelCreating
