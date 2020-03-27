@@ -12,6 +12,15 @@
 .museofont {
     font-family: 'museosans-100';
 }
+.font10 {
+    font-size: 10pt !important;
+}
+.font20 {
+    font-size: 20pt !important;
+}
+.font22 {
+    font-size: 22pt !important;
+}
 .font30 {
     font-size: 30pt;
 }
