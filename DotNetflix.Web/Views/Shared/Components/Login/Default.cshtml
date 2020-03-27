@@ -9,7 +9,7 @@
             </p>
         </li>*@
         <li class="nav-item dropdown">
-            <button class="nav-link text-nowrap p-0 m-0 border-0"
+            <button class="nav-link text-nowrap p-0 m-0 border-0 m-1"
                     style="max-height:40px; max-width:40px;"
                     id="navbarDropdown"
                     role="button"
@@ -27,7 +27,7 @@
                          src="@Url.Action("GetAvatar", "Account")" />
                 }
             </button>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu colordark colorlightbg" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" asp-controller="Account" asp-action="MyAccount" asp-route-view ="Profile">Profile</a>
                 <a class="dropdown-item" asp-controller="Account" asp-action="MyAccount" asp-route-view ="Rated movies">Rated movies</a>
                 <a class="dropdown-item" asp-controller="Account" asp-action="MyAccount" asp-route-view ="Wishlist">Wishlist</a>
