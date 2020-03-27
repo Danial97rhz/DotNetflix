@@ -6,6 +6,15 @@
     font-family: 'museosans_500';
     src: url('../lib/font-awesome/webfonts/museosans_500.otf') format('opentype');
 }
+.alternative {
+    color: #686460 !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+}
+    .alternative:hover {
+        text-decoration: underline !important;
+    }
+
 .bebafont {
     font-family: 'bebasneue-regular';
 }
@@ -101,4 +110,8 @@ p, div {
     background: #5bc0de;
     cursor: pointer;
 }
-
+/* Siteborder kring render body
+-----------------------------------------------------*/
+.siteborder {
+    margin-top: 7em;
+}
