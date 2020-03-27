@@ -4,10 +4,10 @@
 @model CarouselViewModel
 
 
-<div class="text-center">
+@*<div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <!--Test for header & footer från "_Layout.cshtml"-->
-</div>
+    Test for header & footer från "_Layout.cshtml"
+</div>*@
 
 
 
@@ -55,11 +55,11 @@
         </a>
     </div>
 </div>
-<aside style="width: 300px">
-    <div class="rounded colorlightbg">
-        <h5 class="bebafont font40">Latest Reviews</h5>
+@*<aside style="width: 300px">*@
+    <div class="col-md-3 float-right rounded m-2 p-2 colorlightbg">
+        <h5 class="bebafont font30 colordark">Latest Reviews</h5>
         @await Component.InvokeAsync("RecentReviews")
     </div>
-</aside>
+@*</aside>*@
 
 

@@ -3,8 +3,8 @@
 @foreach (var review in Model)
 {
     <div>
-        <b class="bebafont colordark font24">@review.Movie.Title</b>
-        <p class="btn btn-info rounded-circle font24 colorlight bebafont">@review.UserRating</p>        
-        <p class="museofont colordark font24">By @review.UserName</p>
+        <text class="bebafont colordark font24">@review.Movie.Title 
+        <button type="button" class="btn btn-info rounded-circle btn-circle btn-sm colorlight bebafont">@review.UserRating</button></text>
+        <br /><text class="museofont colordark font22">By @review.UserName</text>
     </div>
 }
