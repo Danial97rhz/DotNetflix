@@ -1,7 +1,35 @@
-﻿@{
+﻿@model List<ApplicationUser>
+
+@{
     ViewBag.Title = "Lists";
 }
 
-<div>
-    <h1>Lists</h1>
+<div class="container">
+    <div class="row justify-content-start">
+        
+        <div class="col-md-3">
+            <h6 class="text-info">Avalible Wishlists</h6>
+            <table class="table table-borderless border-right">
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Home"
+                               asp-action="Lists"
+                               asp-route-id="@user.Id">@user.UserName</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="col-md-9">
+            @if (ViewData["UserId"] != null)
+            {
+                <h4 class="text-info">Wishlist of @ViewData["UserName"]</h4>
+                @await Component.InvokeAsync("MyAccountWishlist", ViewData["UserId"])
+            }
+        </div>
+    </div>
 </div>
+

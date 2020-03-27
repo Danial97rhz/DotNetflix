@@ -11,6 +11,7 @@ namespace DotNetflix.API.Services
         List<WishlistMovies> GetWishList(int userId);
         void AddToWishlist(WishlistMovies wishlistMovie);
         void DeleteWishlistMovie(WishlistMovies wishlistMovie);
+        List<int> GetUsersWithWishlist();
         WishlistMovies GetWishlistMovie(int id);
         List<RatedMovies> GetRecentReviews();
         List<RatedMovies> GetRatedMovieList(int userId);

@@ -36,6 +36,20 @@ namespace DotNetflix.API.Controllers
 
             return wishlistModel;
         }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<int>> GetUsersWithWishlist()
+        {
+            var usersWithWishlist = _repository.GetUsersWithWishlist();
+
+            if (usersWithWishlist == null)
+            {
+                return NotFound("Wishlist not found.");
+            }
+
+            return usersWithWishlist;
+        }
+
         [HttpPost]
         public async Task<ActionResult<RatedMovies>> PostRatedMovie(RatedMovies ratedMovie)
         {
