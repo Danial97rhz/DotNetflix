@@ -1,8 +1,13 @@
 ﻿@model MovieInfoViewModel
 <!-- Render movie info -->
-<Partial name="_MovieInfo" />
+    <div class="colorlightbg colordark rounded m-2">
 
-<div class="row justify-content-end">
-     <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-info m-3">Rate movie</a>
-    <a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@Model.Movie.Id" type="submit" class="btn btn-info m-3">Add to wishlist</a>
-</div>
+        <Partial name="_MovieInfo" />
+
+        <div class="row justify-content-end">
+            <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@Model.Movie.Id" type="submit" class="btn btn-info m-3">Rate movie</a>
+            <a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@Model.Movie.Id" type="submit" class="btn btn-info m-3">Add to wishlist</a>
+        </div>
+    </div>
+
+

@@ -4,91 +4,93 @@
     ViewData["Title"] = "SearchResult";
 }
 
-<p class="mt-2">
-    Your search generated @Model.SearchResult.Count results.
-</p>
-<div class="container">
-    <div class="row">
-        @foreach (var movie in Model.SearchResult.Movies)
-        {
-            <div class="col-sm-12 col-md-6 col-lg-3 border mb-2">
+    <div class="container rounded colorlightbg ">
 
-                <img class="img-fluid max-width: 100% height: auto" src="@movie.PosterUrl"/>
-                <br /><a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.Id">@movie.Title</a> 
-                <br />(@movie.Year)
-                <br /><b>@movie.Director</b>
-                <br /><i>@movie.Country</i>
+        <p class="mt-2">
+            Your search generated @Model.SearchResult.Count results.
+        </p>
+        <div class="container">
+            <div class="row">
+                @foreach (var movie in Model.SearchResult.Movies)
+                {
+                    <div class="col-sm-12 col-md-6 col-lg-3 border mb-2">
 
-                @*@{
-                    int nrGenres = movie.Genres.Count();
-                    for (int i = 0; i < nrGenres; i++)
-                    {
-                        @movie.Genres[i];
-                        if (i + 1 < nrGenres && nrGenres != 0)
-                        { <span> | </span> }
-                    }
-                }*@
-                <br /><a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@movie.Id" type="submit" class="btn btn-info">Add to wishlist</a>
-                <br /><a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id" type="submit" class="btn btn-info">Rate movie</a>
+                        <img class="img-fluid max-width: 100% height: auto" src="@movie.PosterUrl" />
+                        <br /><a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.Id">@movie.Title</a>
+                        <br />(@movie.Year)
+                        <br /><b>@movie.Director</b>
+                        <br /><i>@movie.Country</i>
+
+                        @*@{
+                            int nrGenres = movie.Genres.Count();
+                            for (int i = 0; i < nrGenres; i++)
+                            {
+                                @movie.Genres[i];
+                                if (i + 1 < nrGenres && nrGenres != 0)
+                                { <span> | </span> }
+                            }
+                        }*@
+                        <br /><a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@movie.Id" type="submit" class="btn btn-info">Add to wishlist</a>
+                        <br /><a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id" type="submit" class="btn btn-info">Rate movie</a>
+                    </div>
+                }
             </div>
-        }
+        </div>
+
+
+        <div>
+
+            <ul class="pagination">
+
+                <li class="page-item @(!Model.SearchResult.ShowFirst? "disabled":"")">
+
+                    <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="1" class="page-link"><i class="fas fa-fast-backward"></i></a>
+
+                </li>
+
+
+
+                <li class="page-item @(!Model.SearchResult.ShowPrevious? "disabled":"")">
+
+                    <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@(Model.SearchResult.CurrentPage -1)" class="page-link"><i class="fas fa-step-backward"></i></a>
+
+                </li>
+
+                <li class="page-item  @(!Model.SearchResult.ShowNext? "disabled":"")">
+
+                    <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@(Model.SearchResult.CurrentPage + 1)" class="page-link"><i class="fas fa-step-forward"></i></a>
+
+                </li>
+
+
+
+                <li class="page-item  @(!Model.SearchResult.ShowLast? "disabled":"")">
+
+                    <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@Model.SearchResult.TotalPages" class="page-link"><i class="fas fa-fast-forward"></i></a>
+
+                </li>
+
+            </ul>
+
+        </div>
     </div>
-</div>
 
+        @*<div>
 
-<div>
+            <ul class="pagination">
 
-    <ul class="pagination">
+                @for (var i = 1; i <= Model.TotalPages; i++)
 
-        <li class="page-item @(!Model.SearchResult.ShowFirst? "disabled":"")">
+                {
 
-            <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="1" class="page-link"><i class="fas fa-fast-backward"></i></a>
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
 
-        </li>
+                        <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
 
+                    </li>
 
+                }
 
-        <li class="page-item @(!Model.SearchResult.ShowPrevious? "disabled":"")">
+            </ul>
 
-            <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@(Model.SearchResult.CurrentPage -1)" class="page-link"><i class="fas fa-step-backward"></i></a>
-
-        </li>
-
-        <li class="page-item  @(!Model.SearchResult.ShowNext? "disabled":"")">
-
-            <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@(Model.SearchResult.CurrentPage + 1)" class="page-link"><i class="fas fa-step-forward"></i></a>
-
-        </li>
-
-
-
-        <li class="page-item  @(!Model.SearchResult.ShowLast? "disabled":"")">
-
-            <a asp-page="/pagination" asp-route-title="@Model.SearchResult.Title" asp-route-CurrentPage="@Model.SearchResult.TotalPages" class="page-link"><i class="fas fa-fast-forward"></i></a>
-
-        </li>
-
-    </ul>
-
-</div>
-
-
-@*<div>
-
-    <ul class="pagination">
-
-        @for (var i = 1; i <= Model.TotalPages; i++)
-
-        {
-
-            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-
-                <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
-
-            </li>
-
-        }
-
-    </ul>
-
-</div>*@
+        </div>*@
