@@ -1,14 +1,17 @@
 ﻿@model UserRoleViewModel
 
-<h2>Add user to role</h2>
+    <div class="colorlightbg colordark rounded m-2">
 
-<form asp-controller="Admin" asp-action="AddUserToRole">
-    <input type="hidden" name="roleId" value="@Model.RoleId" />
-    <select asp-for="UserId"
-            asp-items="@(new SelectList(Model.Users, "Id", "UserName"))">
-        <option>Please select a user</option>
-    </select>
-    <input class="btn btn-info" value="Add to role" type="submit" />
-</form>
+        <h2>Add user to role</h2>
 
-<a asp-action="RoleManagement" class="btn btn-primary">Done</a>
+        <form asp-controller="Admin" asp-action="AddUserToRole">
+            <input type="hidden" name="roleId" value="@Model.RoleId" />
+            <select asp-for="UserId"
+                    asp-items="@(new SelectList(Model.Users, "Id", "UserName"))">
+                <option>Please select a user</option>
+            </select>
+            <input class="btn btn-info" value="Add to role" type="submit" />
+        </form>
+
+        <a asp-action="RoleManagement" class="btn btn-primary">Done</a>
+    </div>

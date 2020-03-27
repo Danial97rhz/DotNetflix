@@ -15,10 +15,12 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] DotNetflix</title>
-    <link href="~/css/CustomStyling.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/CustomStyling.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+
 </head>
 <body class="bg-dark">
     <!--Header-->
@@ -52,7 +54,7 @@
                             <a class="nav-link text-nowrap colormedium" id="registerLink" asp-controller="Account" asp-action="Register">Register</a>
                         </li>
                     }
-                    @if (SignInManager.IsSignedIn(User))
+                    @*@if (SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item dropdown nav-font">
                             <a class="nav-link dropdown-toggle text-nowrap"
@@ -71,7 +73,7 @@
                                 <a class="dropdown-item museofont" " id="myWishlistLink" asp-controller="UserMovie" asp-action="Wishlist">Wishlist</a>
                             </div>
                         </li>
-                    }
+                    }*@
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                     {
                         @await Component.InvokeAsync("AdminMenu")
@@ -92,7 +94,7 @@
     <div class="container-fluid px-0" style="margin-top: 65px">
         <main role="main">
             <div class="container-fluid min-vh-100 bg-dark" style="margin-top: 10px">
-                <div class="siteborder p-2 mt-3">
+                <div class="siteborder p-2">
                     @RenderBody()
                 </div>
             </div>            
