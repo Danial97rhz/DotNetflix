@@ -10,56 +10,56 @@
 </div>*@
 
 
+    <div class="col-lg-3 col-md-4 col-sm-6 col-8">
+        <div style="background-color:white" id="HomeCarousel" class="carousel slide mb-2" data-ride="carousel">
 
-<div style="background-color:white" id="HomeCarousel" class="carousel slide mb-2" data-ride="carousel">
-
-    <ol class="carousel-indicators" style="color: black">
-        <li data-target="#HomeCarousel" data-slide-to="0" class="active"></li>
-        @for (int i = 1; i < Model.Carouseldata.Count(); i++)
-        {
-            <li data-target="#HomeCarousel" data-slide-to="@i"></li>
-        }
-    </ol>
+            <ol class="carousel-indicators" style="color: black">
+                <li data-target="#HomeCarousel" data-slide-to="0" class="active"></li>
+                @for (int i = 1; i < Model.Carouseldata.Count(); i++)
+                {
+                    <li data-target="#HomeCarousel" data-slide-to="@i"></li>
+                }
+            </ol>
 
 
-    <div class="carousel-inner">
+            <div class="carousel-inner">
 
-        @{string s = "";}
-        @foreach (var data in Model.Carouseldata)
-        {
-            if (data.Id == Model.Carouseldata.First().Id)
-            {
-                s = "active";
-            }
-            else { s = ""; }
-            <div class="carousel-item @s container">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <img width="300" height="426" src="@data.ImgPath" alt="" />
+                @{string s = "";}
+                @foreach (var data in Model.Carouseldata)
+                {
+                    if (data.Id == Model.Carouseldata.First().Id)
+                    {
+                        s = "active";
+                    }
+                    else { s = ""; }
+                    <div class="carousel-item @s container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img width="300" height="426" src="@data.ImgPath" alt="" />
+                            </div>
+                            <div class="col-sm-8">
+                                <h2>@data.Title</h2>
+                                <p>@data.Text</p>
+                                <i>@data.DateAdded.ToString("dddd, dd MMMM yyyy")</i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-8">
-                        <h2>@data.Title</h2>
-                        <p>@data.Text</p>
-                        <i>@data.DateAdded.ToString("dddd, dd MMMM yyyy")</i>
-                    </div>
-                </div>
+                }
+                <a class="carousel-control-prev" href="#HomeCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#HomeCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-        }
-        <a class="carousel-control-prev" href="#HomeCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#HomeCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        </div>
+        @*<aside style="width: 300px">*@
+        <div class="m-2 p-2 colorlightbg rounded">
+            <h5 class="bebafont font30 colordark">Latest Reviews</h5>
+            @await Component.InvokeAsync("RecentReviews")
+        </div>
+        @*</aside>*@
     </div>
-</div>
-@*<aside style="width: 300px">*@
-    <div class="col-md-3 m-2 p-2 colorlightbg rounded">
-        <h5 class="bebafont font30 colordark">Latest Reviews</h5>
-        @await Component.InvokeAsync("RecentReviews")
-    </div>
-@*</aside>*@
-
 
