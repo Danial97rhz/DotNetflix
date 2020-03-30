@@ -18,75 +18,63 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
-    <link href="~/css/CustomStyling.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/CustomStyling.css" rel="stylesheet" />
+
 
 </head>
 <body class="bg-dark">
     <!--Header-->
     <header>
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-            <!--Logo DOTNETFLIX-->
-
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="img-fluid" src="~/img/Logo/DotNetflixLogo.png" alt="netflix-font" border="0"></a>
-            <!-- END Logo-->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse pr-0" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-0">
-                    <li class="nav-item bebafont font30 ">
-                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Home" asp-action="Movies">Movies</a>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark flex-column">
+            <div class="w-100 d-flex">
+                <!--Logo DOTNETFLIX-->
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img class="img-fluid" src="~/img/Logo/DotNetflixLogo.png" alt="netflix-font" border="0"></a>
+                <!-- END Logo-->
+                <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" 
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse pr-0 mr-auto w-100" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-3 mr-auto">
+                    <li class="nav-item bebafont font30">
+                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Home" 
+                           asp-action="Movies">Movies</a>
                     </li>
                     <li class="nav-item bebafont font30 ">
-                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Movie" asp-action="Genres">Genres</a>
+                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Movie" 
+                           asp-action="Genres">Genres</a>
                     </li>
                     <li class="nav-item bebafont font30">
-                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home" asp-action="Reviews">Reviews</a>
+                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home" 
+                           asp-action="Reviews">Reviews</a>
                     </li>
                     <li class="nav-item bebafont font30">
-                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home" asp-action="Lists">Wishlists</a>
+                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home" 
+                           asp-action="Lists">Wishlists</a>
                     </li>
                     @if (!SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item bebafont font30">
-                            <a class="nav-link text-nowrap colormedium" id="registerLink" asp-controller="Account" asp-action="Register">Register</a>
+                            <a class="nav-link text-nowrap colormedium" id="registerLink" asp-controller="Account" 
+                               asp-action="Register">Register</a>
                         </li>
                     }
-                    @*@if (SignInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item dropdown nav-font">
-                            <a class="nav-link dropdown-toggle text-nowrap"
-                               href="#"
-                               id="navbarDropdown"
-                               role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                My pages
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item museofont" id="myAccountLink" asp-controller="Account" asp-action="MyAccount">My Account</a>
-                                <hr class="dropdown-divider" />
-                                <a class="dropdown-item museofont" " id="myReviewLink" asp-controller="UserMovie" asp-action="RatedMovies">Rated movies</a>
-                                <a class="dropdown-item museofont" " id="myWishlistLink" asp-controller="UserMovie" asp-action="Wishlist">Wishlist</a>
-                            </div>
-                        </li>
-                    }*@
+                    
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                     {
                         @await Component.InvokeAsync("AdminMenu")
                     }
 
-                    @*<li class="nav-item pl-5">*@
-
-                    @*</li>*@
                 </ul>
-
+                <ul class="navbar-nav ml-auto">
+                    @await Component.InvokeAsync("Login")
+                    @await Component.InvokeAsync("SearchBar")
+                </ul>
             </div>
-            @await Component.InvokeAsync("Login")
-            @await Component.InvokeAsync("SearchBar")
         </nav>
     </header>
     <!--END Header-->
