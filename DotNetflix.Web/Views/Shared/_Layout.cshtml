@@ -26,14 +26,15 @@
 <body class="bg-dark">
     <!--Header-->
     <header>
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark flex-column">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark flex-column">
             <div class="w-100 d-flex">
                 <!--Logo DOTNETFLIX-->
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                <img class="img-fluid" src="~/img/Logo/DotNetflixLogo.png" alt="netflix-font" border="0"></a>
+                    <img class="img-fluid" src="~/img/Logo/DotNetflixLogo.png" alt="netflix-font" border="0">
+                </a>
                 <!-- END Logo-->
-                <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" 
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -41,29 +42,29 @@
             <div class="collapse navbar-collapse pr-0 mr-auto w-100" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-3 mr-auto">
                     <li class="nav-item bebafont font30">
-                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Home" 
+                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Home"
                            asp-action="Movies">Movies</a>
                     </li>
                     <li class="nav-item bebafont font30 ">
-                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Movie" 
+                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Movie"
                            asp-action="Genres">Genres</a>
                     </li>
                     <li class="nav-item bebafont font30">
-                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home" 
+                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home"
                            asp-action="Reviews">Reviews</a>
                     </li>
                     <li class="nav-item bebafont font30">
-                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home" 
+                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home"
                            asp-action="Lists">Wishlists</a>
                     </li>
                     @if (!SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item bebafont font30">
-                            <a class="nav-link text-nowrap colormedium" id="registerLink" asp-controller="Account" 
+                            <a class="nav-link text-nowrap colormedium" id="registerLink" asp-controller="Account"
                                asp-action="Register">Register</a>
                         </li>
                     }
-                    
+
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                     {
                         @await Component.InvokeAsync("AdminMenu")
@@ -79,64 +80,59 @@
     </header>
     <!--END Header-->
 
-    <div class="container-fluid px-0" style="margin-top: 65px">
+    <div class="container siteborder min-vh-100">
         <main role="main">
-            <div class="container-fluid min-vh-100 bg-dark" style="margin-top: 10px">
-                <div class="siteborder p-2">
-                    @RenderBody()
-                </div>
-            </div>            
+            @RenderBody()
         </main>
     </div>
-
 
     <!-- Footer-->
     <footer class="position-relative z-index-10 d-print-none">
         <!-- Main block - menus, subscribe form-->
         @*<div class="py-6 bg-dark text-muted">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 mb-5 mb-lg-0 align-content-sm-around">
-                        <div class="font-weight-bold text-uppercase text-dark mb-3">Social</div>
-                        <p>Connect with Us. Explore our social media channels.</p>
-                        <ul class="list-inline" align="center">
-                            <li class="list-inline-item"><a href="http://www.facebook.com"><img src="~/img/SocialIcons/facebook-3-32.jpg" width="25" height="25" />   </a></li>
-                            <li class="list-inline-item"><a href="http://www.twitter.com"><img src="~/img/SocialIcons/twitter-2-32.jpg" width="25" height="25" /></a></li>
-                            <li class="list-inline-item"><a href="http://www.google.com"><img src="~/img/SocialIcons/google-plus-2-32.jpg" width="25" height="25" /></a></li>
-                            <li class="list-inline-item"><a href="http://www.instagram.com"><img src="~/img/SocialIcons/instagram-32.jpg" width="25" height="25" /></a></li>
-                            <li class="list-inline-item"><a href="http://www.youtube.com"><img src="~/img/SocialIcons/youtube-4-32.jpg" width="25" height="25" /></a></li>
-                        </ul>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 mb-5 mb-lg-0 align-content-sm-around">
+                            <div class="font-weight-bold text-uppercase text-dark mb-3">Social</div>
+                            <p>Connect with Us. Explore our social media channels.</p>
+                            <ul class="list-inline" align="center">
+                                <li class="list-inline-item"><a href="http://www.facebook.com"><img src="~/img/SocialIcons/facebook-3-32.jpg" width="25" height="25" />   </a></li>
+                                <li class="list-inline-item"><a href="http://www.twitter.com"><img src="~/img/SocialIcons/twitter-2-32.jpg" width="25" height="25" /></a></li>
+                                <li class="list-inline-item"><a href="http://www.google.com"><img src="~/img/SocialIcons/google-plus-2-32.jpg" width="25" height="25" /></a></li>
+                                <li class="list-inline-item"><a href="http://www.instagram.com"><img src="~/img/SocialIcons/instagram-32.jpg" width="25" height="25" /></a></li>
+                                <li class="list-inline-item"><a href="http://www.youtube.com"><img src="~/img/SocialIcons/youtube-4-32.jpg" width="25" height="25" /></a></li>
+                            </ul>
 
 
-                    </div>
-                    <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-                        <h6 class="text-uppercase text-dark mb-3">Team</h6>
-                        <ul class="list-unstyled">
-                            <li><a href="index.html" class="text-muted">Nathalie     </a></li>
-                            <li><a href="index.html" class="text-muted">Mikael     </a></li>
-                            <li><a href="index.html" class="text-muted">Erica     </a></li>
-                            <li><a href="index.html" class="text-muted">Erik     </a></li>
-                            <li><a href="index.html" class="text-muted">Danial     </a></li>
-                            <li><a href="index.html" class="text-muted">Daniel     </a></li>
-                            <li><a href="index.html" class="text-muted">Cristian     </a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-                        <h6 class="text-uppercase text-dark mb-3">DOTNETFLIX</h6>
-                        <ul class="list-unstyled">
-                            <li><a href="index.html" class="text-muted">GET TH DOTNETFLIX App  <span class="badge badge-info-light ml-1">New</span>                                   </a></li>
-                            <li><a href="index.html" class="text-muted">HELP  <span class="badge badge-info-light ml-1">New</span>                                   </a></li>
-                            <li><a href="index.html" class="text-muted">SITE INDEX                                   </a></li>
-                            <li><a href="index.html" class="text-muted">PRESS ROOM                                   </a></li>
-                            <li><a href="index.html" class="text-muted">JOBS                                  </a></li>
-                            <li><a href="index.html" class="text-muted">PRIVACY POLICY                                  </a></li>
-                            <li><a href="index.html" class="text-muted">F.A.Q.s                                   </a></li>
-                            <li><a href="coming-soon.html" class="text-muted">Coming soon                                   </a></li>
-                        </ul>
+                        </div>
+                        <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                            <h6 class="text-uppercase text-dark mb-3">Team</h6>
+                            <ul class="list-unstyled">
+                                <li><a href="index.html" class="text-muted">Nathalie     </a></li>
+                                <li><a href="index.html" class="text-muted">Mikael     </a></li>
+                                <li><a href="index.html" class="text-muted">Erica     </a></li>
+                                <li><a href="index.html" class="text-muted">Erik     </a></li>
+                                <li><a href="index.html" class="text-muted">Danial     </a></li>
+                                <li><a href="index.html" class="text-muted">Daniel     </a></li>
+                                <li><a href="index.html" class="text-muted">Cristian     </a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                            <h6 class="text-uppercase text-dark mb-3">DOTNETFLIX</h6>
+                            <ul class="list-unstyled">
+                                <li><a href="index.html" class="text-muted">GET TH DOTNETFLIX App  <span class="badge badge-info-light ml-1">New</span>                                   </a></li>
+                                <li><a href="index.html" class="text-muted">HELP  <span class="badge badge-info-light ml-1">New</span>                                   </a></li>
+                                <li><a href="index.html" class="text-muted">SITE INDEX                                   </a></li>
+                                <li><a href="index.html" class="text-muted">PRESS ROOM                                   </a></li>
+                                <li><a href="index.html" class="text-muted">JOBS                                  </a></li>
+                                <li><a href="index.html" class="text-muted">PRIVACY POLICY                                  </a></li>
+                                <li><a href="index.html" class="text-muted">F.A.Q.s                                   </a></li>
+                                <li><a href="coming-soon.html" class="text-muted">Coming soon                                   </a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
         <!-- Copyright section of the footer-->
         <div class="py-6 font-weight-light bg-gray-800 text-gray-300">
             <div class="container">
