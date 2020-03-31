@@ -39,41 +39,40 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse pr-0 mr-auto w-100" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-3 mr-auto">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item bebafont font30">
-                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Home" 
+                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Home"
                            asp-action="Movies">Movies</a>
                     </li>
                     <li class="nav-item bebafont font30 ">
-                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Movie" 
+                        <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Movie"
                            asp-action="Genres">Genres</a>
                     </li>
                     <li class="nav-item bebafont font30">
-                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home" 
+                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home"
                            asp-action="Reviews">Reviews</a>
                     </li>
                     <li class="nav-item bebafont font30">
-                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home" 
+                        <a class="nav-link text-nowrap colordark" asp-area="" asp-controller="Home"
                            asp-action="Lists">Wishlists</a>
                     </li>
                     @if (!SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item bebafont font30">
-                            <a class="nav-link text-nowrap colormedium" id="registerLink" asp-controller="Account" 
+                            <a class="nav-link text-nowrap colormedium" id="registerLink" asp-controller="Account"
                                asp-action="Register">Register</a>
                         </li>
                     }
-                    
+
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                     {
                         @await Component.InvokeAsync("AdminMenu")
                     }
-
                 </ul>
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto nav-flex-icons">
                     @await Component.InvokeAsync("Login")
-                    @await Component.InvokeAsync("SearchBar")
                 </ul>
+                @await Component.InvokeAsync("SearchBar")
             </div>
         </nav>
     </header>
