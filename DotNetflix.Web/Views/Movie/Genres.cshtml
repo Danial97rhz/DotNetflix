@@ -3,16 +3,14 @@
     ViewData["Title"] = "Genres";
 }
 
-    <div class="container dnf_content">
+    <div class="container dnf_content genres">
         <h1>Genres</h1>
         <div class="row alternative">
             <div class="col-md-4">
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="4">
                         <img src="~/img/Genres/Action-ws-450w.jpg" alt="Action" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">Action</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">Action</h3>
                     </a>
                 </div>
             </div>
@@ -20,9 +18,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListAdult" asp-route-isadult="true">
                         <img src="~/img/Genres/Adult-ws-450w.jpg" alt="Adult" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">Adult</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">Adult</h3>
                     </a>
                 </div>
             </div>
@@ -30,9 +26,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="6">
                         <img src="~/img/Genres/Adventure-ws-450w.jpg" alt="Adventure" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">Adventure</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">Adventure</h3>
                     </a>
                 </div>
             </div>
@@ -42,31 +36,23 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="1">
                         <img src="~/img/Genres/Drama-ws-450w.jpg" alt="Drama" style="width:100%">
-                        <div class="caption">
-                            <h4 class="text-center">Drama</h4>
-                        </div>
+                        <h3 class="dnf_genretitle">Drama</h3>
                     </a>
                 </div>
-
             </div>
             <div class="col-md-4">
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="2">
                         <img src="~/img/Genres/Documentary-ws-450w.jpg" alt="Documentary" style="width:100%">
-                        <div class="caption">
-                            <h5 class="text-lg-center">Documentary</h5>
-                        </div>
+                        <h3 class="dnf_genretitle">Documentary</h3>
                     </a>
-
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="7">
                         <img src="~/img/Genres/Romance-ws-450w.jpg" alt="Romance" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">Romance</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">Romance</h3>
                     </a>
                 </div>
             </div>
@@ -76,20 +62,15 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="3">
                         <img src="~/img/Genres/Comedy-ws-450w.jpg" alt="Comedy" style="width:100%">
-                        <div class="caption">
-                            <h4 class="text-center">Comedy</h4>
-                        </div>
+                        <h3 class="dnf_genretitle">Comedy</h3>
                     </a>
                 </div>
-
             </div>
             <div class="col-md-4">
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="8">
                         <img src="~/img/Genres/Horror-ws-450w.jpg" alt="Horror" style="width:100%">
-                        <div class="caption">
-                            <h5 class="text-lg-center">Horror</h5>
-                        </div>
+                        <h3 class="dnf_genretitle">Horror</h3>
                     </a>
                 </div>
             </div>
@@ -97,9 +78,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="9">
                         <img src="~/img/Genres/Crime-ws-450w.jpg" alt="Crime" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">Crime</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">Crime</h3>
                     </a>
                 </div>
             </div>
@@ -109,9 +88,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="10">
                         <img src="~/img/Genres/Animation-ws-450w.jpg" alt="Animation" style="width:100%">
-                        <div class="caption">
-                            <h4 class="text-center">Animation</h4>
-                        </div>
+                        <h3 class="dnf_genretitle">Animation</h3>
                     </a>
                 </div>
             </div>
@@ -119,9 +96,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="11">
                         <img src="~/img/Genres/Fantasy-ws-450w.jpg" alt="Fantasy" style="width:100%">
-                        <div class="caption">
-                            <h5 class="text-lg-center">Fantasy</h5>
-                        </div>
+                        <h3 class="dnf_genretitle">Fantasy</h3>
                     </a>
                 </div>
             </div>
@@ -129,9 +104,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="20">
                         <img src="~/img/Genres/Biography-ws-450.jpg" alt="Biography" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">Biography</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">Biography</h3>
                     </a>
                 </div>
             </div>
@@ -142,9 +115,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="19">
                         <img src="~/img/Genres/Family-ws-450w.jpg" alt="Family" style="width:100%">
-                        <div class="caption">
-                            <h4 class="text-center">Family</h4>
-                        </div>
+                        <h3 class="dnf_genretitle">Family</h3>
                     </a>
                 </div>
             </div>
@@ -152,9 +123,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="25">
                         <img src="~/img/Genres/Film-Noir-ws-450w.jpg" alt="Film-Noir" style="width:100%">
-                        <div class="caption">
-                            <h5 class="text-lg-center">Film-Noir</h5>
-                        </div>
+                        <h3 class="dnf_genretitle">Film-Noir</h3>
                     </a>
                 </div>
             </div>
@@ -162,9 +131,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="17">
                         <img src="~/img/Genres/History-ws-450w.jpg" alt="History" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">History</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">History</h3>
                     </a>
                 </div>
             </div>
@@ -174,9 +141,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="24">
                         <img src="~/img/Genres/Musical-ws-450w.jpg" alt="Musical" style="width:100%">
-                        <div class="caption">
-                            <h4 class="text-center">Musical</h4>
-                        </div>
+                        <h3 class="dnf_genretitle">Musical</h3>
                     </a>
                 </div>
             </div>
@@ -184,9 +149,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="23">
                         <img src="~/img/Genres/Music-ws-450w.jpg" alt="Music" style="width:100%">
-                        <div class="caption">
-                            <h5 class="text-lg-center">Music</h5>
-                        </div>
+                        <h3 class="dnf_genretitle">Music</h3>
                     </a>
                 </div>
             </div>
@@ -194,9 +157,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="12">
                         <img src="~/img/Genres/Mystery-ws-450w.jpg" alt="Mystery" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">Mystery</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">Mystery</h3>
                     </a>
                 </div>
             </div>
@@ -206,9 +167,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="15">
                         <img src="~/img/Genres/Sci-Fi-ws-450w.jpg" alt="Sci-Fi" style="width:100%">
-                        <div class="caption">
-                            <h4 class="text-center">Sci-Fi</h4>
-                        </div>
+                        <h3 class="dnf_genretitle">Sci-Fi</h3>
                     </a>
                 </div>
             </div>
@@ -216,9 +175,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="16">
                         <img src="~/img/Genres/Sport-ws-450w.jpg" alt="Sport" style="width:100%">
-                        <div class="caption">
-                            <h5 class="text-lg-center">Sport</h5>
-                        </div>
+                        <h3 class="dnf_genretitle">Sport</h3>
                     </a>
                 </div>
             </div>
@@ -226,9 +183,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="13">
                         <img src="~/img/Genres/Thriller-ws-450w.jpg" alt="Thriller" style="width:100%">
-                        <div class="caption">
-                            <h3 class="text-xl-center">Thriller</h3>
-                        </div>
+                        <h3 class="dnf_genretitle">Thriller</h3>
                     </a>
                 </div>
             </div>
@@ -238,9 +193,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="21">
                         <img src="~/img/Genres/War-ws-450w.jpg" alt="War" style="width:100%">
-                        <div class="caption">
-                            <h4 class="text-center">War</h4>
-                        </div>
+                        <h3 class="dnf_genretitle">War</h3>
                     </a>
                 </div>
             </div>
@@ -248,9 +201,7 @@
                 <div class="thumbnail">
                     <a asp-controller="Movie" asp-action="ListByGenre" asp-route-genreid="14">
                         <img src="~/img/Genres/Western-ws-450w.jpg" alt="Western" style="width:100%">
-                        <div class="caption">
-                            <h5 class="text-lg-center">Western</h5>
-                        </div>
+                        <h3 class="dnf_genretitle">Western</h3>
                     </a>
                 </div>
             </div>
@@ -258,9 +209,7 @@
                 <div class="thumbnail">
                     <a href="#">
                         <img src="~/img/Genres/Random-ws-450w.jpg" alt="Random" style="width:100%">
-                        <div class="caption">
-                            <h5 class="text-lg-center">Random</h5>
-                        </div>
+                        <h3 class="dnf_genretitle">Random</h3>
                     </a>
                 </div>
             </div>

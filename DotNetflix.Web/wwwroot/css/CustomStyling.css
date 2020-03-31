@@ -111,11 +111,27 @@
     color: var(--colordark);
 }
 
+.dnf_genretitle {
+    font-family: 'bebasneue-regular';
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    color: #6c757d;
+    text-align: center !important;
+}
+
+.dnf_movieinfo {
+    font-family: 'museosans-100';
+    font-size: 10pt !important;
+}
 
 
-    p, div {
-        font-family: museosans-100;
-    }
+p, div {
+    font-family: museosans-100;
+}
+
+
+
+
 
     .slidecontainer {
         width: 100%; /* Width of the outside container */
