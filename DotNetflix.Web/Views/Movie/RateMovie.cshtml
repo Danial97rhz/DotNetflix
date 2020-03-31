@@ -1,33 +1,34 @@
 ﻿@model MovieInfoViewModel
 
-<partial name="_MovieInfo.cshtml" />
-<br />
-<br />
-<br />
-<br />
-<div class="container">
-    <form  method="post" asp-action="AddToRatedMovies"  asp-controller="UserMovie">
-        <div class="row">
-            <div class="slidecontainer">
-                <input type="range" name="UserRating" min="1" max="10" value="5" class="slider" id="myRange">
-                <p>Your rating: <span id="value"></span>/10</p>
-            </div>
+
+
+    <div class="container dnf_content">
+
+        <partial name="_MovieInfo.cshtml" />
+        <div class="container m-2 p-2">
+            <form method="post" asp-action="AddToRatedMovies" asp-controller="UserMovie">
+                <div class="row">
+                    <div class="slidecontainer">
+                        <input type="range" name="UserRating" min="1" max="10" value="5" class="slider" id="myRange">
+                        <p>Your rating: <span id="value"></span>/10</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label>Review</label>
+                        <textarea rows="8" name="ReviewText" cols="60" placeholder="Type your review of @Model.Movie.Title..." id="padding-text-area"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <br />
+                        <input type="hidden" name="movieId" asp-for="@Model.Movie.Id" />
+                        <button type="submit" class="btn btn-info">Save Rating</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="row">
-            <div class="col-6">
-                <label>Review</label>
-                <textarea rows="8" name="ReviewText" cols="60" placeholder="Type your review of @Model.Movie.Title..." id="padding-text-area"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <br />
-                <input type="hidden" name="movieId" asp-for="@Model.Movie.Id" />
-                <button type="submit" class="btn btn-info">Save Rating</button>
-            </div>
-        </div>
-    </form>
-</div>
+    </div>
 
 <script>
     var slider = document.getElementById("myRange");

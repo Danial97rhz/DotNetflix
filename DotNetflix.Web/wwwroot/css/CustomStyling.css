@@ -51,11 +51,11 @@
 .colorlight {
     color: #F5F4E1 !important;
 }
-.colorlightbg {
-    background-color: #F5F4E1;
+:root {
+    --colorlightbg: #F5F4E1;
 }
-.colordark {
-    color: #686460 !important;
+:root {
+    --colordark: #686460 !important;
 }
 .colormedium {
     color: #85967A !important;
@@ -73,54 +73,98 @@
     font-family: 'museosans-100';
     src: url('../lib/font-awesome/webfonts/museosans-100.otf') format('opentype');
 }
+
+/* .siteborder = bakgrunden för alla sidors "content". Används i _Layout runt main och @renderbody. */
 .siteborder {
     border-style: solid;
-    border-color: #686460;
+    border-color: var(--colordark);
     border-width: 1px;
     border-radius: 5px;
+    margin-top: 9em;
 }
+
+/* Justera .siteborder vid mindre skärmar så innehållet placeras bra mot navbaren. */
+@media (max-width: 992px) {
+    .siteborder {
+        margin-top: 5em;
+    }
+}
+
+/* .dnf_content används på de divs som ligger direkt under .siteborder (innehållet innanför ramen) */
+.siteborder .dnf_content {
+    background-color: var(--colorlightbg);
+    color: var(--colordark);
+    border-radius: 0.25rem !important;
+    margin: 0.5rem !important;
+}
+
+.dnf_content h1{
+    font-family: 'bebasneue-regular';
+    font-size: 30pt;
+    color: var(--colordark);
+}
+.dnf_content h5 {
+    font-family: 'bebasneue-regular';
+    color: var(--colordark);
+}
+
+.dnf_genretitle {
+    font-family: 'bebasneue-regular';
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    color: #6c757d;
+    text-align: center !important;
+}
+
+.dnf_movieinfo {
+    font-family: 'museosans-100';
+    font-size: 10pt !important;
+}
+
+
 p, div {
     font-family: museosans-100;
 }
-.slidecontainer {
-    width: 100%; /* Width of the outside container */
-}
 
-.slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
-}
 
-.slider {
-    -webkit-appearance: none;
-    width: 50%;
-    height: 15px;
-    border-radius: 5px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-}
 
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #5bc0de;
-    cursor: pointer;
-}
 
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #5bc0de;
-    cursor: pointer;
-}
-/* Siteborder kring render body
------------------------------------------------------*/
-.siteborder {
-    margin-top: 7em;
-}
+
+    .slidecontainer {
+        width: 100%; /* Width of the outside container */
+    }
+
+    .slider:hover {
+        opacity: 1; /* Fully shown on mouse-over */
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 50%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #5bc0de;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #5bc0de;
+            cursor: pointer;
+        }
+
