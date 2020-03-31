@@ -1,7 +1,53 @@
-﻿@{
+﻿@model ReviewsViewModel
+
+@{
     ViewBag.Title = "Reviews";
 }
 
-<div class="container colorlightbg colordark rounded m-2">
-    <h1 class="bebafont">Reviews</h1>
-</div>
+    <div class="container colorlightbg colordark rounded m-2">
+        <h1 class="bebafont">Reviews</h1>
+        <div class="m-2 p-2 colorlightbg rounded">
+            <div class="container">
+                <div class="row">
+                    @foreach (var review in Model.RatedMovies)
+                    {
+                        <div class="col-12 border mb-2">
+                            <text class="bebafont colordark font24">
+                                @review.Movie.Title
+                                <button type="button" class="btn btn-info rounded-circle btn-circle btn-sm colorlight bebafont">@review.UserRating</button>
+                            </text>
+                            <br /><text class="museofont colordark font22">By @review.UserName</text>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+
+            <ul class="pagination">
+
+                <li class="page-item @(!Model.ShowFirst? "disabled":"")">
+
+                    <a asp-page="/pagination" asp-route-PageSize="@Model.PageSize" asp-route-CurrentPage="1" class="page-link"><i class="fas fa-fast-backward"></i></a>
+
+                </li>
+
+                <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
+                    <a asp-page="/pagination" asp-route-PageSize="@Model.PageSize" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link"><i class="fas fa-step-backward"></i></a>
+                </li>
+
+                <li class="page-item  @(!Model.ShowNext? "disabled":"")">
+                    <a asp-page="/pagination" asp-route-PageSize="@Model.PageSize" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link"><i class="fas fa-step-forward"></i></a>
+                </li>
+
+                <li class="page-item  @(!Model.ShowLast? "disabled":"")">
+                    <a asp-page="/pagination" asp-route-PageSize="@Model.PageSize" asp-route-CurrentPage="@Model.TotalPages" class="page-link"><i class="fas fa-fast-forward"></i></a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>

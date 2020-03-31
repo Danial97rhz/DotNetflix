@@ -6,6 +6,7 @@ using DotNetflix.API.Models;
 using DotNetflix.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using DotNetflix.API.HelperMethods;
+using DotNetflix.API.Entities;
 
 namespace DotNetflix.API.Controllers
 {
@@ -70,6 +71,14 @@ namespace DotNetflix.API.Controllers
 
             return Ok(sr);
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<RatedMovies>> GetReviews()
+        {
+            var reviews = movieRepository.GetAllReviews();
+
+            return reviews;
+        }
+
 
         [HttpGet("{movieId}")]
         public async Task<ActionResult<Movie>> GetMovieAsync(string movieId)

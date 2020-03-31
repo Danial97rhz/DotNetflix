@@ -12,20 +12,24 @@ using DotNetflix.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using DotNetflix.Web.Auth;
 using DotNetflix.Web.Context;
+using Microsoft.Extensions.Configuration;
 
 namespace DotNetflix.Web.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _clientFactory;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IConfiguration _config;
+        private readonly string MovieAPIRoot;
 
-        public HomeController(IHttpClientFactory clientFactory, UserManager<ApplicationUser> userManager)
+        public HomeController(IHttpClientFactory clientFactory, UserManager<ApplicationUser> userManager, IConfiguration config)
         {
             //_logger = logger;
             _clientFactory = clientFactory;
             _userManager = userManager;
+            _config = config;
+            MovieAPIRoot = _config.GetValue(typeof(string), "MovieAPIRoot").ToString();
         }
 
         public async Task<IActionResult> Index()
@@ -56,9 +60,28 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
-        public IActionResult Reviews()
+        public async Task<IActionResult> Reviews()
         {
-            return View();
+                var client = _clientFactory.CreateClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}GetReviews/");
+                request.Headers.Add("Accept", "application/json");
+                request.Headers.Add("User-Agent", "DotNetflix.Web");
+
+                var response = await client.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    using var responseStream = await response.Content.ReadAsStreamAsync();
+                    var movies = await JsonSerializer.DeserializeAsync<IEnumerable<RatedMovie>>(responseStream,
+                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
+                var vm = new ReviewsViewModel() { RatedMovies = movies };
+
+                    return View(vm);
+                }
+
+                return View();
+            
         }
 
         /* Sida som visar generella publika listor */ 
