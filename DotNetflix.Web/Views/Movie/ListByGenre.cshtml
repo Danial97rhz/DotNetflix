@@ -7,26 +7,55 @@
         <div class="row">
             @foreach (var movie in Model.Movies)
             {
-                <div class="col-sm-12 col-md-6 col-lg-3">
 
-                    <img class="img-fluid max-width: 100% height: auto" src="@movie.PosterUrl" />
-                    <br /><a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.Id">@movie.Title</a>
-                    <br />(@movie.Year)
-                    <br /><b>@movie.Director</b>
-                    <br /><i>@movie.Country</i>
+                <div class="col-sm-12 col-md-6 col-lg-3 p-0 card-group">
+            
 
-                    @*@{
-                        int nrGenres = movie.Genres.Count();
-                        for (int i = 0; i < nrGenres; i++)
-                        {
-                            @movie.Genres[i];
-                            if (i + 1 < nrGenres && nrGenres != 0)
-                            { <span> | </span> }
-                        }
-                    }*@
-                    <br /><a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@movie.Id" type="submit" class="btn btn-info m-1">Add to wishlist</a>
-                    <br /><a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id" type="submit" class="btn btn-info m-1">Rate movie</a>
-                </div>
+
+                        <div class="card">
+                            
+                            <div class="card-body">
+                                <img class="card-img-top img-fluid max-width: 100% height: auto" src="@movie.PosterUrl" />
+                                <a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.Id"><p class="card-title">@movie.Title</p></a>
+                                <p class="card-text">
+                                    (@movie.Year)<br />
+                                    <b>@movie.Director</b><br />
+                                    <i>@movie.Country</i>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@movie.Id" type="submit" class="btn btn-info m-1">Add to wishlist</a>
+                                <a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id" type="submit" class="btn btn-info m-1">Rate movie</a>
+                            </div>
+                        </div>
+
+                    </div>
+             
+
             }
         </div>
-    </div>
+        </div>
+
+
+@*<div class="col-sm-12 col-md-6 col-lg-3">*@
+
+@*<img class="img-fluid max-width: 100% height: auto" src="@movie.PosterUrl" />
+    <br /><a asp-controller="Movie" asp-action="MovieInfo" asp-route-movieid="@movie.Id">@movie.Title</a>
+    <br />(@movie.Year)
+    <br /><b>@movie.Director</b>
+    <br /><i>@movie.Country</i>*@
+
+@*@{
+        int nrGenres = movie.Genres.Count();
+        for (int i = 0; i < nrGenres; i++)
+        {
+            @movie.Genres[i];
+            if (i + 1 < nrGenres && nrGenres != 0)
+            { <span> | </span> }
+        }
+    }*@
+
+@*<br /><a asp-controller="UserMovie" asp-action="AddToWishlist" asp-route-movieId="@movie.Id" type="submit" class="btn btn-info m-1">Add to wishlist</a>
+    <br /><a asp-controller="Movie" asp-action="RateMovie" asp-route-movieid="@movie.Id" type="submit" class="btn btn-info m-1">Rate movie</a>*@
+
+@*</div>*@
