@@ -1,8 +1,5 @@
-﻿.box {
-    display: flex;
-}
-.push {
-    margin-left: auto;
+﻿.searchbar-size {
+    height: calc(1em + .50rem + 2px);
 }
 @font-face {
     font-family: 'bebasneue-light';

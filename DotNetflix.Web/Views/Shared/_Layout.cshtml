@@ -40,7 +40,7 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse pr-0 mr-auto w-100" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-3 mr-auto">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item bebafont font30">
                         <a class="nav-link text-nowrap colorlight" asp-area="" asp-controller="Home"
                            asp-action="Movies">Movies</a>
@@ -69,12 +69,11 @@
                     {
                         @await Component.InvokeAsync("AdminMenu")
                     }
-
                 </ul>
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto nav-flex-icons">
                     @await Component.InvokeAsync("Login")
-                    @await Component.InvokeAsync("SearchBar")
                 </ul>
+                @await Component.InvokeAsync("SearchBar")
             </div>
         </nav>
     </header>

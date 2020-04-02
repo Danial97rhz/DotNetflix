@@ -168,6 +168,14 @@ namespace DotNetflix.API.Services
                 return details;
             }        
         }
+        public List<RatedMovies> GetAllReviews()
+        {
+            return context.RatedMovies
+                .Include(x => x.Movie)
+                .OrderByDescending(y => y.RatingId)
+                .ToList();
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             // Only return success if at least one row was changed
