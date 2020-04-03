@@ -3,60 +3,62 @@
 }
 @model CarouselViewModel
 
-
 @*<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    Test for header & footer från "_Layout.cshtml"
-</div>*@
+        <h1 class="display-4">Welcome</h1>
+        Test for header & footer från "_Layout.cshtml"
 
+    col-lg-8 col-md-10 col-sm-12 
+    col-lg-4 col-md-6 col-sm-8 
+     pl-0 dnf_content p-2
+     container dnf_content p-2
 
-    <div class="col-lg-3 col-md-4 col-sm-6 col-8 pl-0">
-        <div style="background-color:white" id="HomeCarousel" class="carousel slide mb-2" data-ride="carousel">
+     col-lg-8 col-md-10 col-sm-12 pl-2 
+    col-lg-3 col-md-6 col-sm-8 
+    </div>*@
 
-            <ol class="carousel-indicators" style="color: black">
-                <li data-target="#HomeCarousel" data-slide-to="0" class="active"></li>
-                @for (int i = 1; i < Model.Carouseldata.Count(); i++)
-                {
-                    <li data-target="#HomeCarousel" data-slide-to="@i"></li>
-                }
-            </ol>
+    <div class="d-flex ml-0 mr-0">
+        <div class="mr-auto dnf_content p-2">
+            <div style="background-color:#F5F4E1" id="HomeCarousel" class="carousel slide mb-2" data-ride="carousel">
 
-
-            <div class="carousel-inner">
-
-                @{string s = "";}
-                @foreach (var data in Model.Carouseldata)
-                {
-                    if (data.Id == Model.Carouseldata.First().Id)
+                <ol class="carousel-indicators" style="color: #686460">
+                    <li data-target="#HomeCarousel" data-slide-to="0" class="active"></li>
+                    @for (int i = 1; i < Model.Carouseldata.Count(); i++)
                     {
-                        s = "active";
+                        <li data-target="#HomeCarousel" data-slide-to="@i"></li>
                     }
-                    else { s = ""; }
-                    <div class="carousel-item @s container">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <img width="300" height="426" src="@data.ImgPath" alt="" />
-                            </div>
-                            <div class="col-sm-8">
-                                <h2>@data.Title</h2>
-                                <p>@data.Text</p>
-                                <i>@data.DateAdded.ToString("dddd, dd MMMM yyyy")</i>
-                            </div>
+                </ol>
+
+
+                <div class="carousel-inner">
+
+                    @{string s = "";}
+                    @foreach (var data in Model.Carouseldata)
+                    {
+                        if (data.Id == Model.Carouseldata.First().Id)
+                        {
+                            s = "active";
+                        }
+                        else { s = ""; }
+                        <div class="carousel-item @s container">
+                            <p class="font24">
+                                <img class="float-left dnf_content" height="315" width="500" src="@data.ImgPath" alt="" />
+                                "@data.Text"
+                            </p>
                         </div>
-                    </div>
-                }
-                <a class="carousel-control-prev" href="#HomeCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#HomeCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+                    }
+                    <a class="carousel-control-prev" href="#HomeCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#HomeCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </div>
         </div>
         @*<aside style="width: 300px">*@
-        <div class="container dnf_content p-2">
+        <div class="ml-auto dnf_content p-2">
             <h5>Latest Reviews</h5>
             @await Component.InvokeAsync("RecentReviews")
         </div>
