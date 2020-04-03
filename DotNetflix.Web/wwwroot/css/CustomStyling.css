@@ -101,6 +101,10 @@
     font-size: 30pt;
     color: var(--colordark);
 }
+.dnf_content h2 {
+    font-family: 'bebasneue-regular';
+    color: var(--colordark);
+}
 .dnf_content h5 {
     font-family: 'bebasneue-regular';
     color: var(--colordark);

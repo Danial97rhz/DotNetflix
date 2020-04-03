@@ -13,11 +13,11 @@
      container dnf_content p-2
 
      col-lg-8 col-md-10 col-sm-12 pl-2 
-    col-lg-3 col-md-6 col-sm-8 
+    col-lg-3 col-md-6 col-sm-12 
     </div>*@
 
-    <div class="d-flex ml-0 mr-0">
-        <div class="mr-auto dnf_content p-2">
+    <div class="row ml-0 mr-0">
+        <div class="mr-auto col-lg-8 col-md-10 col-sm-12 dnf_content p-2">
             <div style="background-color:#F5F4E1" id="HomeCarousel" class="carousel slide mb-2" data-ride="carousel">
 
                 <ol class="carousel-indicators" style="color: #686460">
@@ -28,7 +28,7 @@
                     }
                 </ol>
 
-
+                <h2>Featured films</h2>
                 <div class="carousel-inner">
 
                     @{string s = "";}
@@ -41,9 +41,8 @@
                         else { s = ""; }
                         <div class="carousel-item @s container">
                             <p class="font24">
-                                <img class="float-left dnf_content" height="315" width="500" src="~/img/Carousel/Cocoon-md.jpg" alt="" />
-                                <h1>Featured films</h1>
-                                <h2 class="bebafont">@data.Title</h2>
+                                <img class="float-left dnf_content" height="315" width="500" src="@data.ImgPath" alt="" />
+                                <h2>@data.Title</h2>
                                 "@data.Text"
                                 <br />
                                 <br />
@@ -62,11 +61,24 @@
                 </div>
             </div>
         </div>
-        @*<aside style="width: 300px">*@
-        <div class="ml-auto dnf_content p-2">
-            <h5>Latest Reviews</h5>
+        
+        <div class="ml-auto col-lg-3 col-md-6 col-sm-12 dnf_content p-2">
+            <h2>Latest Reviews</h2>
             @await Component.InvokeAsync("RecentReviews")
         </div>
-        @*</aside>*@
     </div>
+<div class="dnf_content p-2">
+    <h2>Welcome!</h2>
+    <p>
+        You have found the number one platform where passionate cineasts can meet and broaden their horizons!
+    </p>
+    <p>
+        The idea is simple, we provide a broad online community for movie lovers where they can rate movies, write reviews, create movie lists and interact with one another.
+    </p>
+    <p>
+        Cinephilia (/ˌsɪnɪˈfɪliə/; also cinemaphilia or filmophilia) is the term used to refer to a passionate interest in films, film theory, and film criticism. The term is a portmanteau of the words cinema and philia, one of the four ancient Greek words for love.[1] A person with a passionate interest in cinema is called a cinephile (/ˈsɪnɪfaɪl/), cinemaphile, filmophile, or, informally, a film buff (also movie buff).
+
+        In English, "cinephile" is sometimes used interchangeably with the word cineaste (/ˈsɪniæst, ˈsɪneɪæst/), though in the original French the term cinéaste ([sineast]) refers to a cinephile who is also a filmmaker.
+    </p>
+</div>
 
