@@ -6,6 +6,7 @@ using DotNetflix.API.Models;
 using DotNetflix.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using DotNetflix.API.HelperMethods;
+using DotNetflix.API.Entities;
 
 namespace DotNetflix.API.Controllers
 {
@@ -70,6 +71,25 @@ namespace DotNetflix.API.Controllers
 
             return Ok(sr);
         }
+        [HttpGet]
+        public ActionResult<ReviewPagination> GetReviews(ReviewPagination review)
+        {
+
+            var reviews = movieRepository.GetAllReviews();
+
+            ReviewPagination rv = new ReviewPagination()
+            {
+                Count = reviews.Count(),
+                CurrentPage = review.CurrentPage,
+                PageSize = review.PageSize
+            };
+
+            rv.RatedMovies = reviews.Skip((review.CurrentPage - 1) * review.PageSize).Take(review.PageSize).ToList();
+            
+
+            return rv;
+        }
+
 
         [HttpGet("{movieId}")]
         public async Task<ActionResult<Movie>> GetMovieAsync(string movieId)
