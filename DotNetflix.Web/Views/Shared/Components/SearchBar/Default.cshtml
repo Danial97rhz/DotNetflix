@@ -1,8 +1,21 @@
-﻿<form method="get" asp-controller="MovieSearch" asp-action="SearchResult" class="form-inline">
-    <div class="md-form my-0 input-group">
-        <input class="form-control" type="text" placeholder="Search a movie title..." aria-label="Search">
-        <span class="input-group-append text-nowrap">
-            <button class="museofont btn btn-info">Search</button>
-        </span>
+﻿@*<form method="get" asp-controller="MovieSearch" asp-action="SearchResult" class="form-inline">
+    <div class="md-form my-0 form-group">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Search a movie title..." aria-label="Search">
+            <span class="input-group-append text-nowrap">
+                <button class="museofont btn btn-info">Search</button>
+            </span>
+        </div>
+    </div>
+</form>*@
+
+<form method="get" asp-controller="MovieSearch" asp-action="SearchResult" class="form-inline">
+    <div class="form-group md-form my-0">
+        <div class="input-group">
+            <input type="search" class="form-control" placeholder="Search a movie title..." pt-0 pb-0 pl-1 pr-1" name="title" />
+            <span class="input-group-append">
+                <button class="museofont btn btn-info pt-0 pb-0 pl-1 pr-1">Search</button>
+            </span>
+        </div>
     </div>
 </form>
