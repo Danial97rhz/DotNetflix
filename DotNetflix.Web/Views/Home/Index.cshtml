@@ -41,8 +41,13 @@
                         else { s = ""; }
                         <div class="carousel-item @s container">
                             <p class="font24">
-                                <img class="float-left dnf_content" height="315" width="500" src="@data.ImgPath" alt="" />
+                                <img class="float-left dnf_content" height="315" width="500" src="~/img/Carousel/Cocoon-md.jpg" alt="" />
+                                <h1>Featured films</h1>
+                                <h2 class="bebafont">@data.Title</h2>
                                 "@data.Text"
+                                <br />
+                                <br />
+                                <i>Posted on @data.DateAdded.ToString("dd MMMM yyyy")</i>
                             </p>
                         </div>
                     }

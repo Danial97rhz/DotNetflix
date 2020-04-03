@@ -93,6 +93,7 @@
     color: var(--colordark);
     border-radius: 0.25rem !important;
     margin: 0.5rem !important;
+    padding: 0.5rem !important;
 }
 
 .dnf_content h1{
