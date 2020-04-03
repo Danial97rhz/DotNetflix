@@ -72,11 +72,22 @@ namespace DotNetflix.API.Controllers
             return Ok(sr);
         }
         [HttpGet]
-        public ActionResult<IEnumerable<RatedMovies>> GetReviews()
+        public ActionResult<ReviewPagination> GetReviews(ReviewPagination review)
         {
+
             var reviews = movieRepository.GetAllReviews();
 
-            return reviews;
+            ReviewPagination rv = new ReviewPagination()
+            {
+                Count = reviews.Count(),
+                CurrentPage = review.CurrentPage,
+                PageSize = review.PageSize
+            };
+
+            rv.RatedMovies = reviews.Skip((review.CurrentPage - 1) * review.PageSize).Take(review.PageSize).ToList();
+            
+
+            return rv;
         }
 
 

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using DotNetflix.Web.Auth;
 using DotNetflix.Web.Context;
 using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace DotNetflix.Web.Controllers
 {
@@ -60,29 +61,33 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Reviews()
+        public async Task<IActionResult> Reviews(ReviewPagination reviewsInfo)
         {
                 var client = _clientFactory.CreateClient();
                 var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}GetReviews/");
                 request.Headers.Add("Accept", "application/json");
                 request.Headers.Add("User-Agent", "DotNetflix.Web");
 
+            var reviewInfoJson = JsonSerializer.Serialize(reviewsInfo);
+            request.Content = new StringContent(reviewInfoJson, Encoding.UTF8, "application/json");
+
                 var response = await client.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
                 {
                     using var responseStream = await response.Content.ReadAsStreamAsync();
-                    var movies = await JsonSerializer.DeserializeAsync<IEnumerable<RatedMovie>>(responseStream,
+                    var movies = await JsonSerializer.DeserializeAsync<ReviewPagination>(responseStream,
                         new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-                var vm = new ReviewsViewModel() { RatedMovies = movies };
+                ReviewPagination vm = new ReviewPagination();
 
-                    return View(vm);
+                vm  = movies ;
+
+                    return View(new ReviewsViewModel {ReviewPagination = vm } );
                 }
 
                 return View();
-            
-        }
+    }
 
         /* Sida som visar generella publika listor */ 
         public async Task<IActionResult> Lists(int? id)

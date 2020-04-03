@@ -16,7 +16,7 @@ namespace DotNetflix.API.Services
         Task<MoviesDetails> AttachDetailsToMovie(string movieId);
         Task<bool> SaveChangesAsync();
         void Add<T>(T entity) where T : class;
-        List<RatedMovies> GetAllReviews();
+        IQueryable<RatedMovies> GetAllReviews();
         IQueryable<CarouselDatas> GetCarouselData();
     }
 }

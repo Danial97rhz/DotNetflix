@@ -7,18 +7,15 @@ using System.Threading.Tasks;
 
 namespace DotNetflix.Web.ViewModels
 {
+    [BindProperties]
     public class ReviewsViewModel
     {
-        public IEnumerable<RatedMovie> RatedMovies { get; set; }
-
+        public ReviewPagination ReviewPagination { get; set; }
         [BindProperty(SupportsGet = true)]
-        public int CurrentPage { get; set; } = 1;
-        public int Count => RatedMovies.Count();
-        public int PageSize { get; set; } = 12;
-        public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
-        public bool ShowNext => CurrentPage < TotalPages;
-        public bool ShowPrevious => CurrentPage > 1;
-        public bool ShowFirst => CurrentPage != 1;
-        public bool ShowLast => CurrentPage < TotalPages;
+
+        public bool ShowNext => ReviewPagination.CurrentPage < ReviewPagination.TotalPages;
+        public bool ShowPrevious => ReviewPagination.CurrentPage > 1;
+        public bool ShowFirst => ReviewPagination.CurrentPage != 1;
+        public bool ShowLast => ReviewPagination.CurrentPage < ReviewPagination.TotalPages;
     }
 }
