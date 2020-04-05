@@ -168,6 +168,13 @@ namespace DotNetflix.API.Services
                 return details;
             }        
         }
+
+        public RatedMovies GetReview(int id)
+        {
+            return context.RatedMovies
+                .Where(r => r.RatingId == id)
+                .Include(r => r.Movie).FirstOrDefault();
+        }
         public IQueryable<RatedMovies> GetAllReviews()
         {
             return context.RatedMovies

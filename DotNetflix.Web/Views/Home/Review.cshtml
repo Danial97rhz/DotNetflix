@@ -1,0 +1,17 @@
+﻿@model RatedMovie
+@{
+    ViewData["Title"] = "Review";
+}
+    <div class="container dnf_content">
+        <div class="row justify-content-start">
+
+            <div class="col-md-6">
+                <h1>Review for @Model.Movie.Title</h1>
+                <h5>@Model.UserName</h5>
+                <button type="button" class="btn btn-info rounded-circle btn-circle btn-sm colorlight bebafont">@Model.UserRating</button>               
+                <p>
+                    @Model.ReviewText
+                </p>
+            </div>
+        </div>
+    </div>

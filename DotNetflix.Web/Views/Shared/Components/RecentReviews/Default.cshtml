@@ -2,9 +2,13 @@
 
 @foreach (var review in Model)
 {
-    <div>
-        <text class="bebafont colordark font20">@review.Movie.Title 
-        <button type="button" class="btn btn-info rounded-circle btn-circle btn-sm colorlight bebafont">@review.UserRating</button></text>
-        <br /><text class="museofont colordark font20">By @review.UserName</text>
+    <div>        
+        <text class="bebafont colordark font20">
+            <a asp-action="Review" asp-route-id="@review.RatingId">                
+                        @review.Movie.Title
+                    </a>
+        <button type="button" class="btn btn-info rounded-circle btn-circle btn-sm colorlight bebafont">@review.UserRating</button>
+    </text>
+    <br /><text class="museofont colordark font20">By @review.UserName</text>
     </div>
 }

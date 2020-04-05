@@ -71,6 +71,15 @@ namespace DotNetflix.API.Controllers
 
             return Ok(sr);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<RatedMovies> GetReview(int id)
+        {
+            var review = movieRepository.GetReview(id);
+
+            return review;
+        }
+
         [HttpGet]
         public ActionResult<ReviewPagination> GetReviews(ReviewPagination review)
         {

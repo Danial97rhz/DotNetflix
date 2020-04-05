@@ -18,5 +18,6 @@ namespace DotNetflix.API.Services
         void Add<T>(T entity) where T : class;
         IQueryable<RatedMovies> GetAllReviews();
         IQueryable<CarouselDatas> GetCarouselData();
+        RatedMovies GetReview(int id);
     }
 }
