@@ -11,6 +11,7 @@
                     <div class="slidecontainer">
                         <input type="range" name="UserRating" min="1" max="10" value="5" class="slider" id="myRange">
                         <p>Your rating: <span id="value"></span>/10</p>
+                        <p><span id="rangeText">Well now</span></p>
                     </div>
                 </div>
                 <div class="row">
@@ -35,7 +36,23 @@
     var output = document.getElementById("value");
     output.innerHTML = slider.value;
 
+    var rangeValues =
+{
+    "1": "Worst. Movie. Ever",
+    "2": "Terrible",
+    "3": "I almost couldn't finish it",
+    "4": "Not the finest work I've seen",
+    "5": "This was like a sunset in Novokuznetsk. It's a sunset, but it's in Siberia.",
+    "6": "The movie had it's moments.",
+    "7": "Nice",
+    "8": "This was not just a movie, it was cinema.",
+    "9": "Fantastic!",
+    "10": "Tutto bella grandi"
+};
+
     slider.oninput = function () {
         output.innerHTML = this.value;
+        $('#rangeText').text(rangeValues[$(this).val()]);
     }
+    
 </script>
