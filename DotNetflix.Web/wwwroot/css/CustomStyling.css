@@ -70,6 +70,12 @@
     font-family: 'museosans-100';
     src: url('../lib/font-awesome/webfonts/museosans-100.otf') format('opentype');
 }
+.row {
+    margin: 0;
+}
+.pagination {
+    padding-top: 0.5rem;
+}
 
 /* .siteborder = bakgrunden för alla sidors "content". Används i _Layout runt main och @renderbody. */
 .siteborder {
