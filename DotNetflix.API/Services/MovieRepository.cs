@@ -44,18 +44,6 @@ namespace DotNetflix.API.Services
                 title = "";
             }
 
-            // Filter movies on search term - AsNoTracking speeds up search but should only be used for readonly queries.
-
-            //var movies = context.Movies
-            //    .Where(m =>
-            //        m.Title.ToLower().Contains(title)
-            //        || m.Year.ToString().Equals(title))
-            //    .OrderByDescending(m => m.AvgRating)
-            //    .Take(30).AsNoTracking()
-            //    ;
-
-             
-
             var query = @"SELECT 
                             TS.Title, 
                             TS.[Year], 
@@ -74,23 +62,8 @@ namespace DotNetflix.API.Services
                 .FromSqlRaw(query, "%" + title + "%")
                 .OrderByDescending(m=>m.AvgRating);
 
-            // Map to movie and return
-
             return movies;
         }
-
-        //public double StringSimilarityScore(string title, int? year, string searchTerm)
-        //{
-        //    if (year.Equals(searchTerm))
-        //    {
-        //        return 0;
-        //    }
-        //    else if (title.Contains(searchTerm))
-        //    {
-        //        return (double)searchTerm.Length / (double)title.Length;
-        //    }
-        //    return 0;
-        //}
 
         public IQueryable<Movies> GetAdultMovies(bool isAdult)
         {
@@ -109,6 +82,19 @@ namespace DotNetflix.API.Services
 
         }
 
+        public IQueryable<Movies> GetAllMovies()
+        {
+            var movies = context.Movies
+                .Where(m => m.IsAdult == false)
+                .Where(m => m.Details != null)
+                .Include(m => m.Details)
+                .OrderByDescending(m => m.Year);
+
+                //.OrderBy(m => m.Details.Released); --Since dates are handled as strings this doesnt work very well.
+
+            return movies;
+        }
+
 
         public Movies GetMovie(string movieId, bool includeDetails = true)
         {
@@ -121,7 +107,6 @@ namespace DotNetflix.API.Services
 
             return movie.FirstOrDefault();
         }
-
 
         static int UseCounter = 0;
         public async Task<MoviesDetails> GetMovieDetails(string movieId)

@@ -61,6 +61,35 @@ namespace DotNetflix.Web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Movies(Search search)
+        {
+            var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{MovieAPIRoot}AllMovies/");           
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("User-Agent", "DotNetflix.Web");
+
+            var searchJson = JsonSerializer.Serialize(search);
+            request.Content = new StringContent(searchJson, Encoding.UTF8, "application/json");
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+
+                var movies = await JsonSerializer.DeserializeAsync<SearchResult>(responseStream,
+                new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                SearchResultViewModel searchResultVM = new SearchResultViewModel
+                {
+                    SearchResult = movies
+                };
+
+                return View(searchResultVM);
+            }
+
+            return View();
+        }
+
         public async Task<IActionResult> Review(int id)
         {
             var client = _clientFactory.CreateClient();

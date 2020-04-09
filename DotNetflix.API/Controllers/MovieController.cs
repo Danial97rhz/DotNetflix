@@ -27,6 +27,24 @@ namespace DotNetflix.API.Controllers
             //    throw new ArgumentNullException(nameof(mapper));
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<Movie>> AllMovies(Search search)
+        {
+            var movies = movieRepository.GetAllMovies();
+
+            SearchResult sr = new SearchResult()
+            {
+                Count = movies.Count(),
+                CurrentPage = search.CurrentPage,
+                PageSize = search.PageSize
+            };
+
+            sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
+            .ToList();
+
+            return Ok(sr);
+        }
+
         [HttpGet("{title}")]
         public ActionResult<IEnumerable<Movie>> GetMovies(string title)
         {
@@ -55,8 +73,8 @@ namespace DotNetflix.API.Controllers
                 PageSize = search.PageSize
             };
             
-            sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
-                .ToList();
+           sr.Movies = Map.ToMovie(movies.Skip((search.CurrentPage - 1) * search.PageSize).Take(search.PageSize))
+                .ToList(); 
 
             for (int i = 0; i < sr.Movies.Count(); i++)
             {

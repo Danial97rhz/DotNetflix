@@ -8,6 +8,7 @@ namespace DotNetflix.API.Services
 {
     public interface IMovieRepository
     {
+        IQueryable<Movies> GetAllMovies();
         IQueryable<Movies> GetMovies(string title);
         IQueryable<Movies> GetAdultMovies(bool isAdult);
         Movies GetMovie(string movieId, bool includeDetails = true);
